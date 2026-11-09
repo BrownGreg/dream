@@ -1,0 +1,59 @@
+@startuml sequence_reve
+title Traitement d'un rêve — architecture livrée (dreams/views.py, dreams/pipeline.py)
+autonumber
+skinparam responseMessageBelowArrow true
+skinparam sequenceMessageAlign left
+hide footbox
+
+actor "Rêveur" as U
+participant "Navigateur\n(MediaRecorder, HTMX)" as B
+participant "Django web" as W
+database "PostgreSQL\n(rêves, file, fichiers)" as DB
+participant "Worker\n(db_worker)" as K
+participant "Mistral\nVoxtral" as STT
+participant "Hugging Face\n(zero-shot)" as HF
+participant "Mistral\nSmall" as LLM
+participant "BFL\nFLUX.2 [klein]" as IMG
+
+U -> B : Enregistrer, réécouter, envoyer
+B -> W : POST /reves/nouveau/ (audio, HX-Request)
+W -> W : taille, type réel (libmagic), durée (ffprobe)\nquota du jour, budget
+W -> DB : Dream(received) + audio ; on_commit → tâche process_dream
+W --> B : HX-Redirect /reves/<id>/
+loop toutes les 2 s tant que non terminé
+  B -> W : GET /reves/<id>/statut/
+  W --> B : étapes (ou HX-Refresh à la fin)
+end
+K -> DB : prend la tâche (verrou consultatif par rêve)
+group Transcription (sautée si déjà faite)
+  K -> K : ffmpeg → MP3 mono 16 kHz
+  K -> STT : POST /v1/audio/transcriptions (fr)
+  STT --> K : texte + usage.prompt_audio_seconds
+  K -> DB : Transcription (chiffrée), ApiCall, audio supprimé
+end
+group Émotion, du texte seulement (sautée si déjà faite)
+  K -> HF : zero-shot, étiquettes françaises
+  alt HF en échec (402, 5xx, délai, budget)
+    K -> LLM : JSON {émotion, confiance}
+    alt Mistral en échec
+      K -> K : lexique français local
+    end
+  end
+  K -> DB : EmotionAnalysis, ApiCall
+end
+group Image (si consentement et non désactivée)
+  K -> LLM : récit + émotion → titre, prompt visuel sûr (JSON)
+  K -> IMG : POST /v1/flux-2-klein-4b (prompt seulement)
+  loop jusqu'à Ready (45 s max)
+    K -> IMG : GET polling_url
+  end
+  alt Request/Content Moderated
+    K -> LLM : prompt adouci, puis 2e essai ; sinon placeholder
+  end
+  K -> IMG : téléchargement immédiat (URL signée 10 min)
+  K -> DB : GeneratedAsset + fichier, ApiCall (coût en crédits)
+end
+K -> DB : Dream done | partial (image en échec) | failed ; finished_at
+B -> W : GET /reves/<id>/statut/
+W --> B : HX-Refresh → résultat (image « générée par IA », émotion, récit)
+@enduml
