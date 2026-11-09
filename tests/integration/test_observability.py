@@ -183,3 +183,32 @@ def test_file_en_retard():
     assert state.oldest_wait_s >= 299
     assert not state.worker_ok
     assert json.dumps(state.__dict__)
+
+
+def test_bout_en_bout_mesure_le_premier_traitement_seulement(settings, mocker):
+    settings.AI_MODE = "fake"
+    mocker.patch("time.sleep")
+    dream = DreamFactory(audio_duration_s=Decimal(3))
+    dream.audio.save("reve.wav", ContentFile(WAV))
+    pipeline.run(dream.id)
+    dream.refresh_from_db()
+    first_finish = dream.finished_at
+    assert first_finish is not None
+    # Une régénération ou une correction plus tard ne doit pas allonger la mesure.
+    Dream.objects.filter(pk=dream.pk).update(updated_at=timezone.now() + timedelta(days=3))
+    pipeline.regenerate(dream.id)
+    dream.refresh_from_db()
+    assert dream.finished_at == first_finish
+    # Un rêve antidaté sans fin de traitement (données de démonstration) est ignoré.
+    DreamFactory(status=Dream.Status.DONE)
+    overview = ops.overview()
+    assert overview["end_to_end_p95_ms"] == int((first_finish - dream.created_at).total_seconds() * 1000)
+
+
+def test_echec_fixe_aussi_la_fin_de_traitement(settings):
+    settings.AI_MODE = "fake"
+    dream = DreamFactory()
+    pipeline.run(dream.id)  # pas d'audio → failed
+    dream.refresh_from_db()
+    assert dream.status == "failed"
+    assert dream.finished_at is not None

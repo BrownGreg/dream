@@ -134,8 +134,11 @@ def overview(days: int = 14) -> dict[str, Any]:
     )
     costs = [c for c in per_dream if c is not None]
     end_to_end = [
-        int((d.updated_at - d.created_at).total_seconds() * 1000)
-        for d in Dream.objects.filter(status=Dream.Status.DONE, created_at__gte=since).only("created_at", "updated_at")
+        int((d.finished_at - d.created_at).total_seconds() * 1000)
+        for d in Dream.objects.filter(status=Dream.Status.DONE, created_at__gte=since, finished_at__isnull=False).only(
+            "created_at", "finished_at"
+        )
+        if d.finished_at
     ]
     return {
         "budget": budget.budget_status(),
