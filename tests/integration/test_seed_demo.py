@@ -25,3 +25,20 @@ def test_seed_demo_refuse_hors_debug(settings):
     settings.DEBUG = False
     with pytest.raises(CommandError, match="DEBUG"):
         call_command("seed_demo", "--dreams", "1")
+
+
+def test_seed_demo_ignore_la_latence_simulee(settings, mocker):
+    settings.DEBUG = True
+    settings.AI_FAKE_LATENCY_MS = 1000
+    sleep = mocker.patch("time.sleep")
+    call_command("seed_demo", "--dreams", "2")
+    sleep.assert_not_called()
+
+
+def test_seed_load_users(settings, mocker):
+    mocker.patch("time.sleep")
+    settings.DEBUG = False
+    with pytest.raises(CommandError):
+        call_command("seed_load_users", "--count", "1")
+    call_command("seed_load_users", "--count", "2", "--dreams", "1", "--force")
+    assert User.objects.filter(email__startswith="charge-").count() == 2

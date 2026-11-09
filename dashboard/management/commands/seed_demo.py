@@ -14,6 +14,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.db import transaction
+from django.test.utils import override_settings
 from django.utils import timezone
 
 from accounts.models import Consent, User
@@ -41,6 +42,11 @@ class Command(BaseCommand):
         """Crée (ou recrée) le compte et ses rêves."""
         if not settings.DEBUG and not options["force"]:
             raise CommandError("Refusé hors DEBUG : ajoutez --force si c'est bien voulu.")
+        # Données préparées : ni latence ni panne simulées (réservées au test de charge lui-même).
+        with override_settings(AI_FAKE_LATENCY_MS=0, AI_FAKE_FAIL_STEPS=[]):
+            self._seed(options)
+
+    def _seed(self, options: dict[str, Any]) -> None:
         rng = random.Random(options["seed"])  # noqa: S311 - données de démo reproductibles, pas de sécurité
         User.objects.filter(email=options["email"]).delete()
         user = User.objects.create_user(options["email"], options["password"])
