@@ -19,7 +19,7 @@ ADR-007 dimensionnait un budget **mensuel** de bêta de 25 $ (alerte 80 %, coupe
 
 **Application dans le code, pas seulement dans la doc :**
 1. Chaque appel externe crée une ligne `ApiCall` (fournisseur, modèle, étape, durée, statut HTTP, unités facturées, coût estimé, `dream_id`), y compris les échecs et les retries.
-2. Avant tout appel payant, le client résilient compare la somme des coûts `ApiCall` au coupe-circuit ; au-delà, il lève `BudgetExceeded` sans appeler le fournisseur.
+2. Avant tout appel payant, le client résilient compare la somme des coûts `ApiCall` au coupe-circuit ; au-delà, il lève `BudgetExceededError` sans appeler le fournisseur.
 3. Dégradation, pas panne : budget épuisé, la transcription bascule sur un message clair, l'émotion sur le lexique local (gratuit) et l'image sur un placeholder « image indisponible ». L'utilisateur garde ce qui a déjà réussi (état `partial`).
 4. Les tests, la CI et les tests de charge tournent en `AI_MODE=fake` : aucun appel réel, aucun coût.
 
