@@ -15,6 +15,7 @@ from django.conf import settings
 from django.core.files.uploadedfile import UploadedFile
 
 from dreams import audio
+from dreams.emotions import Emotion
 from dreams.messages import message_for
 
 # Types réels acceptés : webm/opus (Chrome, Firefox), mp4/aac (Safari), wav, mp3, ogg.
@@ -109,3 +110,21 @@ class DreamUploadForm(forms.Form):
                 code="audio_too_long",
             )
         return upload
+
+
+class TranscriptionForm(forms.Form):
+    """Correction du texte transcrit (US-05)."""
+
+    text = forms.CharField(
+        label="Votre récit",
+        min_length=1,
+        max_length=20_000,
+        strip=True,
+        widget=forms.Textarea(attrs={"rows": 8}),
+    )
+
+
+class EmotionForm(forms.Form):
+    """Correction de l'émotion proposée (US-14)."""
+
+    emotion = forms.ChoiceField(label="Émotion", choices=Emotion.choices, widget=forms.RadioSelect)

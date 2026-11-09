@@ -24,6 +24,7 @@ CRITICAL: dict[str, list[str]] = {
     "Données sensibles chiffrées": ["dreams/fields.py"],
     "Upload et validation audio": ["dreams/audio.py"],
     "Stockage et accès aux fichiers": ["dreams/storage.py", "dreams/views.py"],
+    "Suppression RGPD": ["dreams/deletion.py"],
     "Tableau de bord : historique et filtres": ["dashboard/forms.py", "dashboard/queries.py", "dashboard/views.py"],
     "Pipeline et reprise par étape": ["dreams/pipeline.py", "dreams/tasks.py", "dreams/locks.py"],
     "Pipeline IA : adapters": [
