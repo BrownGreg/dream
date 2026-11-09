@@ -23,6 +23,7 @@ CRITICAL: dict[str, list[str]] = {
     "Client résilient (timeouts, retries)": ["dreams/services/http.py", "dreams/services/errors.py"],
     "Données sensibles chiffrées": ["dreams/fields.py"],
     "Upload et validation audio": ["dreams/audio.py"],
+    "Stockage et accès aux fichiers": ["dreams/storage.py", "dreams/views.py"],
     "Pipeline IA : adapters": [
         "dreams/services/adapters/*.py",
         "dreams/services/registry.py",

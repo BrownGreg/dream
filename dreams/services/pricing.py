@@ -46,6 +46,15 @@ PRICES: dict[tuple[str, str], Price] = {
         "https://docs.bfl.ai/quick_start/pricing",
         note="1er mégapixel ; tarif affiché seulement par le calculateur bfl.ai/pricing (ADR-004).",
     ),
+    # L'API renvoie le coût de chaque requête en crédits : le coût journalisé est mesuré.
+    ("bfl", "flux-2-klein-4b"): Price(
+        Decimal("0.01"),
+        "credit",
+        "SOURCÉ",
+        "https://docs.bfl.ai/api_integration/integration_guidelines",
+        consulted="2026-11-09",
+        note="« 1 credit equals $0.01 USD » ; nombre de crédits lu dans la réponse (champ cost).",
+    ),
     ("huggingface", "*"): Price(
         Decimal(0),
         "request",
