@@ -14,8 +14,6 @@ on:
       stage_s:
         description: "Durée de chaque palier (s)"
         default: "90"
-  push:
-    branches: ["test/DREAM-20-*"]
 
 permissions:
   contents: read
