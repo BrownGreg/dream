@@ -17,9 +17,10 @@
       {% if user.is_authenticated %}
         <div class="flex items-center gap-2">
         <a href="{% url 'dreams:record' %}" class="hidden whitespace-nowrap rounded-lg bg-dream-300 px-3 py-2 text-sm font-semibold text-night-950 hover:bg-dream-400 sm:inline-block">Raconter un rêve</a>
+        <a href="{% url 'accounts:account' %}" class="whitespace-nowrap rounded px-2 py-2 text-sm text-slate-300 hover:text-white">Mon compte</a>
         <form method="post" action="{% url 'accounts:logout' %}">
           {% csrf_token %}
-          <button type="submit" class="whitespace-nowrap rounded px-3 py-2 text-sm text-slate-300 hover:text-white">Se déconnecter</button>
+          <button type="submit" class="whitespace-nowrap rounded px-2 py-2 text-sm text-slate-300 hover:text-white">Déconnexion</button>
         </form>
         </div>
       {% endif %}

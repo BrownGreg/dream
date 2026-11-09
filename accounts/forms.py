@@ -70,3 +70,36 @@ class EmailAuthenticationForm(AuthenticationForm):
     def clean_username(self) -> str:
         """Normalise l'e-mail en minuscules, comme à l'inscription."""
         return str(self.cleaned_data["username"]).strip().lower()
+
+
+class ImageConsentForm(forms.Form):
+    """Accorder ou retirer le consentement à la génération d'image."""
+
+    granted = forms.BooleanField(required=False, label="J'accepte la génération d'images à partir de mes rêves")
+
+
+class DeleteAccountForm(forms.Form):
+    """Confirmation de la suppression du compte par le mot de passe."""
+
+    password = forms.CharField(
+        label="Mot de passe", widget=forms.PasswordInput(attrs={"autocomplete": "current-password"})
+    )
+
+    def __init__(self, user: User, *args: Any, **kwargs: Any) -> None:
+        """Associe l'utilisateur dont on vérifie le mot de passe."""
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_password(self) -> str:
+        """Vérifie le mot de passe.
+
+        Returns:
+            Le mot de passe saisi.
+
+        Raises:
+            forms.ValidationError: Mot de passe incorrect.
+        """
+        password = str(self.cleaned_data["password"])
+        if not self.user.check_password(password):
+            raise forms.ValidationError("Mot de passe incorrect.")
+        return password

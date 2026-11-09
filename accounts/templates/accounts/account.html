@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Mon compte · Synthétiseur de rêves{% endblock %}
+{% block content %}
+<h1 class="mb-6 text-2xl font-semibold">Mon compte</h1>
+<p class="mb-8 text-slate-300">{{ user.email }} · inscrit le {{ user.date_joined|date:"j F Y" }} · {{ dream_count }} rêve{{ dream_count|pluralize }}</p>
+
+<section class="mb-8 rounded-2xl border border-night-800 bg-night-900 p-6" aria-labelledby="consent-titre">
+  <h2 id="consent-titre" class="mb-2 text-lg font-semibold">Mes consentements</h2>
+  <p class="mb-4 text-sm text-slate-300">La transcription et l'analyse de vos récits sont nécessaires au service : pour les retirer, supprimez votre compte. La génération d'images est facultative.</p>
+  <form method="post" action="{% url 'accounts:image_consent' %}" class="space-y-3">
+    {% csrf_token %}
+    <label class="flex items-start gap-3">
+      <input type="checkbox" name="granted" {% if image_consent %}checked{% endif %} class="mt-1 size-5 shrink-0 accent-dream-400">
+      <span class="text-sm">J'accepte qu'une description reformulée de mes rêves, sans nom ni détail identifiant, soit envoyée à un générateur d'image.</span>
+    </label>
+    <button type="submit" class="rounded-lg bg-dream-300 px-4 py-2 text-sm font-semibold text-night-950">Enregistrer mon choix</button>
+  </form>
+  {% if consents %}
+    <details class="mt-4 text-sm"><summary class="cursor-pointer text-slate-300">Historique de mes choix</summary>
+      <ul class="mt-2 space-y-1 text-slate-300">
+        {% for c in consents %}<li><time datetime="{{ c.created_at|date:'c' }}">{{ c.created_at|date:"j M Y H:i" }}</time> — {{ c.get_scope_display }} : {{ c.granted|yesno:"accordé,retiré" }} (version {{ c.text_version }})</li>{% endfor %}
+      </ul>
+    </details>
+  {% endif %}
+</section>
+
+<section class="mb-8 rounded-2xl border border-night-800 bg-night-900 p-6" aria-labelledby="export-titre">
+  <h2 id="export-titre" class="mb-2 text-lg font-semibold">Exporter mes données</h2>
+  <p class="mb-4 text-sm text-slate-300">Une archive ZIP contenant vos rêves, émotions et consentements au format JSON, et toutes vos images.</p>
+  <form method="post" action="{% url 'accounts:export' %}">
+    {% csrf_token %}
+    <button type="submit" class="rounded-lg border border-dream-300 px-4 py-2 text-dream-300 hover:bg-night-800">Télécharger mes données</button>
+  </form>
+</section>
+
+<section class="rounded-2xl border border-rose-400/40 bg-rose-950/20 p-6" aria-labelledby="supprimer-titre">
+  <h2 id="supprimer-titre" class="mb-2 text-lg font-semibold">Supprimer mon compte</h2>
+  <p class="mb-4 text-sm text-slate-300">Votre compte, tous vos rêves et tous vos fichiers seront supprimés <strong>définitivement et immédiatement</strong>. Pensez à exporter vos données avant.</p>
+  <form method="post" action="{% url 'accounts:delete' %}" class="max-w-sm space-y-3">
+    {% csrf_token %}
+    <label for="id_password" class="block text-sm font-medium">Confirmez avec votre mot de passe</label>
+    <input type="password" name="password" id="id_password" autocomplete="current-password" required
+      class="block w-full rounded-lg border border-night-800 bg-night-950 px-3 py-2 text-white">
+    <button type="submit" class="rounded-lg bg-rose-300 px-4 py-2 font-semibold text-night-950 hover:bg-rose-200">Supprimer définitivement mon compte</button>
+  </form>
+</section>
+{% endblock %}
