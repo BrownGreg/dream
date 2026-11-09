@@ -29,4 +29,28 @@ Worker : 94 rêves traités, 0 échec ; **4,08 s** de traitement par rêve (p50,
 - La file en base tient la charge (aucune tâche perdue ni en échec) : le passage à l'échelle se fait **en ajoutant des processus `db_worker`**, sans changer d'architecture. Pour la bêta (30 utilisateurs, 15 rêves/jour, ADR-007), un seul worker suffit largement ; pour tenir le SLO pendant un pic à 20 envois simultanés, il en faut plusieurs.
 - Sur l'offre gratuite Render (0,1 CPU, web et worker dans le même conteneur), la capacité est très inférieure à celle de ce runner : ces chiffres sont un plafond, pas une promesse de production.
 
-À faire : relancer le workflow avec 3 workers (`workers=3`) pour mesurer le gain, puis avec la latence réelle relevée dans `ApiCall`.
+## Exécution du 2026-11-09 — 3 workers
+
+Données : [`2026-11-09-3-workers/`](2026-11-09-3-workers/). Run GitHub Actions `42698871160`, mêmes paramètres, 3 processus `db_worker`.
+
+| Palier | Requêtes HTTP | Échecs | p50 | p95 | Bout en bout p50 / p95 | File max |
+|---|---|---|---|---|---|---|
+| 5 utilisateurs | 147 | 0 | 13 ms | 58 ms | 6,1 s / 7,4 s | 1 |
+| 20 utilisateurs | 605 | 0 | 15 ms | 68 ms | 6,1 s / 8,2 s | 3 |
+| 50 utilisateurs | 1 571 | 0 | 13 ms | 84 ms | 10,1 s / 24,2 s | 15 |
+
+130 rêves traités, 0 échec, **28,0 rêves/min** (×2,1 par rapport à 1 worker) ; traitement par rêve inchangé (4,10 s), attente en file p95 18,8 s au lieu de 156 s. **Le SLO de bout en bout est tenu jusqu'à 50 utilisateurs** (p95 24,2 s ≤ 30 s).
+
+Le gain n'est pas ×3 : sur ce runner, 2 vCPU sont partagés entre 3 workers, 2 processus gunicorn, PostgreSQL et Locust lui-même. La conversion ffmpeg de chaque enregistrement consomme du CPU ; avec de vraies API, le temps du worker serait surtout de l'attente réseau et l'ajout de workers serait plus proche du linéaire (à vérifier).
+
+## Synthèse
+
+| | 1 worker | 3 workers |
+|---|---|---|
+| Erreurs HTTP (3 paliers) | 0 / 2 689 | 0 / 2 323 |
+| p95 HTTP à 50 utilisateurs | 355 ms | 84 ms |
+| Débit du pipeline | 13,4 rêves/min | 28,0 rêves/min |
+| Bout en bout p95 à 20 / 50 utilisateurs | 34,2 s / 72,4 s | 8,2 s / 24,2 s |
+| SLO bout en bout (≤ 30 s) | tenu jusqu'à 5 utilisateurs | tenu jusqu'à 50 utilisateurs |
+
+Prochaine mesure : relancer avec la latence moyenne réelle relevée dans `ApiCall` après le Jalon B (`fake_latency_ms`).
