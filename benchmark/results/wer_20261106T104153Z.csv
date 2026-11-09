@@ -1,0 +1,2 @@
+provider,source,utterances,wer
+faster_whisper_selfhosted,latency_local_20261106T104153Z.csv,10,0.1323
