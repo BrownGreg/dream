@@ -16,3 +16,5 @@ STORAGES = {
 MEDIA_ROOT = BASE_DIR / ".test-media"
 TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBackend"}}
 FIELD_ENCRYPTION_KEYS = ["dGVzdC11bmlxdWVtZW50LWNsZS1kZS0zMi1vY3RldHM="]
+AI_MODE = "fake"
+AI_RETRY_BASE_SECONDS = 0.0

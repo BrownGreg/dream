@@ -137,3 +137,13 @@ TASKS = {
         "QUEUES": ["default"],
     }
 }
+
+# --- IA : adapters, budget et résilience (ADR-008, ADR-009)
+AI_MODE = env("AI_MODE", default="fake")  # real | fake
+AI_BUDGET_EUR = env.float("AI_BUDGET_EUR", default=15.0)
+AI_BUDGET_ALERT_RATIO = env.float("AI_BUDGET_ALERT_RATIO", default=0.8)
+AI_USD_EUR_RATE = env.float("AI_USD_EUR_RATE", default=1.0)
+AI_USER_DAILY_DREAMS = env.int("AI_USER_DAILY_DREAMS", default=5)
+AI_MAX_IMAGE_ATTEMPTS = env.int("AI_MAX_IMAGE_ATTEMPTS", default=2)
+AI_MAX_ATTEMPTS = env.int("AI_MAX_ATTEMPTS", default=3)
+AI_RETRY_BASE_SECONDS = env.float("AI_RETRY_BASE_SECONDS", default=1.0)

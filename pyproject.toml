@@ -19,6 +19,7 @@ dependencies = [
     "sentry-sdk[django]>=2.74",
     "honcho>=2.0",
     "cryptography>=46",
+    "tenacity>=9.2",
 ]
 
 [dependency-groups]
