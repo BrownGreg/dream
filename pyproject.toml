@@ -58,6 +58,7 @@ convention = "google"
 "config/settings/*" = ["F405"]
 "manage.py" = ["D"]
 "scripts/*" = ["T201"]
+"dreams/messages.py" = ["E501"]  # phrases destinées à l'utilisateur, plus lisibles sur une ligne
 
 [tool.mypy]
 python_version = "3.12"
