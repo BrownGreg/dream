@@ -19,6 +19,9 @@ ALLOWED_HOSTS: list[str] = env.list("DJANGO_ALLOWED_HOSTS", default=[])
 CSRF_TRUSTED_ORIGINS: list[str] = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
 
 INSTALLED_APPS = [
+    # accounts avant admin : nos gabarits registration/* (mot de passe oublié…) doivent
+    # l'emporter sur ceux de l'administration Django, qui portent les mêmes noms.
+    "accounts",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -30,7 +33,6 @@ INSTALLED_APPS = [
     "django_tailwind_cli",
     "django_tasks_db",
     "axes",
-    "accounts",
     "dreams",
     "dashboard",
 ]

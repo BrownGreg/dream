@@ -1,0 +1,66 @@
+{
+  "outil": "axe-core 4.14.0",
+  "regles": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21a",
+    "wcag21aa",
+    "wcag22aa"
+  ],
+  "viewport": "390x844",
+  "pages": {
+    "/comptes/connexion/": [],
+    "/comptes/inscription/": [],
+    "/comptes/mot-de-passe/oubli/": [],
+    "/ (connecté)": [],
+    "/statistiques/?periode=365 (connecté)": [],
+    "/reves/nouveau/ (connecté)": [],
+    "/reves/81969676-100d-4468-a521-7b92af31e1c4/ (connecté)": [],
+    "/reves/e961103e-4888-4c3d-8cff-96e22ff44834/ (connecté)": [],
+    "/reves/81969676-100d-4468-a521-7b92af31e1c4/supprimer/ (connecté)": [],
+    "/comptes/mon-compte/ (connecté)": []
+  },
+  "a_verifier": [],
+  "conformes": [
+    {
+      "page": "http://localhost:41979/comptes/connexion/",
+      "regles_conformes": 22
+    },
+    {
+      "page": "http://localhost:41979/comptes/inscription/",
+      "regles_conformes": 25
+    },
+    {
+      "page": "http://localhost:41979/comptes/mot-de-passe/oubli/",
+      "regles_conformes": 22
+    },
+    {
+      "page": "http://localhost:41979/",
+      "regles_conformes": 27
+    },
+    {
+      "page": "http://localhost:41979/statistiques/?periode=365",
+      "regles_conformes": 24
+    },
+    {
+      "page": "http://localhost:41979/reves/nouveau/",
+      "regles_conformes": 23
+    },
+    {
+      "page": "http://localhost:41979/reves/81969676-100d-4468-a521-7b92af31e1c4/",
+      "regles_conformes": 22
+    },
+    {
+      "page": "http://localhost:41979/reves/e961103e-4888-4c3d-8cff-96e22ff44834/",
+      "regles_conformes": 24
+    },
+    {
+      "page": "http://localhost:41979/reves/81969676-100d-4468-a521-7b92af31e1c4/supprimer/",
+      "regles_conformes": 18
+    },
+    {
+      "page": "http://localhost:41979/comptes/mon-compte/",
+      "regles_conformes": 23
+    }
+  ]
+}

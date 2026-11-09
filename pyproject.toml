@@ -78,7 +78,7 @@ django_settings_module = "config.settings.test"
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings.test"
 testpaths = ["tests"]
-addopts = "-ra --strict-markers"
+addopts = "-ra --strict-markers -m 'not e2e and not load'"
 markers = ["e2e: parcours navigateur (Playwright)", "load: test de charge"]
 filterwarnings = ["ignore:No directory at:UserWarning"]
 

@@ -6,7 +6,7 @@
     {% for step in steps %}
       <li class="flex items-center gap-3" {% if step.state == "current" %}aria-current="step"{% endif %}>
         {% if step.state == "done" %}
-          <span class="flex size-7 items-center justify-center rounded-full bg-emerald-300 text-night-950" aria-hidden="true">✓</span>
+          <svg class="size-7 shrink-0" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><circle cx="14" cy="14" r="14" fill="#6ee7b7"/><path d="M8 14.5l4 4 8-9" fill="none" stroke="#0b1020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="text-slate-300">{{ step.label }} <span class="sr-only">(terminé)</span></span>
         {% elif step.state == "current" %}
           <span class="size-7 animate-spin rounded-full border-4 border-dream-300 border-t-transparent" aria-hidden="true"></span>
