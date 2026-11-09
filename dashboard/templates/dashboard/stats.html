@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Mes statistiques · Synthétiseur de rêves{% endblock %}
+{% block head %}
+<style>
+  /* Palette validée (skill dataviz, mode sombre, surface #121933) : la couleur suit l'émotion, jamais son rang. */
+  .viz-root {
+    color-scheme: dark;
+    --surface-1: #121933;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --grid: rgba(148, 163, 184, 0.15);
+    --sequential: #a78bfa;
+    --emotion-heureux: #c98500;
+    --emotion-serein: #199e70;
+    --emotion-neutre: #9085e9;
+    --emotion-etrange: #d55181;
+    --emotion-melancolique: #3987e5;
+    --emotion-stressant: #e66767;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="viz-root">
+  <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-semibold">Mes statistiques</h1>
+      <p class="text-slate-300">Ce que vos nuits racontent, période par période.</p>
+    </div>
+    <a href="{% url 'dashboard:home' %}" class="text-sm underline">← Mes rêves</a>
+  </div>
+
+  <nav class="mb-6 flex flex-wrap gap-2" aria-label="Période analysée">
+    {% for value, label in periods %}
+      <a href="?periode={{ value }}" class="rounded-full border px-4 py-2 text-sm {% if value == period %}border-dream-300 bg-night-800 text-white{% else %}border-night-800 text-slate-300 hover:border-dream-300{% endif %}"
+        {% if value == period %}aria-current="page"{% endif %}>{{ label }}</a>
+    {% endfor %}
+  </nav>
+
+  {% if not stats.total %}
+    <div class="rounded-2xl border border-dashed border-night-800 p-8 text-center text-slate-300">
+      <p>Aucun rêve sur cette période. Les statistiques apparaîtront dès votre premier récit.</p>
+      <a href="{% url 'dreams:record' %}" class="mt-3 inline-block rounded-lg bg-dream-300 px-4 py-2 font-semibold text-night-950">Raconter un rêve</a>
+    </div>
+  {% else %}
+  <section aria-label="Chiffres clés" class="mb-8 grid gap-3 sm:grid-cols-3">
+    <div class="rounded-2xl border border-night-800 bg-night-900 p-4">
+      <p class="text-sm text-slate-400">Rêves racontés</p>
+      <p class="text-4xl font-semibold tabular-nums">{{ stats.total }}</p>
+    </div>
+    <div class="rounded-2xl border border-night-800 bg-night-900 p-4">
+      <p class="text-sm text-slate-400">Émotion dominante</p>
+      <p class="text-2xl font-semibold"><span aria-hidden="true">{{ dominant_icon }}</span> {{ dominant_label|default:"—" }}</p>
+    </div>
+    <div class="rounded-2xl border border-night-800 bg-night-900 p-4">
+      <p class="text-sm text-slate-400">Moyenne par semaine</p>
+      <p class="text-4xl font-semibold tabular-nums">{{ stats.per_week|floatformat:1 }}</p>
+    </div>
+  </section>
+
+  <section class="mb-8 rounded-2xl border border-night-800 bg-night-900 p-4" aria-labelledby="freq-titre">
+    <h2 id="freq-titre" class="mb-3 font-semibold">Rêves par semaine</h2>
+    <div class="relative h-56"><canvas data-chart="weeks" role="img" aria-label="Nombre de rêves par semaine ; données détaillées dans le tableau ci-dessous"></canvas></div>
+    <details class="mt-3 text-sm"><summary class="cursor-pointer text-slate-300">Voir les données</summary>
+      <table class="mt-2 w-full text-left"><thead><tr><th scope="col" class="py-1">Semaine du</th><th scope="col" class="py-1 text-right">Rêves</th></tr></thead>
+        <tbody>{% for week, count in stats.weeks %}<tr class="border-t border-night-800"><td class="py-1">{{ week|date:"j F Y" }}</td><td class="py-1 text-right tabular-nums">{{ count }}</td></tr>{% endfor %}</tbody></table>
+    </details>
+  </section>
+
+  <section class="mb-8 rounded-2xl border border-night-800 bg-night-900 p-4" aria-labelledby="repartition-titre">
+    <h2 id="repartition-titre" class="mb-3 font-semibold">Répartition des émotions</h2>
+    <div class="relative" style="height: {{ distribution_rows|length|add:1 }}0px; min-height: 8rem"><canvas data-chart="distribution" role="img" aria-label="Nombre de rêves par émotion, de la plus à la moins fréquente ; données dans le tableau ci-dessous"></canvas></div>
+    <details class="mt-3 text-sm"><summary class="cursor-pointer text-slate-300">Voir les données</summary>
+      <table class="mt-2 w-full text-left"><thead><tr><th scope="col" class="py-1">Émotion</th><th scope="col" class="py-1 text-right">Rêves</th></tr></thead>
+        <tbody>{% for label, icon, count in distribution_rows %}<tr class="border-t border-night-800"><td class="py-1"><span aria-hidden="true">{{ icon }}</span> {{ label }}</td><td class="py-1 text-right tabular-nums">{{ count }}</td></tr>{% endfor %}</tbody></table>
+    </details>
+  </section>
+  {% endif %}
+
+  <section class="mb-8 rounded-2xl border border-night-800 bg-night-900 p-4" aria-labelledby="evolution-titre">
+    <h2 id="evolution-titre" class="mb-1 font-semibold">Évolution des émotions</h2>
+    <p class="mb-3 text-sm text-slate-400">12 derniers mois, quelle que soit la période choisie.</p>
+    <div class="relative h-64"><canvas data-chart="evolution" role="img" aria-label="Rêves par mois et par émotion sur 12 mois ; données dans le tableau ci-dessous"></canvas></div>
+    <details class="mt-3 text-sm"><summary class="cursor-pointer text-slate-300">Voir les données</summary>
+      <div class="overflow-x-auto"><table class="mt-2 w-full text-left"><thead><tr><th scope="col" class="py-1 pr-2">Mois</th>{% for label in emotion_labels %}<th scope="col" class="py-1 px-2 text-right">{{ label }}</th>{% endfor %}</tr></thead>
+        <tbody>{% for month, values in evolution_rows %}<tr class="border-t border-night-800"><td class="py-1 pr-2">{{ month }}</td>{% for v in values %}<td class="py-1 px-2 text-right tabular-nums">{{ v }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div>
+    </details>
+  </section>
+</div>
+{{ chart_data|json_script:"chart-data" }}
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'vendor/chart-4.6.1.umd.min.js' %}" defer></script>
+<script src="{% static 'js/stats.js' %}" defer></script>
+{% endblock %}

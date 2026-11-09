@@ -11,7 +11,8 @@ from django.shortcuts import render
 
 from dashboard.forms import DreamFilterForm
 from dashboard.queries import user_dreams
-from dreams.emotions import COLORS, ICONS
+from dashboard.stats import DEFAULT_PERIOD, MONTHS_FR, PERIODS, compute
+from dreams.emotions import COLORS, ICONS, Emotion
 
 PAGE_SIZE = 10
 EXCERPT_CHARS = 140
@@ -67,3 +68,50 @@ def home(request: HttpRequest) -> HttpResponse:
     }
     template = "dashboard/_dream_list.html" if getattr(request, "htmx", False) else "dashboard/home.html"
     return render(request, template, context)
+
+
+@login_required
+def stats(request: HttpRequest) -> HttpResponse:
+    """Statistiques personnelles : fréquence, répartition, émotion dominante, évolution (US-16).
+
+    Args:
+        request: Requête authentifiée ; ``?periode=30|90|365``.
+
+    Returns:
+        La page de statistiques.
+    """
+    period = request.GET.get("periode", DEFAULT_PERIOD)
+    if period not in PERIODS:
+        period = DEFAULT_PERIOD
+    result = compute(int(request.user.pk or 0), period)
+    labels = dict(Emotion.choices)
+    chart_data = {
+        "weeks": {
+            "labels": [f"{d.day} {MONTHS_FR[d.month - 1]}" for d, _ in result.weeks],
+            "values": [n for _, n in result.weeks],
+        },
+        "distribution": {
+            "labels": [str(labels[e]) for e, _ in result.distribution],
+            "values": [n for _, n in result.distribution],
+        },
+        "evolution": {
+            "labels": result.months,
+            "series": [
+                {"key": key, "label": str(labels[key]), "values": values} for key, values in result.evolution.items()
+            ],
+        },
+    }
+    context = {
+        "stats": result,
+        "period": period,
+        "periods": [("30", "30 jours"), ("90", "3 mois"), ("365", "12 mois")],
+        "dominant_label": labels.get(result.dominant, "") if result.dominant else "",
+        "dominant_icon": ICONS.get(result.dominant, "") if result.dominant else "",
+        "distribution_rows": [(labels[e], ICONS[e], n) for e, n in result.distribution],
+        "evolution_rows": [
+            (month, [result.evolution[key][i] for key, _ in Emotion.choices]) for i, month in enumerate(result.months)
+        ],
+        "emotion_labels": [label for _, label in Emotion.choices],
+        "chart_data": chart_data,
+    }
+    return render(request, "dashboard/stats.html", context)
