@@ -1,0 +1,29 @@
+@startuml c4_container
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Synthétiseur de rêves — C4 niveau 2 : conteneurs (architecture de production livrée, ADR-008 à ADR-010)
+
+Person(user, "Rêveur", "Navigateur mobile ou bureau")
+Person(ops, "Exploitant", "Compte staff")
+
+System_Boundary(ds, "Synthétiseur de rêves — un conteneur Docker (Render, Francfort) ou Docker Compose") {
+  Container(web, "Application web", "Django 6.0, gunicorn, whitenoise, gabarits + HTMX + Tailwind, Chart.js", "Comptes et consentements, enregistrement (MediaRecorder) et validation audio, suivi par polling 2 s, historique, statistiques, export et suppression RGPD, /health, /ops")
+  Container(worker, "Worker", "django.tasks + django-tasks-db (db_worker), ffmpeg", "process_dream idempotent : STT → émotion → prompt → image ; client résilient, journal ApiCall, coupe-circuit 15 €")
+  ContainerDb(db, "Base PostgreSQL 17", "Neon (UE) en production", "Comptes, consentements, rêves (récit chiffré Fernet), émotions, ApiCall, file de tâches, fichiers (DatabaseStorage)")
+}
+
+System_Ext(mistral, "Mistral AI (UE)", "Voxtral Mini Transcribe ; Mistral Small (prompt visuel, émotion de repli)")
+System_Ext(hf, "Hugging Face Inference", "mDeBERTa XNLI zero-shot (émotion, 1er choix)")
+System_Ext(bfl, "Black Forest Labs (UE)", "FLUX.2 [klein] 4B")
+System_Ext(sentry, "Sentry", "Erreurs, sans PII ni contenu")
+
+Rel(user, web, "Raconte, consulte", "HTTPS")
+Rel(ops, web, "/ops, /admin", "HTTPS")
+Rel(web, db, "Lit, écrit ; met process_dream en file après validation", "SQL")
+Rel(worker, db, "Prend les tâches, écrit résultats et ApiCall", "SQL")
+Rel(worker, mistral, "Audio MP3 ; texte du récit", "HTTPS, timeouts, retries 429/5xx")
+Rel(worker, hf, "Texte du récit", "HTTPS")
+Rel(worker, bfl, "Prompt reformulé uniquement", "HTTPS, polling")
+Rel(web, sentry, "Exceptions nettoyées", "HTTPS")
+Rel(worker, sentry, "Exceptions nettoyées", "HTTPS")
+@enduml
