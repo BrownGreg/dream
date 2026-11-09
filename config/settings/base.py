@@ -119,8 +119,14 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "assets"]
+# Fichiers des rêves : en base (ADR-010) par défaut, sur disque si STORAGE_BACKEND=filesystem.
+STORAGE_BACKEND = env("STORAGE_BACKEND", default="database")
 STORAGES = {
-    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "default": {
+        "BACKEND": "dreams.storage.DatabaseStorage"
+        if STORAGE_BACKEND == "database"
+        else "dreams.storage.ProtectedFileSystemStorage"
+    },
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
 }
 MEDIA_URL = "media/"
@@ -158,3 +164,6 @@ MISTRAL_LLM_MODEL = env("MISTRAL_LLM_MODEL", default="mistral-small-2603")
 HF_TOKEN = env("HF_TOKEN", default="")
 HF_BASE_URL = env("HF_BASE_URL", default="https://router.huggingface.co/hf-inference")
 HF_EMOTION_MODEL = env("HF_EMOTION_MODEL", default="MoritzLaurer/mDeBERTa-v3-base-mnli-xnli")
+BFL_API_KEY = env("BFL_API_KEY", default="")
+BFL_BASE_URL = env("BFL_BASE_URL", default="https://api.eu.bfl.ai")
+BFL_IMAGE_MODEL = env("BFL_IMAGE_MODEL", default="flux-2-klein-4b")
