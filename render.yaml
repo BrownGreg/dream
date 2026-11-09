@@ -17,6 +17,8 @@ services:
       - key: DJANGO_SECRET_KEY
         generateValue: true
       # Postgres Neon (UE, gratuit sans expiration) plutôt que la base gratuite Render qui expire à 30 jours.
+      - key: FIELD_ENCRYPTION_KEYS
+        sync: false
       - key: DATABASE_URL
         sync: false
       - key: WEB_CONCURRENCY
