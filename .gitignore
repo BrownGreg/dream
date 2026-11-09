@@ -25,6 +25,7 @@ htmlcov/
 tests/e2e/artifacts/
 test-results/
 playwright-report/
+load-results/
 
 # OS / IDE
 .DS_Store

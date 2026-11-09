@@ -23,7 +23,7 @@ WAV = (Path(__file__).parent.parent / "fixtures" / "reve_court.wav").read_bytes(
 
 def queued_task(minutes_ago: int = 0):
     """Ligne de tâche en attente, telle que l'écrit le backend base de données."""
-    from django_tasks_db.models import DBTaskResult
+    from django_tasks_db.models import DBTaskResult, get_date_max
 
     now = timezone.now()
     task = DBTaskResult.objects.create(
@@ -32,7 +32,8 @@ def queued_task(minutes_ago: int = 0):
         task_path="dreams.tasks.process_dream",
         queue_name="default",
         backend_name="default",
-        run_after=now,
+        # Comme le backend pour une tâche sans délai : `run_after` à la date maximale (incident #10).
+        run_after=get_date_max(),
     )
     DBTaskResult.objects.filter(pk=task.pk).update(enqueued_at=now - timedelta(minutes=minutes_ago))
     return task
