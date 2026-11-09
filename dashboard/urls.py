@@ -8,4 +8,5 @@ app_name = "dashboard"
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("statistiques/", views.stats, name="stats"),
 ]

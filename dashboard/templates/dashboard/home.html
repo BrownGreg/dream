@@ -6,7 +6,10 @@
     <h1 class="text-2xl font-semibold">Mes rêves</h1>
     <p class="text-slate-300">Vous venez de vous réveiller ? Racontez votre rêve avant qu'il ne s'efface.</p>
   </div>
-  <a href="{% url 'dreams:record' %}" class="rounded-lg bg-dream-300 px-5 py-3 font-semibold text-night-950 hover:bg-dream-400">Raconter un rêve</a>
+  <div class="flex gap-2">
+    <a href="{% url 'dashboard:stats' %}" class="rounded-lg border border-night-800 px-5 py-3 text-slate-200 hover:border-dream-300">Statistiques</a>
+    <a href="{% url 'dreams:record' %}" class="rounded-lg bg-dream-300 px-5 py-3 font-semibold text-night-950 hover:bg-dream-400">Raconter un rêve</a>
+  </div>
 </div>
 
 <details class="mb-6 rounded-2xl border border-night-800 bg-night-900 p-4" {% if filtered %}open{% endif %}>
