@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from urllib.parse import urlencode
 
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
+from dashboard import ops as ops_metrics
 from dashboard.forms import DreamFilterForm
 from dashboard.queries import user_dreams
 from dashboard.stats import DEFAULT_PERIOD, MONTHS_FR, PERIODS, compute
@@ -115,3 +117,16 @@ def stats(request: HttpRequest) -> HttpResponse:
         "chart_data": chart_data,
     }
     return render(request, "dashboard/stats.html", context)
+
+
+@staff_member_required(login_url="accounts:login")  # type: ignore[untyped-decorator]
+def ops(request: HttpRequest) -> HttpResponse:
+    """Page d'exploitation (staff) : budget, latences, erreurs, file, coût par rêve.
+
+    Args:
+        request: Requête d'un membre du staff.
+
+    Returns:
+        La page ``/ops`` ; aucun contenu de rêve n'y figure.
+    """
+    return render(request, "dashboard/ops.html", {"o": ops_metrics.overview()})

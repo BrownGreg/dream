@@ -8,6 +8,8 @@ from pathlib import Path
 
 import environ
 
+from config.observability import init_sentry, logging_config
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env()
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "config.middleware.RequestIdMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -176,3 +179,10 @@ AUDIO_MIN_SECONDS = env.int("AUDIO_MIN_SECONDS", default=1)
 AUDIO_MAX_BYTES = env.int("AUDIO_MAX_BYTES", default=20 * 1024 * 1024)
 DATA_UPLOAD_MAX_MEMORY_SIZE = AUDIO_MAX_BYTES + 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+
+# --- Observabilité (structlog, Sentry) : jamais de contenu de rêve
+LOGGING = logging_config(json_logs=env.bool("LOG_JSON", default=False), level=env("LOG_LEVEL", default="INFO"))
+SENTRY_DSN = env("SENTRY_DSN", default="")
+init_sentry(SENTRY_DSN, env("SENTRY_ENVIRONMENT", default="dev"), env("RENDER_GIT_COMMIT", default=""))
+# Worker considéré en retard si une tâche attend depuis plus longtemps que ce délai (secondes).
+WORKER_STALE_AFTER_S = env.int("WORKER_STALE_AFTER_S", default=120)
