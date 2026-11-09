@@ -2,5 +2,6 @@
 {% block title %}Mes rêves · Synthétiseur de rêves{% endblock %}
 {% block content %}
 <h1 class="mb-2 text-2xl font-semibold">Mes rêves</h1>
-<p class="text-slate-300">Bonjour {{ user.email }}. Vous n'avez encore raconté aucun rêve.</p>
+<p class="mb-6 text-slate-300">Vous venez de vous réveiller ? Racontez votre rêve avant qu'il ne s'efface.</p>
+<a href="{% url 'dreams:record' %}" class="inline-block rounded-lg bg-dream-300 px-5 py-3 font-semibold text-night-950 hover:bg-dream-400">Raconter un rêve</a>
 {% endblock %}

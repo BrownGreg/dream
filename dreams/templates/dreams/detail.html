@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}{% if dream.title %}{{ dream.title }}{% else %}Votre rêve{% endif %} · Synthétiseur de rêves{% endblock %}
+{% block content %}
+<p class="mb-2 text-sm text-slate-400"><time datetime="{{ dream.created_at|date:'c' }}">{{ dream.created_at|date:"l j F Y à H:i" }}</time></p>
+<h1 class="mb-6 text-2xl font-semibold">{% if dream.title %}{{ dream.title }}{% else %}Votre rêve{% endif %}</h1>
+
+{% if not dream.is_finished %}
+  {% include "dreams/_progress.html" %}
+{% elif dream.status == "failed" %}
+  <div class="rounded-2xl border border-rose-400/40 bg-rose-950/40 p-6" role="alert">
+    <h2 class="mb-2 text-lg font-semibold text-rose-100">Ce rêve n'a pas pu être traité</h2>
+    <p class="text-rose-100">{{ error_message }}</p>
+    <a href="{% url 'dreams:record' %}" class="mt-4 inline-block rounded-lg bg-dream-300 px-4 py-2 font-semibold text-night-950">Raconter à nouveau</a>
+  </div>
+{% else %}
+  <div class="grid gap-6 md:grid-cols-2">
+    <figure class="overflow-hidden rounded-2xl border border-night-800 bg-night-900">
+      {% if image %}
+        <img src="{{ image.file.url }}" alt="Image onirique générée à partir de votre rêve{% if emotion %}, ambiance {{ emotion.get_emotion_display|lower }}{% endif %}" width="1024" height="1024" class="aspect-square w-full object-cover">
+        <figcaption class="px-4 py-2 text-xs text-slate-300">Image générée par IA</figcaption>
+      {% else %}
+        <div class="flex aspect-square items-center justify-center bg-gradient-to-br from-night-800 to-night-950 p-6 text-center text-slate-300">
+          <p>{{ image_message|default:"Pas d'image pour ce rêve." }}</p>
+        </div>
+      {% endif %}
+    </figure>
+    <div class="space-y-6">
+      {% if emotion %}
+        <section aria-labelledby="emotion-titre">
+          <h2 id="emotion-titre" class="mb-2 text-sm font-medium uppercase tracking-wide text-slate-400">Émotion dominante</h2>
+          <p class="inline-flex items-center gap-2 rounded-full border border-night-800 px-4 py-2 text-lg" style="color: {{ emotion_color }}">
+            <span aria-hidden="true">{{ emotion_icon }}</span> {{ emotion.get_emotion_display }}
+          </p>
+          {% if emotion.confidence is not None %}
+            <p class="mt-2 text-sm text-slate-400">Confiance : {% widthratio emotion.confidence 1 100 %} %{% if emotion.provider == "local" %} (estimation par lexique){% endif %}</p>
+          {% endif %}
+        </section>
+      {% endif %}
+      {% if transcription %}
+        <section aria-labelledby="recit-titre">
+          <h2 id="recit-titre" class="mb-2 text-sm font-medium uppercase tracking-wide text-slate-400">Votre récit</h2>
+          <p class="whitespace-pre-line leading-relaxed text-slate-100">{{ transcription.text }}</p>
+          <p class="mt-2 text-xs text-slate-400">L'enregistrement audio a été supprimé après la transcription.</p>
+        </section>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

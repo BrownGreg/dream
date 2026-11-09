@@ -1,0 +1,25 @@
+{% comment %}Import de fichier : fonctionne sans JavaScript ; aussi renvoyé avec les erreurs après un envoi micro.{% endcomment %}
+{% if form.errors %}
+  <div class="mb-6 rounded-lg border border-rose-400/40 bg-rose-950/40 px-4 py-3 text-rose-100" role="alert" data-form-errors>
+    {% for error in form.audio.errors %}<p>{{ error }}</p>{% endfor %}{{ form.non_field_errors }}
+  </div>
+{% endif %}
+{% if blocked and request.method == "POST" %}
+  <p class="mb-6 rounded-lg border border-amber-300/40 bg-amber-950/40 px-4 py-3 text-amber-100" role="alert">{{ blocked }}</p>
+{% endif %}
+<details class="rounded-2xl border border-night-800 bg-night-900 p-6" {% if form.errors %}open{% endif %}>
+  <summary class="cursor-pointer font-medium">Importer un fichier audio</summary>
+  <form method="post" enctype="multipart/form-data" action="{% url 'dreams:record' %}" class="mt-4 space-y-4" data-upload-form>
+    {% csrf_token %}
+    <div>
+      <label for="{{ form.audio.id_for_label }}" class="mb-1 block text-sm font-medium">{{ form.audio.label }}</label>
+      <input type="file" name="audio" id="{{ form.audio.id_for_label }}" accept=".wav,.mp3,.m4a,.webm,audio/*" required
+        aria-describedby="audio-aide" class="block w-full text-sm text-slate-200 file:mr-4 file:rounded-lg file:border-0 file:bg-dream-300 file:px-4 file:py-2 file:font-semibold file:text-night-950">
+      <p id="audio-aide" class="mt-1 text-xs text-slate-400">{{ form.audio.help_text }} {{ max_seconds|floatformat:0 }} s et {% widthratio max_bytes 1048576 1 %} Mo au maximum.</p>
+    </div>
+    <label class="flex items-center gap-2 text-sm text-slate-200">
+      <input type="checkbox" name="image_disabled" class="size-5 accent-dream-400"> {{ form.image_disabled.label }}
+    </label>
+    <button type="submit" class="w-full rounded-lg bg-dream-300 px-4 py-3 font-semibold text-night-950 hover:bg-dream-400 sm:w-auto" {% if blocked %}disabled{% endif %}>Envoyer le fichier</button>
+  </form>
+</details>
