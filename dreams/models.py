@@ -60,6 +60,9 @@ class Dream(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # Fin du premier traitement, fixée une seule fois : base de la mesure « bout en bout »
+    # (updated_at bouge à chaque correction ou régénération, incident #11).
+    finished_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = "rêve"
