@@ -1,6 +1,7 @@
 """Fixtures des tests navigateur (Playwright + serveur Django réel)."""
 
 import os
+from pathlib import Path
 
 import pytest
 
@@ -21,3 +22,19 @@ def login(page, live_server):
         page.wait_for_url(f"{live_server.url}/")
 
     return _login
+
+
+FAKE_MIC = Path(__file__).parent.parent / "fixtures" / "reve.wav"
+
+
+@pytest.fixture(scope="session")
+def browser_type_launch_args(browser_type_launch_args):
+    """Chromium partagé par tous les tests E2E, avec un micro simulé (voix de synthèse)."""
+    return {
+        **browser_type_launch_args,
+        "args": [
+            "--use-fake-ui-for-media-stream",
+            "--use-fake-device-for-media-stream",
+            f"--use-file-for-fake-audio-capture={FAKE_MIC}",
+        ],
+    }

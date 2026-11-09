@@ -61,3 +61,30 @@ def test_conversion_vide(mocker):
     mocker.patch.object(audio, "_run", return_value=b"")
     with pytest.raises(audio.AudioError, match="conversion"):
         audio.to_mp3(b"x")
+
+
+def test_webm_de_mediarecorder_sans_duree_dans_les_metadonnees():
+    # MediaRecorder (Chrome, Firefox) écrit en flux : le conteneur n'a pas de durée totale.
+    data = (FIXTURES / "reve_mediarecorder.webm").read_bytes()
+    assert audio.probe_duration(data) == Decimal("3.00")
+    assert audio.to_mp3(data)
+
+
+def test_duree_decodee_ffmpeg_absent(mocker):
+    mocker.patch.object(audio, "_run", return_value=b'{"format": {}}')
+    mocker.patch("shutil.which", return_value=None)
+    with pytest.raises(audio.AudioError) as exc:
+        audio.probe_duration(b"x")
+    assert exc.value.code == "audio_tool_missing"
+
+
+def test_duree_decodee_trop_longue(mocker):
+    mocker.patch.object(audio, "_run", return_value=b'{"format": {"duration": "N/A"}}')
+    mocker.patch("subprocess.run", side_effect=subprocess.TimeoutExpired("ffmpeg", 60))
+    with pytest.raises(audio.AudioError, match="pas pu être lu"):
+        audio.probe_duration(b"x")
+
+
+def test_duree_decodee_illisible():
+    with pytest.raises(audio.AudioError, match="durée"):
+        audio._decoded_duration(b"pas un audio")
