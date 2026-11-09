@@ -101,6 +101,9 @@ AXES_USERNAME_FORM_FIELD = "username"
 # Version du texte de consentement affiché à l'inscription (preuve RGPD, art. 7).
 CONSENT_TEXT_VERSION = "2026-11-09"
 
+# Clés Fernet du chiffrement applicatif des récits ; la première chiffre, toutes déchiffrent (rotation).
+FIELD_ENCRYPTION_KEYS: list[str] = env.list("FIELD_ENCRYPTION_KEYS", default=[])
+
 # --- E-mail (réinitialisation du mot de passe)
 EMAIL_CONFIG = env.email_url("EMAIL_URL", default="consolemail://")
 vars().update(EMAIL_CONFIG)

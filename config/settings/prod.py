@@ -9,6 +9,7 @@ from .base import ALLOWED_HOSTS, CSRF_TRUSTED_ORIGINS, env
 
 DEBUG = False
 SECRET_KEY = env("DJANGO_SECRET_KEY")
+FIELD_ENCRYPTION_KEYS = env.list("FIELD_ENCRYPTION_KEYS")
 # Render fournit le nom d'hôte public du service.
 if render_host := env("RENDER_EXTERNAL_HOSTNAME", default=""):
     ALLOWED_HOSTS = [*ALLOWED_HOSTS, render_host]
