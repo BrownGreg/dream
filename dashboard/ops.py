@@ -65,10 +65,9 @@ def queue_state() -> QueueState:
     """
     now = timezone.now()
     tasks = DBTaskResult.objects.all()
-    oldest = (
-        tasks.filter(status="READY", run_after__lte=now).order_by("enqueued_at").values_list("enqueued_at", flat=True)
-    )
-    first = oldest.first()
+    # `ready()` du paquet : une tâche sans délai est stockée avec `run_after` à la date maximale
+    # (et non « maintenant ») ; un filtre `run_after <= now` les ignorerait toutes (incident #10).
+    first = DBTaskResult.objects.ready().order_by("enqueued_at").values_list("enqueued_at", flat=True).first()
     wait = int((now - first).total_seconds()) if first else 0
     return QueueState(
         ready=tasks.filter(status="READY").count(),
