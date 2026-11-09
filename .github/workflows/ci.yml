@@ -22,7 +22,7 @@ jobs:
     name: Lint et types
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
@@ -53,7 +53,7 @@ jobs:
     env:
       DATABASE_URL: postgres://dream:dream@localhost:5432/dream
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
@@ -76,7 +76,7 @@ jobs:
     needs: [quality, tests]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Construire et démarrer web + worker + PostgreSQL
         run: docker compose up --build -d --wait --wait-timeout 180
       - name: Test de fumée (/health, page de connexion, statiques)
