@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Connexion · Synthétiseur de rêves{% endblock %}
+{% block content %}
+<h1 class="mb-2 text-2xl font-semibold">Connexion</h1>
+<p class="mb-6 text-slate-300">Retrouvez vos rêves là où vous les avez laissés.</p>
+<form method="post" novalidate class="max-w-md">
+  {% csrf_token %}
+  {% include "partials/form.html" %}
+  <input type="hidden" name="next" value="{{ next }}">
+  {% include "partials/button.html" with label="Se connecter" %}
+</form>
+<p class="mt-6 text-sm text-slate-300">
+  <a class="underline hover:text-white" href="{% url 'accounts:password_reset' %}">Mot de passe oublié ?</a>
+  · Pas encore de compte ? <a class="underline hover:text-white" href="{% url 'accounts:signup' %}">Créer un compte</a>
+</p>
+{% endblock %}

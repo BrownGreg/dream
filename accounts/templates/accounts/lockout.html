@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Connexion bloquée · Synthétiseur de rêves{% endblock %}
+{% block content %}
+<h1 class="mb-2 text-2xl font-semibold">Trop de tentatives</h1>
+<p class="text-slate-300" role="alert">Par sécurité, la connexion à ce compte depuis votre appareil est suspendue pendant 15 minutes. Vous pouvez aussi <a class="underline" href="{% url 'accounts:password_reset' %}">réinitialiser votre mot de passe</a>.</p>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% comment %}Champ de formulaire accessible : libellé lié, aide et erreurs annoncées.{% endcomment %}
+{% if field.field.widget.input_type == "checkbox" %}
+  <div class="flex items-start gap-3">
+    <input type="checkbox" name="{{ field.html_name }}" id="{{ field.id_for_label }}" {% if field.value %}checked{% endif %}
+      class="mt-1 size-5 shrink-0 accent-dream-400" {% if field.errors %}aria-invalid="true" aria-describedby="{{ field.id_for_label }}-err"{% endif %}>
+    <label for="{{ field.id_for_label }}" class="text-sm leading-relaxed text-slate-200">{{ field.label }}{% if field.field.required %} <span class="text-dream-300">(obligatoire)</span>{% endif %}</label>
+  </div>
+{% else %}
+  <label for="{{ field.id_for_label }}" class="mb-1 block text-sm font-medium text-slate-200">{{ field.label }}</label>
+  <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" id="{{ field.id_for_label }}"
+    {% if field.value and field.field.widget.input_type != "password" %}value="{{ field.value }}"{% endif %}
+    {% for k, v in field.field.widget.attrs.items %}{{ k }}="{{ v }}" {% endfor %}
+    {% if field.field.required %}required{% endif %}
+    {% if field.errors %}aria-invalid="true" aria-describedby="{{ field.id_for_label }}-err"{% endif %}
+    class="block w-full rounded-lg border border-night-800 bg-night-900 px-3 py-3 text-base text-white placeholder:text-slate-400">
+  {% if field.help_text %}<p class="mt-1 text-xs text-slate-400">{{ field.help_text|safe }}</p>{% endif %}
+{% endif %}
+{% if field.errors %}
+  <p id="{{ field.id_for_label }}-err" class="mt-1 text-sm text-rose-300">{{ field.errors|join:" " }}</p>
+{% endif %}

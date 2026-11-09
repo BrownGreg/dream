@@ -33,3 +33,6 @@ playwright-report/
 
 # Maquette Streamlit (bloc 1)
 docs/preprod/maquette/app/.data/
+assets/css/tailwind.css
+.django_tailwind_cli/
+coverage.json
