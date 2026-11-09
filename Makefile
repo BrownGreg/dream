@@ -37,5 +37,8 @@ fmt: ## Corrige le format et les imports
 	uv run ruff check --fix .
 	uv run ruff format .
 
-load: ## Test de charge Locust headless sur les adapters fake
-	AI_MODE=fake uv run locust -f tests/load/locustfile.py --headless --config tests/load/locust.conf
+LOCUST_HOST ?= http://127.0.0.1:8000
+
+load: ## Test de charge Locust (serveur et worker lancés à part, AI_MODE=fake, comptes seed_load_users)
+	mkdir -p load-results
+	uv run locust --config tests/load/locust.conf --host $(LOCUST_HOST)
