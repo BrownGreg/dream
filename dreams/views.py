@@ -19,6 +19,7 @@ from django_htmx.http import HttpResponseClientRedirect, HttpResponseClientRefre
 from django_htmx.middleware import HtmxDetails
 
 from accounts.models import Consent
+from dreams.ambiance import ambiance_for
 from dreams.deletion import delete_dream
 from dreams.emotions import COLORS, ICONS, Emotion
 from dreams.forms import DreamUploadForm, EmotionForm, TranscriptionForm
@@ -165,6 +166,7 @@ def _dream_context(dream: Dream) -> dict[str, object]:
         "image": dream.current_image,
         "image_message": image_message,
         "error_message": message_for(dream.error_code) if dream.error_code else "",
+        "ambiance": ambiance_for(emotion.emotion) if emotion else None,
         "emotion_choices": [(value, label, ICONS[value]) for value, label in Emotion.choices],
         "can_regenerate": dream.is_finished and not _regenerate_block_reason(dream),
         "steps": [
