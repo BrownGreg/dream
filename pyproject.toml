@@ -21,6 +21,7 @@ dependencies = [
     "cryptography>=46",
     "tenacity>=9.2",
     "httpx>=0.28",
+    "pydantic>=2.12",
 ]
 
 [dependency-groups]

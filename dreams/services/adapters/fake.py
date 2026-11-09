@@ -14,9 +14,10 @@ from decimal import Decimal
 from django.conf import settings
 
 from dreams.models import ApiCall
+from dreams.services.adapters.lexicon import LexiconEmotionClassifier
 from dreams.services.errors import ProviderError
 from dreams.services.http import CallContext, resilient_call
-from dreams.services.ports import AudioInput, Caller, Transcript
+from dreams.services.ports import AudioInput, Caller, EmotionResult, Transcript
 
 # Récits synthétiques (corpus du bloc 1), jamais de vrais rêves.
 FAKE_DREAMS: tuple[str, ...] = (
@@ -86,3 +87,29 @@ class FakeTranscriber:
 
         text = resilient_call(ctx, call, estimated_units=audio.duration_s / 60 if audio.duration_s else Decimal(0))
         return Transcript(text, self.provider, self.model)
+
+
+class FakeEmotionClassifier:
+    """Simule le classifieur HF : s'appuie sur le lexique, avec une confiance plus élevée."""
+
+    provider = "fake"
+    model = "fake-emotion"
+
+    def classify(self, text: str, caller: Caller) -> EmotionResult:
+        """Simule une classification.
+
+        Args:
+            text: Transcription.
+            caller: Contexte de journalisation.
+
+        Returns:
+            L'émotion du lexique, confiance 0,8.
+        """
+        ctx = CallContext(ApiCall.Step.EMOTION, self.provider, self.model, caller.dream_id, caller.user_id)
+
+        def call() -> str:
+            simulate(ApiCall.Step.EMOTION)
+            return LexiconEmotionClassifier().classify(text, caller).emotion
+
+        emotion = resilient_call(ctx, call, estimated_units=Decimal(1))
+        return EmotionResult(emotion, Decimal("0.80"), self.provider, self.model)
