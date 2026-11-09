@@ -1,0 +1,243 @@
+Issue ID,Issue Type,Summary,Description,Priority,Story Points,Parent,Labels,Sprint
+A1,Epic,Raconter mon rêve,Activité A1 de la User Story Map,,,,dreamsynth,
+A2,Epic,Comprendre mon rêve,Activité A2 de la User Story Map,,,,dreamsynth,
+A3,Epic,Voir et entendre mon rêve,Activité A3 de la User Story Map,,,,dreamsynth,
+A4,Epic,Retrouver mes rêves,Activité A4 de la User Story Map,,,,dreamsynth,
+A5,Epic,Garder le contrôle,Activité A5 de la User Story Map,,,,dreamsynth,
+US-01,Story,US-01 — enregistrer mon rêve au micro en un seul geste,"En tant que rêveuse au réveil, je veux enregistrer mon rêve au micro en un seul geste afin de le capturer avant qu'il ne s'efface.
+
+Critères d'acceptation :
+Scénario: Enregistrement micro valide
+  Étant donné que j'ai accepté le consentement
+  Quand j'enregistre un récit de 45 secondes au micro
+  Alors l'audio est accepté pour traitement
+
+Scénario: Enregistrement trop court
+  Étant donné que j'ai accepté le consentement
+  Quand j'enregistre un récit de 1 seconde au micro
+  Alors je vois le message « Enregistrement trop court (minimum 3 s) »
+
+Exigences : EXF-01, ENF-04",Highest,3,A1,MVP kano-B US-01,Sprint 1
+US-02,Story,US-02 — importer un fichier .wav ou .mp3,"En tant que utilisateur ayant déjà un mémo vocal, je veux importer un fichier .wav ou .mp3 afin de réutiliser un enregistrement fait avec mon dictaphone.
+
+Critères d'acceptation :
+Scénario: Import d'un fichier mp3 valide
+  Étant donné que j'ai accepté le consentement
+  Quand j'importe le fichier « reve.mp3 » de 2 Mo
+  Alors l'audio est accepté pour traitement
+
+Scénario: Import d'un format refusé
+  Étant donné que j'ai accepté le consentement
+  Quand j'importe le fichier « reve.ogg » de 2 Mo
+  Alors je vois le message « Format non pris en charge : utilisez .wav ou .mp3 »
+
+Scénario: Import d'un fichier trop lourd
+  Étant donné que j'ai accepté le consentement
+  Quand j'importe le fichier « reve.wav » de 30 Mo
+  Alors je vois le message « Fichier trop volumineux (maximum 20 Mo) »
+
+Exigences : EXF-02",Highest,2,A1,MVP kano-B US-02,
+US-03,Story,US-03 — donner un consentement explicite et séparé pour l'envoi de ma voix et de mon récit aux services d'IA,"En tant que utilisateur, je veux donner un consentement explicite et séparé pour l'envoi de ma voix et de mon récit aux services d'IA afin de savoir précisément ce qui sort de l'application et pouvoir le retirer.
+
+Critères d'acceptation :
+Scénario: Traitement bloqué sans consentement
+  Étant donné que je n'ai pas accepté le consentement
+  Quand j'importe le fichier « reve.mp3 » de 2 Mo
+  Alors je vois le message « Consentement requis avant tout traitement »
+
+Exigences : EXF-03, ENF-08",Highest,3,A1,MVP kano-B US-03,Sprint 1
+US-04,Story,US-04 — lire la transcription de mon récit,"En tant que rêveuse, je veux lire la transcription de mon récit afin de vérifier que l'application a bien compris mon rêve.
+
+Critères d'acceptation :
+Scénario: Transcription affichée
+  Étant donné que j'ai accepté le consentement
+  Et que j'ai soumis un récit valide
+  Quand le traitement se termine
+  Alors je vois une transcription non vide
+
+Scénario: Service de transcription indisponible
+  Étant donné que j'ai accepté le consentement
+  Et que le service de transcription est indisponible
+  Quand je soumets un récit valide
+  Alors je vois le message « Transcription indisponible, réessayez dans un instant »
+  Et mon audio n'est pas perdu
+
+Exigences : EXF-04, ENF-01",Highest,5,A2,MVP kano-B US-04,Sprint 1
+US-05,Story,US-05 — corriger la transcription avant la génération,"En tant que rêveuse, je veux corriger la transcription avant la génération afin de que l'image corresponde à mon rêve et pas à une erreur de reconnaissance.
+
+Critères d'acceptation :
+Scénario: Correction prise en compte
+  Étant donné une transcription « un shat noir »
+  Quand je la corrige en « un chat noir »
+  Alors la génération utilise « un chat noir »
+
+Exigences : EXF-05",High,2,A2,MVP kano-P US-05,
+US-06,Story,US-06 — voir l'émotion dominante de mon rêve avec une icône et une couleur,"En tant que utilisateur qui suit son humeur, je veux voir l'émotion dominante de mon rêve avec une icône et une couleur afin de repérer d'un coup d'œil l'ambiance de mes nuits.
+
+Critères d'acceptation :
+Scénario: Émotion affichée avec icône
+  Étant donné la transcription « je tombais dans le vide et personne ne m'entendait »
+  Quand l'émotion est classée
+  Alors je vois l'émotion « stressant » avec son icône et sa couleur
+
+Exigences : EXF-06, ENF-09",Highest,5,A2,MVP kano-P US-06,
+US-14,Story,US-14 — corriger l'émotion proposée,"En tant que utilisateur, je veux corriger l'émotion proposée afin de mon historique reflète mon ressenti et non celui du modèle.
+
+Critères d'acceptation :
+Scénario: Émotion corrigée par l'utilisateur
+  Étant donné un rêve classé « neutre »
+  Quand je choisis l'émotion « heureux »
+  Alors le rêve est enregistré avec l'émotion « heureux » et la source « utilisateur »
+
+Exigences : EXF-07",High,2,A2,R2 kano-P US-14,
+US-07,Story,"US-07 — voir une image générée à partir de mon rêve, signalée comme produite par IA","En tant que rêveuse, je veux voir une image générée à partir de mon rêve, signalée comme produite par IA afin de redécouvrir mon rêve sous une forme visuelle.
+
+Critères d'acceptation :
+Scénario: Image générée et marquée
+  Étant donné que j'ai accepté le consentement
+  Et que j'ai soumis un récit valide
+  Quand le traitement se termine
+  Alors je vois une image accompagnée de la mention « Image générée par IA »
+
+Scénario: Image refusée par le filtre du fournisseur
+  Étant donné que le fournisseur d'image refuse le prompt
+  Quand je soumets un récit valide
+  Alors mon rêve est enregistré sans image
+  Et je vois le message « Image non générée : le service a refusé ce contenu »
+
+Exigences : EXF-08, EXF-09, ENF-02",Highest,5,A3,MVP kano-P US-07,
+US-08,Story,US-08 — voir l'avancement étape par étape et un message clair en cas d'échec,"En tant que utilisateur pressé le matin, je veux voir l'avancement étape par étape et un message clair en cas d'échec afin de savoir s'il faut attendre, réessayer ou abandonner.
+
+Critères d'acceptation :
+Scénario: Délai dépassé
+  Étant donné que j'ai accepté le consentement
+  Et que le service de transcription dépasse le délai
+  Quand je soumets un récit valide
+  Alors je vois le message « Le service met trop de temps à répondre »
+  Et je peux relancer le traitement
+
+Exigences : EXF-10, ENF-03",Highest,3,A3,MVP kano-B US-08,
+US-11,Story,US-11 — choisir de ne pas générer d'image pour un rêve,"En tant que personne sujette aux cauchemars, je veux choisir de ne pas générer d'image pour un rêve afin de ne pas revoir une scène qui m'a angoissée.
+
+Critères d'acceptation :
+Scénario: Rêve sans image
+  Étant donné que j'ai accepté le consentement
+  Et que j'ai coché « Ne pas générer d'image »
+  Quand je soumets un récit valide
+  Alors aucun appel au générateur d'image n'est effectué
+  Et mon rêve est enregistré avec sa transcription et son émotion
+
+Exigences : EXF-11",Highest,2,A3,MVP kano-B US-11,
+US-13,Story,US-13 — écouter une ambiance sonore accordée à l'émotion de mon rêve,"En tant que rêveuse, je veux écouter une ambiance sonore accordée à l'émotion de mon rêve afin de replonger dans l'atmosphère du rêve.
+
+Critères d'acceptation :
+Scénario: Ambiance associée à l'émotion
+  Étant donné un rêve classé « mélancolique »
+  Quand j'ouvre le rêve
+  Alors une ambiance sonore « mélancolique » est proposée en lecture
+
+Exigences : EXF-12",High,5,A3,MVP kano-E US-13,
+US-23,Story,US-23 — écouter le titre et le résumé de mon rêve lus par une voix française,"En tant que rêveuse, je veux écouter le titre et le résumé de mon rêve lus par une voix française afin de revivre mon rêve les yeux fermés.
+
+Critères d'acceptation :
+Scénario: Lecture vocale du résumé
+  Étant donné un rêve classé « serein »
+  Quand je demande la lecture vocale
+  Alors un fichier audio du résumé est associé au rêve
+
+Exigences : EXF-22",Medium,3,A3,R2 kano-E US-23,
+US-19,Story,"US-19 — choisir un style visuel (aquarelle, photo, croquis)","En tant que rêveuse créative, je veux choisir un style visuel (aquarelle, photo, croquis) afin de obtenir une image qui me ressemble.
+
+Critères d'acceptation :
+Scénario: Style appliqué
+  Étant donné que j'ai choisi le style « aquarelle »
+  Quand je soumets un récit valide
+  Alors le prompt visuel contient le style « aquarelle »
+
+Exigences : EXF-13",Medium,3,A3,R3 kano-E US-19,
+US-20,Story,US-20 — obtenir une micro-vidéo de 5 secondes de mon rêve,"En tant que rêveuse, je veux obtenir une micro-vidéo de 5 secondes de mon rêve afin de voir mon rêve en mouvement.
+
+Critères d'acceptation :
+Scénario: Micro-vidéo à la demande
+  Étant donné un rêve avec image
+  Quand je demande une micro-vidéo
+  Alors une vidéo de 5 secondes maximum est associée au rêve
+
+Exigences : EXF-14",Medium,8,A3,R3 kano-E US-20,
+US-09,Story,"US-09 — retrouver la liste de mes rêves passés, du plus récent au plus ancien","En tant que utilisateur régulier, je veux retrouver la liste de mes rêves passés, du plus récent au plus ancien afin de relire mes rêves de la semaine.
+
+Critères d'acceptation :
+Scénario: Historique trié
+  Étant donné que j'ai enregistré 3 rêves
+  Quand j'ouvre « Mes rêves »
+  Alors je vois 3 rêves du plus récent au plus ancien
+
+Exigences : EXF-15",Highest,3,A4,MVP kano-B US-09,
+US-10,Story,US-10 — filtrer mes rêves par émotion et les voir sur une frise,"En tant que utilisateur régulier, je veux filtrer mes rêves par émotion et les voir sur une frise afin de repérer des périodes de rêves stressants.
+
+Critères d'acceptation :
+Scénario: Filtre par émotion
+  Étant donné que j'ai enregistré 2 rêves « heureux » et 1 rêve « stressant »
+  Quand je filtre sur « stressant »
+  Alors je vois 1 rêve
+
+Exigences : EXF-16",High,3,A4,MVP kano-P US-10,
+US-16,Story,US-16 — voir la répartition mensuelle de mes émotions,"En tant que utilisateur qui suit son humeur, je veux voir la répartition mensuelle de mes émotions afin de observer une tendance sans interprétation médicale.
+
+Critères d'acceptation :
+Scénario: Répartition mensuelle
+  Étant donné que j'ai enregistré des rêves sur 2 mois
+  Quand j'ouvre la vue « Tendances »
+  Alors je vois une répartition des émotions par mois
+  Et je vois la mention « Indicateur personnel, sans valeur médicale »
+
+Exigences : EXF-17",Medium,5,A4,R2 kano-E US-16,
+US-18,Story,US-18 — recevoir un rappel matinal optionnel,"En tant que utilisateur qui oublie, je veux recevoir un rappel matinal optionnel afin de penser à raconter mon rêve au réveil.
+
+Critères d'acceptation :
+Scénario: Rappel désactivé par défaut
+  Étant donné un nouveau compte
+  Alors aucun rappel n'est programmé
+
+Exigences : EXF-18",Medium,2,A4,R3 kano-I US-18,
+US-12,Story,US-12 — supprimer définitivement un rêve et tous ses fichiers,"En tant que utilisateur, je veux supprimer définitivement un rêve et tous ses fichiers afin de exercer mon droit à l'effacement.
+
+Critères d'acceptation :
+Scénario: Suppression en cascade
+  Étant donné un rêve avec transcription, émotion et image
+  Quand je le supprime
+  Alors le rêve n'apparaît plus dans « Mes rêves »
+  Et aucun fichier associé ne subsiste
+
+Exigences : EXF-19, ENF-07",Highest,3,A5,MVP kano-B US-12,
+US-15,Story,US-15 — exporter tous mes rêves dans un format ouvert,"En tant que utilisateur, je veux exporter tous mes rêves dans un format ouvert afin de exercer mon droit à la portabilité.
+
+Critères d'acceptation :
+Scénario: Export JSON
+  Étant donné que j'ai enregistré 2 rêves
+  Quand je demande l'export
+  Alors je reçois un fichier JSON valide contre « dream.schema.json » contenant 2 rêves
+
+Exigences : EXF-20",Highest,3,A5,R2 kano-B US-15,
+US-17,Story,US-17 — supprimer mon compte et l'ensemble de mes données,"En tant que utilisateur, je veux supprimer mon compte et l'ensemble de mes données afin de quitter le service sans laisser de trace.
+
+Critères d'acceptation :
+Scénario: Suppression du compte
+  Étant donné un compte avec 3 rêves
+  Quand je supprime mon compte
+  Alors aucun rêve, fichier ni consentement rattaché ne subsiste hors journal d'audit anonymisé
+
+Exigences : EXF-21, ENF-07",Highest,5,A5,R2 kano-B US-17,
+T-01,Task,"Projet FastAPI + Arq + Redis en docker compose, endpoint /healthz",Estimation : 2 h,High,,,sprint-1 tech,Sprint 1
+T-02,Task,"PostgreSQL + Alembic : tables users, consents, dreams, audio_assets, transcriptions",Estimation : 2 h,High,,,sprint-1 tech,Sprint 1
+T-03,Sub-task,PUT /v1/me/consents + historique horodaté (text_version),Estimation : 1.5 h,High,,US-03,sprint-1 us-03,Sprint 1
+T-04,Sub-task,Contrôle 403 consent_required avant toute tâche,Estimation : 1 h,High,,US-03,sprint-1 us-03,Sprint 1
+T-05,Sub-task,Écran de consentement relié à l'API,Estimation : 1 h,High,,US-03,sprint-1 us-03,Sprint 1
+T-06,Sub-task,"POST /v1/dreams multipart + validation (signature, taille, durée)",Estimation : 2 h,High,,US-01,sprint-1 us-01,Sprint 1
+T-07,Sub-task,"Dépôt S3 chiffré, clé aléatoire, 202 + status_url",Estimation : 1.5 h,High,,US-01,sprint-1 us-01,Sprint 1
+T-08,Sub-task,Worker process_dream idempotent (verrou dream_id),Estimation : 2 h,High,,US-04,sprint-1 us-04,Sprint 1
+T-09,Sub-task,"Adapter Voxtral branché, retries ×2, api_calls avec coût",Estimation : 2 h,High,,US-04,sprint-1 us-04,Sprint 1
+T-10,Sub-task,Purge de l'audio après transcription + tâche 24 h,Estimation : 1 h,High,,US-04,sprint-1 us-04,Sprint 1
+T-11,Sub-task,Campagne run_latency --live + WER sur le corpus,Estimation : 1 h,High,,US-04,sprint-1 us-04,Sprint 1
+T-12,Task,Opt-out d'entraînement Mistral (capture conservée) + demande ZDR,Estimation : 0.5 h,High,,,sprint-1 rgpd,Sprint 1
+T-13,Task,Demande DPA + opt-out écrit à BFL (R-03),Estimation : 0.5 h,High,,,sprint-1 rgpd,Sprint 1

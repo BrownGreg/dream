@@ -1,0 +1,125 @@
+@startuml erd
+' Modèle relationnel cible (PostgreSQL 16). Dictionnaire d'attributs : specs §2.
+hide circle
+skinparam linetype ortho
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #4B3F72
+  HeaderBackgroundColor #D7D2E8
+}
+title Synthétiseur de rêves — modèle de données
+
+entity users {
+  * id : uuid <<PK>>
+  --
+  * email : citext <<UQ>>
+  * pseudonym : char(64) <<UQ>>
+  * created_at : timestamptz
+  last_seen_at : timestamptz
+  deletion_requested_at : timestamptz
+}
+entity consents {
+  * id : uuid <<PK>>
+  --
+  * user_id : uuid <<FK>>
+  * scope : consent_scope
+  * granted : boolean
+  * text_version : varchar(16)
+  * recorded_at : timestamptz
+}
+entity dreams {
+  * id : uuid <<PK>>
+  --
+  * user_id : uuid <<FK>>
+  * status : dream_status
+  title : varchar(80)
+  * image_disabled : boolean
+  * created_at : timestamptz
+  error_code : varchar(40)
+}
+entity audio_assets {
+  * id : uuid <<PK>>
+  --
+  * dream_id : uuid <<FK, UQ>>
+  * object_key : text
+  * mime_type : varchar(32)
+  * duration_s : numeric(6,2)
+  * size_bytes : integer
+  * received_at : timestamptz
+  purged_at : timestamptz
+}
+entity transcriptions {
+  * id : uuid <<PK>>
+  --
+  * dream_id : uuid <<FK, UQ>>
+  * text : text (chiffré)
+  * language : char(2)
+  * provider : varchar(40)
+  * model : varchar(60)
+  * edited_by_user : boolean
+  * created_at : timestamptz
+}
+entity emotion_analyses {
+  * id : uuid <<PK>>
+  --
+  * dream_id : uuid <<FK>>
+  * emotion : emotion
+  confidence : numeric(3,2)
+  * source : emotion_source
+  * is_current : boolean
+  * created_at : timestamptz
+}
+entity generations {
+  * id : uuid <<PK>>
+  --
+  * dream_id : uuid <<FK>>
+  * kind : asset_kind
+  * attempt : smallint
+  visual_prompt : text (chiffré)
+  * status : generation_status
+  rejection_reason : varchar(40)
+  * created_at : timestamptz
+}
+entity generation_assets {
+  * id : uuid <<PK>>
+  --
+  * generation_id : uuid <<FK>>
+  * object_key : text
+  * mime_type : varchar(32)
+  * ai_generated : boolean = true
+  c2pa_manifest : jsonb
+  * created_at : timestamptz
+}
+entity api_calls {
+  * id : bigint <<PK>>
+  --
+  dream_id : uuid <<FK>>
+  * user_pseudonym : char(64)
+  * provider : varchar(40)
+  * model : varchar(60)
+  * step : varchar(16)
+  * http_status : smallint
+  * latency_ms : integer
+  * retries : smallint
+  billed_units : numeric(12,4)
+  * cost_usd : numeric(10,6)
+  * called_at : timestamptz
+}
+entity audit_log {
+  * id : bigint <<PK>>
+  --
+  * user_pseudonym : char(64)
+  * action : varchar(40)
+  target_id : uuid
+  * at : timestamptz
+}
+
+users ||--o{ consents
+users ||--o{ dreams
+dreams ||--o| audio_assets
+dreams ||--o| transcriptions
+dreams ||--o{ emotion_analyses
+dreams ||--o{ generations
+generations ||--o{ generation_assets
+dreams |o--o{ api_calls
+@enduml

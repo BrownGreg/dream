@@ -1,0 +1,338 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dreamsynth.example/schemas/dream/1.0.0",
+  "$defs": {
+    "AssetKind": {
+      "description": "Type de contenu généré rattaché à un rêve.",
+      "enum": [
+        "image",
+        "ambiance",
+        "speech",
+        "video"
+      ],
+      "title": "AssetKind",
+      "type": "string"
+    },
+    "AudioMeta": {
+      "additionalProperties": false,
+      "description": "Métadonnées de l'audio reçu ; le contenu audio n'est jamais conservé (section 5.6).",
+      "properties": {
+        "filename": {
+          "maxLength": 255,
+          "title": "Filename",
+          "type": "string"
+        },
+        "mime_type": {
+          "enum": [
+            "audio/wav",
+            "audio/x-wav",
+            "audio/mpeg",
+            "audio/mp3"
+          ],
+          "title": "Mime Type",
+          "type": "string"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "maximum": 300,
+          "title": "Duration S",
+          "type": "number"
+        },
+        "size_bytes": {
+          "exclusiveMinimum": 0,
+          "maximum": 20971520,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "filename",
+        "mime_type",
+        "duration_s",
+        "size_bytes"
+      ],
+      "title": "AudioMeta",
+      "type": "object"
+    },
+    "Dream": {
+      "additionalProperties": false,
+      "description": "Un rêve stocké, tel qu'exporté pour la portabilité (US-15).",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/DreamStatus",
+          "default": "received"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "maxLength": 80,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "audio": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AudioMeta"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "transcription": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Transcription"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "emotion": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EmotionAnalysis"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "visual_prompt": {
+          "anyOf": [
+            {
+              "maxLength": 1200,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visual Prompt"
+        },
+        "image_disabled": {
+          "default": false,
+          "description": "« Ne pas générer d'image » (US-11)",
+          "title": "Image Disabled",
+          "type": "boolean"
+        },
+        "assets": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/GeneratedAsset"
+          },
+          "title": "Assets",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "title": "Dream",
+      "type": "object"
+    },
+    "DreamStatus": {
+      "description": "Étapes du traitement d'un rêve (diagramme de séquence).",
+      "enum": [
+        "received",
+        "transcribed",
+        "analyzed",
+        "done",
+        "failed"
+      ],
+      "title": "DreamStatus",
+      "type": "string"
+    },
+    "Emotion": {
+      "description": "Émotion dominante d'un rêve, inférée du texte transcrit (jamais de la voix, ADR-001).",
+      "enum": [
+        "heureux",
+        "serein",
+        "neutre",
+        "étrange",
+        "mélancolique",
+        "stressant"
+      ],
+      "title": "Emotion",
+      "type": "string"
+    },
+    "EmotionAnalysis": {
+      "additionalProperties": false,
+      "description": "Émotion dominante, inférée du texte (ADR-001) ou corrigée par l'utilisateur.",
+      "properties": {
+        "emotion": {
+          "$ref": "#/$defs/Emotion"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Confidence"
+        },
+        "source": {
+          "$ref": "#/$defs/EmotionSource",
+          "default": "model"
+        }
+      },
+      "required": [
+        "emotion"
+      ],
+      "title": "EmotionAnalysis",
+      "type": "object"
+    },
+    "EmotionSource": {
+      "description": "Origine de l'émotion retenue (US-14).",
+      "enum": [
+        "model",
+        "user"
+      ],
+      "title": "EmotionSource",
+      "type": "string"
+    },
+    "GeneratedAsset": {
+      "additionalProperties": false,
+      "description": "Contenu produit par IA ; porte toujours le marquage art. 50 AI Act.",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/AssetKind"
+        },
+        "uri": {
+          "description": "URI dans notre stockage objet (jamais une URL fournisseur)",
+          "title": "Uri",
+          "type": "string"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "ai_generated": {
+          "const": true,
+          "default": true,
+          "title": "Ai Generated",
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "uri",
+        "provider",
+        "model"
+      ],
+      "title": "GeneratedAsset",
+      "type": "object"
+    },
+    "Transcription": {
+      "additionalProperties": false,
+      "description": "Texte transcrit du récit.",
+      "properties": {
+        "text": {
+          "maxLength": 20000,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "language": {
+          "default": "fr",
+          "pattern": "^[a-z]{2}$",
+          "title": "Language",
+          "type": "string"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "edited_by_user": {
+          "default": false,
+          "title": "Edited By User",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "text",
+        "provider",
+        "model"
+      ],
+      "title": "Transcription",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Export complet des rêves d'un utilisateur (portabilité, art. 20 RGPD).",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "exported_at": {
+      "format": "date-time",
+      "title": "Exported At",
+      "type": "string"
+    },
+    "dreams": {
+      "items": {
+        "$ref": "#/$defs/Dream"
+      },
+      "title": "Dreams",
+      "type": "array"
+    }
+  },
+  "required": [
+    "dreams"
+  ],
+  "title": "DreamExport",
+  "type": "object"
+}

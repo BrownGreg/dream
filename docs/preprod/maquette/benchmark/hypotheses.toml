@@ -1,0 +1,161 @@
+# Hypothèses du modèle de coût — chacune marquée ESTIMÉ avec sa méthode.
+# Les mesures réelles (mode --live) remplacent H1–H3 dès qu'elles existent :
+# cost_model.py lit les tokens et secondes d'audio facturés renvoyés par l'API.
+
+[[h]]
+id = "H0"
+name = "Rêves par jour"
+value = 10
+unit = "rêves/jour"
+status = "SUJET"
+method = "Imposé par le sujet (§6 « analyse coût sur 10 rêves/jour »)."
+
+[[h]]
+id = "H1"
+name = "Durée moyenne d'un récit"
+value = 1.0
+unit = "min"
+status = "ESTIMÉ"
+method = "Centre de la plage 30–90 s du corpus de référence ; remplacée par usage.prompt_audio_seconds mesuré."
+
+[[h]]
+id = "H2"
+name = "Tokens d'entrée LLM par rêve"
+value = 700
+unit = "tokens"
+status = "ESTIMÉ"
+method = "Consigne + schéma JSON ≈ 500 tokens ; transcription 1 min ≈ 130 mots × 1,5 token/mot ≈ 200 tokens ; remplacé par usage.prompt_tokens mesuré."
+
+[[h]]
+id = "H3"
+name = "Tokens de sortie LLM par rêve"
+value = 250
+unit = "tokens"
+status = "ESTIMÉ"
+method = "Prompt visuel ≈ 120 mots + JSON émotion ≈ 40 tokens ; remplacé par usage.completion_tokens mesuré."
+
+[[h]]
+id = "H4"
+name = "Images par rêve"
+value = 1
+unit = "image 1024×1024"
+status = "ESTIMÉ"
+method = "Une image ≈ 1 MP par rêve (choix produit : pas de variantes au MVP)."
+
+[[h]]
+id = "H5"
+name = "Durée d'ambiance générée"
+value = 20
+unit = "s"
+status = "ESTIMÉ"
+method = "Boucle de 20 s jouée en répétition ; ne s'applique qu'aux scénarios à ambiance générée."
+
+[[h]]
+id = "H6"
+name = "Caractères TTS par rêve"
+value = 400
+unit = "caractères"
+status = "ESTIMÉ"
+method = "Lecture du titre + résumé poétique (≈ 60 mots) produit par le LLM ; R2 uniquement."
+
+[[h]]
+id = "H7"
+name = "Durée de micro-vidéo"
+value = 5
+unit = "s"
+status = "ESTIMÉ"
+method = "Durée retenue dans US-20 (R3)."
+
+[[h]]
+id = "H8"
+name = "Taux de régénération"
+value = 0.05
+unit = "ratio"
+status = "ESTIMÉ"
+method = "Part des rêves dont l'image est relancée (rejet filtre, retry) ; à remplacer par le taux mesuré en bêta (KPI K5)."
+
+[[h]]
+id = "H10"
+name = "Utilisateurs de la bêta"
+value = 30
+unit = "personnes"
+status = "DÉCISION"
+method = "Taille de la bêta privée fixée par CS-01."
+
+[[h]]
+id = "H11"
+name = "Rêves par utilisateur et par jour (bêta)"
+value = 0.5
+unit = "rêve/jour"
+status = "ESTIMÉ"
+method = "Hypothèse de pilotage : un récit un jour sur deux ; remplacée par la mesure de la bêta (événements dream.created)."
+
+[[h]]
+id = "H9"
+name = "Jours par mois"
+value = 30
+unit = "jours"
+status = "CONVENTION"
+method = "Convention de calcul."
+
+# ---------------------------------------------------------------- scénarios
+# Clé de fournisseur par catégorie ; "" = étape absente.
+[[scenario]]
+id = "S1"
+name = "MVP retenu"
+STT = "mistral_voxtral_mini_3"
+LLM = "mistral_small_4"
+T2I = "bfl_flux2_klein"
+TTS = ""
+AMBIANCE = "ambiance_library"
+VIDEO = ""
+
+[[scenario]]
+id = "S2"
+name = "R2 (+ lecture vocale)"
+STT = "mistral_voxtral_mini_3"
+LLM = "mistral_small_4"
+T2I = "bfl_flux2_klein"
+TTS = "mistral_voxtral_tts_3"
+AMBIANCE = "ambiance_library"
+VIDEO = ""
+
+[[scenario]]
+id = "S3"
+name = "Montée en qualité FLUX.2 [pro]"
+STT = "mistral_voxtral_mini_3"
+LLM = "mistral_small_4"
+T2I = "bfl_flux2_pro"
+TTS = ""
+AMBIANCE = "ambiance_library"
+VIDEO = ""
+
+[[scenario]]
+id = "S4"
+name = "Ambiance générée (ElevenLabs)"
+STT = "mistral_voxtral_mini_3"
+LLM = "mistral_small_4"
+T2I = "bfl_flux2_klein"
+TTS = "mistral_voxtral_tts_3"
+AMBIANCE = "elevenlabs_sfx"
+VIDEO = ""
+
+[[scenario]]
+id = "S5"
+name = "Fournisseurs US"
+STT = "openai_gpt_transcribe"
+LLM = "openai_gpt4o_mini"
+T2I = "google_nano_banana_21"
+TTS = "elevenlabs_flash"
+AMBIANCE = "elevenlabs_sfx"
+VIDEO = ""
+
+[[scenario]]
+id = "S6"
+name = "R3 micro-vidéo"
+STT = "mistral_voxtral_mini_3"
+LLM = "mistral_small_4"
+T2I = "bfl_flux2_klein"
+TTS = "mistral_voxtral_tts_3"
+AMBIANCE = "ambiance_library"
+VIDEO = "runway_gen4_turbo"

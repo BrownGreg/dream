@@ -1,0 +1,135 @@
+# Registre des risques — source unique (matrice et tableau générés par tools/risks.py).
+# probabilite / impact : 1 faible · 2 moyen · 3 élevé · 4 très élevé ; criticité = P × I.
+# Rôles (travail individuel, une personne) : PO, Dev, DPO.
+
+[[risk]]
+id = "R-01"
+category = "Technique"
+title = "Latence fournisseurs au-delà des SLO"
+probability = 3
+impact = 3
+trigger = "p95 bout-en-bout > 30 s sur la campagne live ou 1 h de production"
+prevention = "Budgets par étape (ADR-006), traitement asynchrone, mesure live dès le Sprint 1"
+correction = "Bascule FLUX.2 [klein] ↔ repli, affichage progressif (transcription avant image)"
+owner = "Dev"
+stories = ["US-08"]
+
+[[risk]]
+id = "R-02"
+category = "Technique"
+title = "Transcription médiocre des voix ensommeillées"
+probability = 3
+impact = 3
+trigger = "WER corpus > 10 % ou > 20 % de transcriptions corrigées en bêta"
+prevention = "Corpus incluant voix basse, WER mesuré (K3), correction manuelle (US-05)"
+correction = "Voxtral Small (ADR-002), invite contextuelle, faster-whisper large-v3"
+owner = "Dev"
+stories = ["US-04", "US-05"]
+
+[[risk]]
+id = "R-03"
+category = "Juridique"
+title = "DPA ou opt-out d'entraînement BFL non obtenus"
+probability = 3
+impact = 4
+trigger = "Pas de réponse écrite de BFL à la fin du Sprint 2"
+prevention = "Demande dès le Sprint 1, condition bloquante de la DoD MVP (ADR-004)"
+correction = "Repli Nano Banana 2.1 payant + volet transfert de l'AIPD"
+owner = "DPO"
+stories = ["US-07"]
+
+[[risk]]
+id = "R-04"
+category = "Juridique"
+title = "Requalification AI Act (reconnaissance d'émotions biométrique)"
+probability = 1
+impact = 4
+trigger = "Toute proposition d'analyser la prosodie ou le timbre de la voix"
+prevention = "ADR-001 : émotion du texte seul ; test ENF-09 ; revue d'ADR obligatoire"
+correction = "Retrait de la fonctionnalité, analyse juridique avant toute réintroduction"
+owner = "DPO"
+stories = ["US-06"]
+
+[[risk]]
+id = "R-05"
+category = "Éthique"
+title = "Image choquante pour un utilisateur vulnérable"
+probability = 3
+impact = 3
+trigger = "Signalement utilisateur ou taux de rejet du filtre > 5 % (K5)"
+prevention = "Bouton « pas d'image » (US-11), consigne non graphique (ADR-003), revue de 50 images"
+correction = "Masquage immédiat, ajustement de la consigne, image désactivée par défaut pour l'émotion « stressant »"
+owner = "PO"
+stories = ["US-11", "US-07"]
+
+[[risk]]
+id = "R-06"
+category = "Fournisseur"
+title = "Dépendance à un fournisseur principal (Mistral)"
+probability = 2
+impact = 4
+trigger = "Panne > 1 h, hausse de prix > 50 % ou changement de conditions"
+prevention = "Ports/adapters, replis documentés (faster-whisper, Azure TTS, mDeBERTa)"
+correction = "Activation du repli par variable d'environnement, sans modification du métier"
+owner = "Dev"
+stories = ["US-04", "US-06"]
+
+[[risk]]
+id = "R-07"
+category = "Budget"
+title = "Dépassement du budget API"
+probability = 2
+impact = 3
+trigger = "Alerte 80 % (12 $) avant le 20 du mois"
+prevention = "Quota 5 rêves/jour, 2 images max par rêve, coût calculé à chaque appel"
+correction = "Coupe-circuit image (ADR-007), passage en [klein] si [pro] actif"
+owner = "PO"
+stories = ["US-07"]
+
+[[risk]]
+id = "R-08"
+category = "Fournisseur"
+title = "Modèle déprécié ou arrêté en cours de projet"
+probability = 3
+impact = 2
+trigger = "Annonce de dépréciation d'un modèle utilisé"
+prevention = "Veille mensuelle du catalogue (dates de consultation), identifiants en configuration"
+correction = "Mise à jour de l'adapter et du catalogue, nouvelle campagne de benchmark"
+owner = "Dev"
+stories = []
+
+[[risk]]
+id = "R-09"
+category = "Planning"
+title = "Retard dû au travail individuel (indisponibilité, sous-estimation)"
+probability = 3
+impact = 3
+trigger = "Vélocité < 10 points sur un sprint ou burndown à plat 3 jours"
+prevention = "Capacité prudente (marge ≥ 10 % non planifiée), MVP découpé en tranches livrables"
+correction = "Report des Should/Could, recentrage sur le parcours MVP de bout en bout"
+owner = "PO"
+stories = []
+
+[[risk]]
+id = "R-10"
+category = "Sécurité"
+title = "Fuite du contenu des rêves"
+probability = 2
+impact = 4
+trigger = "Alerte de sécurité, accès anormal, secret exposé"
+prevention = "ASVS niveau 1, chiffrement applicatif des textes, journaux sans contenu (ENF-10), gitleaks"
+correction = "Rotation des secrets, notification CNIL sous 72 h si violation (art. 33 RGPD), information des personnes"
+owner = "DPO"
+stories = ["US-12", "US-17"]
+
+[[risk]]
+id = "R-11"
+category = "Éthique"
+title = "Lecture médicale de l'humeur par un utilisateur en détresse"
+probability = 2
+impact = 4
+trigger = "Retour utilisateur interprétant la tendance comme un diagnostic"
+prevention = "US-22 Won't, mention « sans valeur médicale », renvoi vers un professionnel"
+correction = "Reformulation des écrans, ajout des numéros d'aide dans l'aide en ligne"
+owner = "PO"
+stories = ["US-16"]

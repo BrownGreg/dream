@@ -1,0 +1,29 @@
+@startuml flow
+' Flow diagram : parcours écran du MVP et sorties d'erreur (chaque erreur propose une action).
+left to right direction
+skinparam defaultFontSize 11
+skinparam rectangle {
+  BackgroundColor #FFF8DC
+  BorderColor #4B3F72
+  RoundCorner 12
+}
+skinparam ArrowColor #4B3F72
+rectangle "Accueil\nconsentements" as A
+rectangle "Raconter un rêve\nmicro ou import" as R
+rectangle "Progression\npar étape" as P
+rectangle "Résultat\ntexte · émotion · image IA · ambiance" as D
+rectangle "Mes rêves\nfiltre · frise · export · suppression" as H
+rectangle "Bandeau\n« Consentement requis »" as E1 #FDEDEC
+rectangle "« Format non pris en charge »\n→ Réenregistrer" as E2 #FDEDEC
+rectangle "« Transcription indisponible »\n→ Relancer (audio conservé)" as E3 #FDEDEC
+A --> R : consentement OK
+R --> P : audio valide
+P --> D : traitement terminé
+D --> H : enregistré
+D --> D : corriger texte / émotion
+A ..> E1 : refus
+R ..> E2 : invalide
+P ..> E3 : panne / délai
+E2 ..> R
+E3 ..> P
+@enduml

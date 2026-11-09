@@ -1,0 +1,22 @@
+# 5 prompts visuels de référence (anglais, format attendu en sortie du LLM — ADR-003).
+# Utilisés pour le benchmark T2I : même prompt pour tous les fournisseurs.
+[[prompt]]
+id = "P1"
+emotion = "heureux"
+text = "A seaside grandmother's house at golden hour, a family baking a giant strawberry cake that regrows, children flying fish-shaped kites on the beach, warm orange sun hovering above calm water, dreamy watercolor"
+[[prompt]]
+id = "P2"
+emotion = "stressant"
+text = "An endless hospital corridor with flickering neon lights, room numbers shifting on the doors, a detached door handle in a hand, floor turning into wet sand, muted cold palette, soft focus, non-graphic"
+[[prompt]]
+id = "P3"
+emotion = "neutre"
+text = "A quiet supermarket checkout, a shopping list with milk, pasta and batteries, a friendly cashier, a car trunk filled with groceries, ordinary daylight, simple illustration"
+[[prompt]]
+id = "P4"
+emotion = "absurde"
+text = "A giraffe used as a piano in a concert hall, three penguins in suits taking notes on crepes as a jury, an upside-down diploma reflected in a spoon, whimsical surrealist painting"
+[[prompt]]
+id = "P5"
+emotion = "mélancolique"
+text = "An empty childhood apartment in late afternoon light on wooden floors, a warm cup of coffee on a kitchen table, a schoolyard covered in dead leaves seen through the window, nostalgic muted tones"

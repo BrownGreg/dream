@@ -1,0 +1,39 @@
+@startuml c4_container
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Synthétiseur de rêves — C4 niveau 2 : conteneurs (architecture cible de production)
+
+Person(user, "Rêveur", "Navigateur mobile ou bureau")
+
+System_Boundary(ds, "Synthétiseur de rêves — hébergement UE") {
+  Container(cdn, "CDN", "Cache HTTP UE", "Sert les images et ambiances via URL signées à durée courte")
+  Container(web, "Front web", "Streamlit (MVP, bêta) → Next.js (après R3)", "Enregistrement micro, import, historique, consentements")
+  Container(api, "API", "Python 3.12, FastAPI", "Authentification, validation audio, quotas, endpoints REST /v1")
+  ContainerQueue(queue, "File de tâches", "Redis 7 + Arq", "Jobs de traitement idempotents (clé = dream_id)")
+  Container(worker, "Worker de génération", "Python 3.12, Arq, httpx", "Orchestre STT → LLM → image ∥ ambiance ; retries, coupe-circuit budget")
+  Container(sched, "Tâches planifiées", "Arq cron", "Purge audio (1 h), inactivité (24 h), agrégats de coûts")
+  ContainerDb(db, "Base relationnelle", "PostgreSQL 16, chiffrée au repos", "Utilisateurs, consentements, rêves, analyses, coûts, audit")
+  ContainerDb(s3, "Stockage objet", "S3-compatible UE, chiffré (SSE)", "Audio transitoire, images, ambiances")
+}
+
+System_Ext(mistral, "Mistral AI (UE)", "STT, LLM, TTS")
+System_Ext(bfl, "Black Forest Labs (UE)", "FLUX.2")
+System_Ext(obs, "Observabilité", "Sentry, Langfuse, OpenTelemetry")
+
+Rel(user, web, "Utilise", "HTTPS")
+Rel(user, cdn, "Télécharge images et sons", "HTTPS, URL signée 15 min")
+Rel(web, api, "Appels REST (JSON ; audio en multipart)", "HTTPS, jeton de session")
+Rel(api, s3, "Dépose l'audio reçu", "S3 API, TLS")
+Rel(api, db, "Lit / écrit rêves, consentements, quotas", "SQL/TLS")
+Rel(api, queue, "Enfile process_dream(dream_id)", "RESP/TLS")
+Rel(worker, queue, "Consomme les jobs", "RESP/TLS")
+Rel(worker, s3, "Lit l'audio, écrit image et ambiance, supprime l'audio", "S3 API, TLS")
+Rel(worker, db, "Écrit transcription, émotion, assets, api_calls", "SQL/TLS")
+Rel(worker, mistral, "Audio → texte ; texte → prompt + émotion (JSON)", "HTTPS")
+Rel(worker, bfl, "Prompt visuel → image (récupérée sous 10 min)", "HTTPS")
+Rel(sched, db, "Purge et agrégats", "SQL/TLS")
+Rel(sched, s3, "Supprime audio > 24 h", "S3 API")
+Rel(cdn, s3, "Origine", "HTTPS")
+Rel(api, obs, "Traces, erreurs (sans contenu)", "OTLP/HTTPS")
+Rel(worker, obs, "Traces, latence et coût par appel IA", "OTLP/HTTPS")
+@enduml

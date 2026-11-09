@@ -1,0 +1,7 @@
+scenario,STT_usd,LLM_usd,T2I_usd,TTS_usd,AMBIANCE_usd,VIDEO_usd,per_dream_usd,per_day_usd,per_month_usd,per_year_usd,contains_estimate
+S1 MVP retenu,0.0035,0.000255,0.0147,0.0,0.0,0.0,0.01846,0.1846,5.54,67.36,True
+S2 R2 (+ lecture vocale),0.0035,0.000255,0.0147,0.0052,0.0,0.0,0.02366,0.2366,7.1,86.34,True
+S3 Montée en qualité FLUX.2 [pro],0.0035,0.000255,0.0315,0.0,0.0,0.0,0.03526,0.3526,10.58,128.68,True
+S4 Ambiance générée (ElevenLabs),0.0035,0.000255,0.0147,0.0052,0.04,0.0,0.06366,0.6366,19.1,232.34,True
+S5 Fournisseurs US,0.0045,0.000255,0.03528,0.016,0.04,0.0,0.09603,0.9603,28.81,350.53,False
+S6 R3 micro-vidéo,0.0035,0.000255,0.0147,0.0052,0.0,0.25,0.27365,2.7365,82.1,998.84,True

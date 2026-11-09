@@ -1,0 +1,52 @@
+@startsalt wireframes
+' Wireframes basse fidélité (mobile, 360 px) — les trois écrans du MVP.
+{
+  {+
+    <b>Accueil · consentement
+    ..
+    "Racontez votre rêve à voix haute"
+    ..
+    [X] Transcription (Mistral, UE)
+    [X] Image (BFL, UE, sans transcription)
+    [ ] Suivi des émotions
+    ..
+    [ Enregistrer mes choix ]
+    ..
+    (cadenas) Consentements actifs
+    [Raconter un rêve] | [Mes rêves]
+  } | . | {+
+    <b>Raconter un rêve
+    ..
+    [  ● Enregistrer au micro  ]
+    ou [ Importer .wav / .mp3 ]
+    [ ] Ne pas générer d'image
+    Style : [ aucun ▾ ]
+    ..
+    [ Créer mon rêve ]
+    ..
+    ▓▓▓▓▓░░ Analyse du rêve
+    ..
+    <b>« Le train sous la mer »
+    "Transcription modifiable…"
+    (icône) étrange  [ Corriger ▾ ]
+    { [ image ] }
+    <i>Image générée par IA
+    ▶ ambiance
+  } | . | {+
+    <b>Mes rêves
+    ..
+    Filtre : [ toutes émotions ▾ ]
+    ..
+    frise : ● ●  ●   ● ●
+    ..
+    {# Date | Titre | Émotion
+     06/11 | Le train… | étrange
+     05/11 | Couloir… | stressant
+     04/11 | Gâteau… | heureux }
+    ..
+    ▸ Tendances par mois
+    [ Exporter JSON ]
+    [ Supprimer ]
+  }
+}
+@endsalt

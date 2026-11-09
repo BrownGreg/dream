@@ -1,0 +1,84 @@
+[project]
+name = "dreamsynth"
+version = "0.1.0"
+description = "Synthétiseur de rêves — pré-production : cœur métier, maquette Streamlit, benchmark."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "Gregory Hery" }]
+dependencies = [
+    "pydantic>=2.9",
+    "streamlit>=1.40",
+    "httpx>=0.27",
+    "tenacity>=9.0",
+    "python-dotenv>=1.0",
+    "mutagen>=1.47",
+]
+
+[project.optional-dependencies]
+bench = [
+    "openpyxl>=3.1",
+    "jiwer>=3.0",
+]
+dev = [
+    "ruff>=0.7",
+    "mypy>=1.13",
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    "pytest-bdd>=8.0",
+    "pytest-asyncio>=0.24",
+    "respx>=0.21",
+    "hypothesis>=6.115",
+    "locust>=2.32",
+    "pre-commit>=4.0",
+    "matplotlib>=3.9",
+    "jsonschema>=4.23",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dreamsynth"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "D", "ANN", "S", "SIM", "C90", "RUF"]
+ignore = ["D100", "D104", "RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "D", "ANN"]
+"benchmark/**" = ["S311", "D103"]
+"benchmark/build_*.py" = ["E501"]  # formules Excel et libellés longs
+"tools/**" = ["D103"]
+"app/**" = ["D103", "N999"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+pythonpath = ["."]
+asyncio_default_fixture_loop_scope = "function"
+bdd_features_base_dir = "tests/features"
+markers = ["live: appels réels aux API (clés requises)"]
+
+[tool.coverage.run]
+source = ["src/dreamsynth"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true

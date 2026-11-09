@@ -1,0 +1,74 @@
+@startuml sequence_reve
+title Traitement complet d'un rêve (architecture cible)
+autonumber
+skinparam responseMessageBelowArrow true
+skinparam sequenceMessageAlign left
+hide footbox
+
+actor "Rêveur" as U
+participant "Front web" as W
+participant "API\n(FastAPI)" as A
+database "PostgreSQL" as DB
+database "Stockage\nobjet" as S3
+queue "File\n(Redis/Arq)" as Q
+participant "Worker" as K
+participant "Mistral\nSTT" as STT
+participant "Mistral\nLLM" as LLM
+participant "BFL\nFLUX.2" as T2I
+
+U -> W : enregistre / importe un récit
+W -> A : POST /v1/dreams (multipart audio, image_disabled)
+A -> A : contrôles : session, consentement « transcription »,\nquota 5/jour, type .wav/.mp3, ≤ 20 Mo, 3–300 s
+alt fichier invalide ou consentement absent
+  A --> W : 422 audio_invalid / 403 consent_required
+  W --> U : message clair + action (réenregistrer, consentir)
+else quota dépassé
+  A --> W : 429 quota_exceeded (reset_at)
+end
+A -> S3 : PUT audio (chiffré)
+A -> DB : INSERT dreams(status=received), audio_assets
+A -> Q : enqueue process_dream(dream_id)  [clé d'idempotence = dream_id]
+A --> W : 202 Accepted {dream_id, status_url}
+W -> A : GET /v1/dreams/{id} (sondage 2 s, puis SSE en R2)
+
+Q -> K : process_dream(dream_id)
+K -> DB : verrou « dream_id » (job déjà fait ? → fin)
+K -> S3 : GET audio
+K -> STT : POST /v1/audio/transcriptions (language=fr)
+alt timeout (30 s) ou 5xx/429
+  K -> STT : retry ×2, backoff exponentiel (0,5 s puis 1 s)
+  opt échec définitif
+    K -> DB : status=failed, error_code=stt_unavailable (audio conservé ≤ 24 h)
+    W --> U : « Transcription indisponible, réessayez » + bouton Relancer
+  end
+end
+STT --> K : {text, usage.prompt_audio_seconds}
+K -> DB : INSERT transcriptions ; api_calls(cost)
+K -> S3 : DELETE audio ; audio_assets.purged_at = now()
+K -> LLM : POST /v1/chat/completions\n(response_format = schéma DreamAnalysis)
+LLM --> K : {title, visual_prompt, emotion, confidence}
+K -> K : validation Pydantic (1 nouvel essai si non conforme)
+K -> DB : INSERT emotion_analyses(source=model) ; status=analyzed
+
+alt image_disabled ou consentement image absent ou budget épuisé (ADR-007)
+  K -> DB : generations(status=skipped)
+else génération
+  par image ∥ ambiance
+    K -> T2I : POST génération (prompt visuel)
+    alt rejet du filtre de sécurité
+      T2I --> K : refus modération
+      K -> DB : generations(status=rejected, reason=safety)
+    else succès
+      T2I --> K : URL résultat (expire 10 min)
+      K -> S3 : copie immédiate de l'image + métadonnées « IA »
+      K -> DB : generation_assets(ai_generated=true) ; api_calls(cost)
+    end
+  else
+    K -> K : choix de la boucle d'ambiance\nselon l'émotion (bibliothèque, ADR-005)
+  end
+end
+K -> DB : status=done
+W -> A : GET /v1/dreams/{id}
+A --> W : 200 {transcription, émotion, URL signées 15 min}
+W --> U : image + « Image générée par IA », icône d'émotion, ambiance
+@enduml

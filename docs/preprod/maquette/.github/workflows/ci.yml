@@ -1,0 +1,32 @@
+# Intégration continue — specs §6. Toute PR doit être verte avant relecture (plan qualité §8).
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Dépendances
+        run: uv pip install --system -e ".[dev,bench]"
+      - name: Lint et format
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Typage strict
+        run: mypy --strict src
+      - name: Cohérence backlog / schéma
+        run: |
+          python tools/backlog.py --check
+          python tools/export_schema.py --check
+      - name: Tests (unitaires, intégration, BDD, UI) + couverture
+        run: pytest --cov=src --cov-report=term-missing --cov-fail-under=80
+      - name: Audit des dépendances
+        run: uvx pip-audit
+  # build + déploiement : ajoutés en phase Production (Dockerfile API/worker, environnement protégé)

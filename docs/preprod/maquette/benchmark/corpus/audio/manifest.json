@@ -1,0 +1,31 @@
+{
+  "engine": "espeak",
+  "generated_at": "2026-11-02T16:51:09+00:00",
+  "items": [
+    {
+      "id": "01_heureux",
+      "file": "01_heureux.mp3",
+      "duration_s": 34.31
+    },
+    {
+      "id": "02_cauchemar",
+      "file": "02_cauchemar.mp3",
+      "duration_s": 34.45
+    },
+    {
+      "id": "03_neutre",
+      "file": "03_neutre.mp3",
+      "duration_s": 29.81
+    },
+    {
+      "id": "04_absurde",
+      "file": "04_absurde.mp3",
+      "duration_s": 32.4
+    },
+    {
+      "id": "05_melancolique",
+      "file": "05_melancolique.mp3",
+      "duration_s": 32.94
+    }
+  ]
+}

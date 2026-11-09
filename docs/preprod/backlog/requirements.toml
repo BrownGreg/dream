@@ -1,0 +1,143 @@
+# Exigences fonctionnelles (EXF) et non fonctionnelles (ENF) — source unique.
+# `components` = conteneurs du diagramme C4 (docs/diagrams/c4_container.puml).
+# La matrice docs/annexes/tracabilite.csv est générée par tools/backlog.py :
+# exigence → stories (stories.toml) → tests (recherche de l'ID dans tests/) → composants.
+
+[[req]]
+id = "EXF-01"
+text = "Enregistrer un récit au micro depuis le navigateur (WAV)."
+components = ["Front web"]
+[[req]]
+id = "EXF-02"
+text = "Importer un fichier .wav ou .mp3 ; refuser tout autre format, > 20 Mo ou hors 3–300 s."
+components = ["Front web", "API"]
+[[req]]
+id = "EXF-03"
+text = "Bloquer tout envoi à un fournisseur sans consentement explicite pour la finalité concernée ; consentements révocables et horodatés."
+components = ["API", "Base relationnelle"]
+[[req]]
+id = "EXF-04"
+text = "Transcrire le récit en français et afficher la transcription."
+components = ["Worker de génération", "Mistral AI (UE)"]
+[[req]]
+id = "EXF-05"
+text = "Permettre la correction de la transcription avant génération."
+components = ["Front web", "API"]
+[[req]]
+id = "EXF-06"
+text = "Classer l'émotion dominante à partir du texte parmi 6 classes (heureux, serein, neutre, étrange, mélancolique, stressant), avec icône et couleur."
+components = ["Worker de génération", "Mistral AI (UE)", "Front web"]
+[[req]]
+id = "EXF-07"
+text = "Permettre la correction de l'émotion ; conserver la source (modèle / utilisateur)."
+components = ["Front web", "API", "Base relationnelle"]
+[[req]]
+id = "EXF-08"
+text = "Générer une image à partir du seul prompt visuel reformulé (jamais de la transcription brute)."
+components = ["Worker de génération", "Black Forest Labs (UE)"]
+[[req]]
+id = "EXF-09"
+text = "Marquer chaque contenu généré : mention visible « générée par IA » et métadonnées lisibles par machine."
+components = ["Worker de génération", "Front web"]
+[[req]]
+id = "EXF-10"
+text = "Afficher la progression par étape et, en cas d'échec, un message clair avec une action possible."
+components = ["Front web", "API"]
+[[req]]
+id = "EXF-11"
+text = "Option « Ne pas générer d'image » par rêve : aucun appel au générateur d'image."
+components = ["Front web", "Worker de génération"]
+[[req]]
+id = "EXF-12"
+text = "Associer une ambiance sonore à l'émotion du rêve."
+components = ["Worker de génération", "Stockage objet"]
+[[req]]
+id = "EXF-22"
+text = "Lire à voix haute le titre et le résumé du rêve (voix française de synthèse)."
+components = ["Worker de génération", "Mistral AI (UE)"]
+[[req]]
+id = "EXF-13"
+text = "Appliquer un style visuel choisi au prompt."
+components = ["Worker de génération"]
+[[req]]
+id = "EXF-14"
+text = "Produire une micro-vidéo de 5 s maximum à la demande."
+components = ["Worker de génération"]
+[[req]]
+id = "EXF-15"
+text = "Lister les rêves de l'utilisateur du plus récent au plus ancien."
+components = ["Front web", "API"]
+[[req]]
+id = "EXF-16"
+text = "Filtrer l'historique par émotion et l'afficher sur une frise temporelle."
+components = ["Front web", "API"]
+[[req]]
+id = "EXF-17"
+text = "Afficher la répartition mensuelle des émotions avec la mention « sans valeur médicale »."
+components = ["Front web", "API"]
+[[req]]
+id = "EXF-18"
+text = "Rappel matinal optionnel, désactivé par défaut."
+components = ["Tâches planifiées"]
+[[req]]
+id = "EXF-19"
+text = "Supprimer un rêve et tous ses fichiers (base, stockage objet, cache CDN)."
+components = ["API", "Base relationnelle", "Stockage objet", "CDN"]
+[[req]]
+id = "EXF-20"
+text = "Exporter tous les rêves en JSON valide contre dream.schema.json."
+components = ["API"]
+[[req]]
+id = "EXF-21"
+text = "Supprimer le compte et toutes les données rattachées ; seul subsiste un journal d'audit pseudonymisé."
+components = ["API", "Base relationnelle", "Stockage objet"]
+
+# ------------------------------------------------------------------ ENF (cibles chiffrées : ADR-006, ADR-007)
+[[req]]
+id = "ENF-01"
+text = "Latence p95 de l'étape transcription ≤ 8 s pour un récit ≤ 90 s (ADR-006)."
+components = ["Worker de génération", "Mistral AI (UE)"]
+[[req]]
+id = "ENF-02"
+text = "Latence p95 de l'étape image ≤ 15 s (ADR-006)."
+components = ["Worker de génération", "Black Forest Labs (UE)"]
+[[req]]
+id = "ENF-03"
+text = "Taux de rêves en échec ≤ 2 % sur 30 jours glissants ; retries ×2 avec backoff exponentiel (ADR-006)."
+components = ["Worker de génération"]
+[[req]]
+id = "ENF-04"
+text = "Accusé de réception d'un envoi audio (202) en p95 ≤ 1 s hors transfert réseau (ADR-006)."
+components = ["API"]
+[[req]]
+id = "ENF-05"
+text = "Disponibilité mensuelle de l'API ≥ 99,5 % (ADR-006)."
+components = ["API"]
+[[req]]
+id = "ENF-06"
+text = "Budget API mensuel 25 $ en bêta, alerte à 80 %, coupe-circuit de l'image à 100 %, quota 5 rêves/jour/utilisateur (ADR-007)."
+components = ["Worker de génération", "API", "Base relationnelle"]
+[[req]]
+id = "ENF-07"
+text = "Effacement effectif sous 24 h, y compris stockage objet et purge CDN ; audio brut supprimé après transcription, 24 h maximum."
+components = ["Tâches planifiées", "Stockage objet", "CDN"]
+[[req]]
+id = "ENF-08"
+text = "Sécurité OWASP ASVS niveau 1 : TLS 1.2+, chiffrement au repos, sessions sécurisées, secrets hors dépôt, limitation de débit."
+components = ["API", "Base relationnelle", "Stockage objet"]
+[[req]]
+id = "ENF-09"
+text = "L'émotion est inférée du texte uniquement ; aucun traitement acoustique de la voix (ADR-001)."
+components = ["Worker de génération"]
+[[req]]
+id = "ENF-10"
+text = "Journaux et traces sans contenu de rêve ; identifiant utilisateur pseudonymisé (HMAC)."
+components = ["API", "Worker de génération", "Observabilité"]
+[[req]]
+id = "ENF-11"
+text = "Latence p95 bout-en-bout (fin d'envoi → image affichée) ≤ 30 s (CS-02, ADR-006)."
+components = ["API", "Worker de génération"]
+[[req]]
+id = "ENF-12"
+text = "Montée en charge : 50 rêves simultanés traités sans erreur autre que les quotas fournisseurs, par ajout de workers (plan de charge)."
+components = ["Worker de génération", "File de tâches"]

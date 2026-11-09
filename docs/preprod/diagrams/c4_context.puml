@@ -1,0 +1,19 @@
+@startuml c4_context
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title Synthétiseur de rêves — C4 niveau 1 : contexte
+
+Person(user, "Rêveur", "Raconte ses rêves au réveil, consulte son historique (Léa, Karim, Inès)")
+System(ds, "Synthétiseur de rêves", "Journal de rêves vocal : transcription, image, ambiance, émotion, historique")
+
+System_Ext(mistral, "Mistral AI (UE)", "STT Voxtral, LLM Mistral Small 4, TTS Voxtral (R2)")
+System_Ext(bfl, "Black Forest Labs (UE)", "Génération d'image FLUX.2, endpoint api.eu.bfl.ai")
+System_Ext(mail, "Service e-mail transactionnel (UE)", "Lien de connexion, alerte d'inactivité")
+System_Ext(obs, "Observabilité (Sentry / Langfuse auto-hébergé UE)", "Erreurs, traces et coûts des appels IA")
+
+Rel(user, ds, "Enregistre ou importe un récit ; consulte, corrige, supprime, exporte", "HTTPS")
+Rel(ds, mistral, "Audio du récit ; transcription → prompt visuel + émotion ; résumé à lire", "HTTPS/JSON, multipart")
+Rel(ds, bfl, "Prompt visuel anglais reformulé (sans transcription)", "HTTPS/JSON")
+Rel(ds, mail, "E-mail de l'utilisateur, lien magique", "HTTPS")
+Rel(ds, obs, "Événements techniques pseudonymisés, sans contenu de rêve", "HTTPS")
+@enduml
