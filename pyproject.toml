@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12,<3.13"
 authors = [{ name = "Grégory" }]
 dependencies = [
-    "django>=6.0.10,<6.1",
+    "django>=6.0.10,<6.2",
     "django-tasks-db>=0.13",
     "django-environ>=0.14",
     "django-htmx>=1.29",
