@@ -26,3 +26,30 @@ class UserFactory(factory.django.DjangoModelFactory):
         Consent.objects.create(
             user=self, scope=Consent.Scope.IMAGE_GENERATION, granted=image, text_version=settings.CONSENT_TEXT_VERSION
         )
+
+
+class DreamFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = "dreams.Dream"
+
+    user = factory.SubFactory(UserFactory)
+
+
+class TranscriptionFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = "dreams.Transcription"
+
+    dream = factory.SubFactory(DreamFactory)
+    text = "Je volais au-dessus d'une ville de verre, la lumière était douce."
+    provider = "fake"
+    model = "fake-stt"
+
+
+class EmotionFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = "dreams.EmotionAnalysis"
+
+    dream = factory.SubFactory(DreamFactory)
+    emotion = "serein"
+    confidence = "0.80"
+    provider = "fake"

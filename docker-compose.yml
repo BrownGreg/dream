@@ -29,6 +29,7 @@ services:
       DJANGO_SECURE_COOKIES: "false"
       DATABASE_URL: postgres://dream:dream@db:5432/dream
       MEDIA_ROOT: /app/media
+      FIELD_ENCRYPTION_KEYS: ${FIELD_ENCRYPTION_KEYS:-Y29tcG9zZS1sb2NhbC11bmlxdWVtZW50LTMyLW9jdGU=}
     ports:
       - "8000:8000"
     volumes:
@@ -51,6 +52,7 @@ services:
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-compose-local-uniquement}
       DATABASE_URL: postgres://dream:dream@db:5432/dream
       MEDIA_ROOT: /app/media
+      FIELD_ENCRYPTION_KEYS: ${FIELD_ENCRYPTION_KEYS:-Y29tcG9zZS1sb2NhbC11bmlxdWVtZW50LTMyLW9jdGU=}
     volumes:
       - media:/app/media
     depends_on:

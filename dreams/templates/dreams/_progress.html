@@ -1,0 +1,25 @@
+{% comment %}Avancement interrogé toutes les 2 s ; la vue renvoie HX-Refresh quand le rêve est terminé.{% endcomment %}
+<section id="progress" hx-get="{% url 'dreams:status' dream.id %}" hx-trigger="every 2s" hx-swap="outerHTML"
+  class="rounded-2xl border border-night-800 bg-night-900 p-6" aria-labelledby="progress-titre">
+  <h2 id="progress-titre" class="mb-4 text-lg font-semibold">Votre rêve prend forme…</h2>
+  <ol class="space-y-3" role="list">
+    {% for step in steps %}
+      <li class="flex items-center gap-3" {% if step.state == "current" %}aria-current="step"{% endif %}>
+        {% if step.state == "done" %}
+          <span class="flex size-7 items-center justify-center rounded-full bg-emerald-300 text-night-950" aria-hidden="true">✓</span>
+          <span class="text-slate-300">{{ step.label }} <span class="sr-only">(terminé)</span></span>
+        {% elif step.state == "current" %}
+          <span class="size-7 animate-spin rounded-full border-4 border-dream-300 border-t-transparent" aria-hidden="true"></span>
+          <span class="font-medium text-white">{{ step.label }} <span class="sr-only">(en cours)</span></span>
+        {% else %}
+          <span class="size-7 rounded-full border-2 border-night-800" aria-hidden="true"></span>
+          <span class="text-slate-400">{{ step.label }}</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+  <p class="mt-4 text-sm text-slate-400">Cela prend en général moins d'une minute. Vous pouvez quitter cette page : votre rêve vous attendra dans votre historique.</p>
+  {% if waited_s and waited_s > 90 %}
+    <p class="mt-2 text-sm text-amber-200" role="status">C'est plus long que d'habitude ; le traitement continue.</p>
+  {% endif %}
+</section>

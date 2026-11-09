@@ -59,6 +59,8 @@ jobs:
           python-version: "3.12"
           enable-cache: true
       - run: uv sync
+      - name: ffmpeg (conversion et mesure des enregistrements, comme dans l'image Docker)
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends ffmpeg
       - name: pytest (PostgreSQL)
         run: uv run pytest --cov --cov-report=term-missing --cov-report=json --cov-report=xml --cov-fail-under=70
       - name: Seuil de 70 % par fonctionnalité critique
