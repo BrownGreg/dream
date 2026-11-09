@@ -60,3 +60,36 @@ class Transcriber(Protocol):
             Le texte et sa provenance.
         """
         ...
+
+
+@dataclass(frozen=True)
+class EmotionResult:
+    """Sortie d'un :class:`EmotionClassifier`.
+
+    Attributes:
+        emotion: Valeur de :class:`dreams.emotions.Emotion`.
+        confidence: Score entre 0 et 1, ou ``None`` si la méthode n'en produit pas.
+        provider: Fournisseur ou ``local`` (lexique).
+        model: Modèle ou ressource utilisée.
+    """
+
+    emotion: str
+    confidence: Decimal | None
+    provider: str
+    model: str
+
+
+class EmotionClassifier(Protocol):
+    """Texte transcrit → émotion dominante ; jamais à partir de la voix (ADR-001)."""
+
+    def classify(self, text: str, caller: Caller) -> EmotionResult:
+        """Classe le texte du rêve.
+
+        Args:
+            text: Transcription.
+            caller: Contexte de journalisation.
+
+        Returns:
+            L'émotion dominante et sa confiance.
+        """
+        ...
