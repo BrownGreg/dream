@@ -167,3 +167,10 @@ HF_EMOTION_MODEL = env("HF_EMOTION_MODEL", default="MoritzLaurer/mDeBERTa-v3-bas
 BFL_API_KEY = env("BFL_API_KEY", default="")
 BFL_BASE_URL = env("BFL_BASE_URL", default="https://api.eu.bfl.ai")
 BFL_IMAGE_MODEL = env("BFL_IMAGE_MODEL", default="flux-2-klein-4b")
+
+# --- Enregistrements (validation client et serveur)
+AUDIO_MAX_SECONDS = env.int("AUDIO_MAX_SECONDS", default=180)
+AUDIO_MIN_SECONDS = env.int("AUDIO_MIN_SECONDS", default=1)
+AUDIO_MAX_BYTES = env.int("AUDIO_MAX_BYTES", default=20 * 1024 * 1024)
+DATA_UPLOAD_MAX_MEMORY_SIZE = AUDIO_MAX_BYTES + 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
