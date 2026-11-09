@@ -1,0 +1,18 @@
+name: Bug
+description: Comportement incorrect constaté
+labels: [bug]
+body:
+  - type: input
+    id: jira
+    attributes: {label: Ticket Jira, placeholder: DREAM-xx}
+  - type: textarea
+    id: symptome
+    attributes: {label: Symptôme, description: "Ce qui se passe, sans contenu de rêve réel."}
+    validations: {required: true}
+  - type: textarea
+    id: repro
+    attributes: {label: Reproduction, description: Étapes minimales}
+    validations: {required: true}
+  - type: textarea
+    id: attendu
+    attributes: {label: Résultat attendu}

@@ -70,3 +70,50 @@ jobs:
           path: |
             coverage.json
             coverage.xml
+
+  docker:
+    name: Image Docker et test de fumée
+    needs: [quality, tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construire et démarrer web + worker + PostgreSQL
+        run: docker compose up --build -d --wait --wait-timeout 180
+      - name: Test de fumée (/health, page de connexion, statiques)
+        run: |
+          curl -fsS http://localhost:8000/health | tee /dev/stderr | grep -q '"status": "ok"'
+          curl -fsS http://localhost:8000/comptes/connexion/ | grep -q "Connexion"
+          css=$(curl -fsS http://localhost:8000/comptes/connexion/ | grep -o '/static/css/tailwind[^"]*\.css' | head -1)
+          curl -fsS "http://localhost:8000${css}" -o /dev/null
+      - name: Journaux en cas d'échec
+        if: failure()
+        run: docker compose logs --no-color
+
+  deploy:
+    name: Déploiement Render
+    needs: [docker]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.PROD_URL }}
+    env:
+      RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      PROD_URL: ${{ vars.PROD_URL }}
+    steps:
+      - name: Déclencher le déploiement du commit testé
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "::warning::RENDER_DEPLOY_HOOK_URL absent : déploiement ignoré."
+            exit 0
+          fi
+          curl -fsS -X POST "${RENDER_DEPLOY_HOOK_URL}&ref=${GITHUB_SHA}" -o /dev/null
+      - name: Test de fumée en production
+        if: env.PROD_URL != ''
+        run: |
+          # Build Docker + démarrage + réveil de l'instance gratuite : jusqu'à ~10 min.
+          for i in $(seq 1 60); do
+            if curl -fsS "$PROD_URL/health" | grep -q '"status": "ok"'; then echo "Production OK"; exit 0; fi
+            sleep 10
+          done
+          echo "::error::/health ne répond pas en production"; exit 1

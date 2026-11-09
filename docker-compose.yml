@@ -1,0 +1,62 @@
+# Environnement de référence : web + worker + PostgreSQL.
+#   make dev      (ou docker compose up --build)
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: dream
+      POSTGRES_PASSWORD: dream
+      POSTGRES_DB: dream
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dream"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  web:
+    build: .
+    command: ["scripts/start.sh", "web"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.prod}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-compose-local-uniquement}
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,web
+      DJANGO_SECURE_SSL_REDIRECT: "false"
+      DJANGO_SECURE_COOKIES: "false"
+      DATABASE_URL: postgres://dream:dream@db:5432/dream
+      MEDIA_ROOT: /app/media
+    ports:
+      - "8000:8000"
+    volumes:
+      - media:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+
+  worker:
+    build: .
+    command: ["scripts/start.sh", "worker"]
+    # Le HEALTHCHECK de l'image interroge /health, servi par le web seulement.
+    healthcheck:
+      disable: true
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.prod}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-compose-local-uniquement}
+      DATABASE_URL: postgres://dream:dream@db:5432/dream
+      MEDIA_ROOT: /app/media
+    volumes:
+      - media:/app/media
+    depends_on:
+      web:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  media:

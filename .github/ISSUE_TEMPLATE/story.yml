@@ -1,0 +1,12 @@
+name: Story
+description: Fonctionnalité issue du backlog
+labels: [story]
+body:
+  - type: input
+    id: story
+    attributes: {label: Story du bloc 1, placeholder: US-xx}
+    validations: {required: true}
+  - type: textarea
+    id: criteres
+    attributes: {label: Critères d'acceptation (Given / When / Then)}
+    validations: {required: true}

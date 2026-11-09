@@ -1,0 +1,27 @@
+# Blueprint Render : l'infrastructure de production décrite en code (ADR-008).
+# Déploiement déclenché par la CI (deploy hook avec ?ref=<sha>) uniquement après CI verte sur main.
+services:
+  - type: web
+    name: dreamsynth
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    # Offre gratuite : pas de worker gratuit chez Render → web + db_worker dans le même conteneur (honcho).
+    dockerCommand: scripts/start.sh all
+    healthCheckPath: /health
+    autoDeployTrigger: "off"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      # Postgres Neon (UE, gratuit sans expiration) plutôt que la base gratuite Render qui expire à 30 jours.
+      - key: DATABASE_URL
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: "1"
+      - key: EMAIL_URL
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
