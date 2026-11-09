@@ -63,7 +63,7 @@ jobs:
         run: uv run pytest --cov --cov-report=term-missing --cov-report=json --cov-report=xml --cov-fail-under=70
       - name: Seuil de 70 % par fonctionnalité critique
         run: uv run python scripts/check_coverage.py coverage.json | tee -a "$GITHUB_STEP_SUMMARY"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: couverture
