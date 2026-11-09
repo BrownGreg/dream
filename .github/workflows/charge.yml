@@ -89,6 +89,13 @@ jobs:
           uv run python scripts/load_report.py load-results --stage-s "$LOAD_STAGE_S" --workers "$WORKERS" \
             --fake-latency-ms "$AI_FAKE_LATENCY_MS" --runner "$RUNNER"
           cat load-results/rapport.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Arrêter gunicorn, les workers et l'échantillonneur
+        if: always()
+        # Sans cela, ces processus gardent le verrou du cache uv et font échouer le nettoyage du job.
+        run: |
+          pkill -f "gunicorn config.wsgi" || true
+          pkill -f "manage.py db_worker" || true
+          pkill -f "scripts/sample_queue.py" || true
       - uses: actions/upload-artifact@v4
         if: always()
         with:

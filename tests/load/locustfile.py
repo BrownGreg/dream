@@ -9,6 +9,7 @@ Locust nommée « pipeline : bout en bout ».
 
 from __future__ import annotations
 
+import csv
 import itertools
 import os
 import re
@@ -22,6 +23,32 @@ PASSWORD = os.environ.get("LOAD_PASSWORD", "charge-Reves-2026")
 USERS = itertools.count(1)
 DREAM_URL = re.compile(r"/reves/([0-9a-f-]{36})/")
 PIPELINE_TIMEOUT_S = float(os.environ.get("LOAD_PIPELINE_TIMEOUT_S", "120"))
+
+
+# Chaque requête est gardée avec son instant : les percentiles par palier sont calculés
+# exactement par scripts/load_report.py (l'historique Locust, lui, est cumulatif).
+RAW: list[tuple[float, str, str, float, int]] = []
+STARTED = [0.0]
+
+
+@events.test_start.add_listener
+def _start(**_kwargs: object) -> None:
+    STARTED[0] = time.time()
+
+
+@events.request.add_listener
+def _record(request_type: str, name: str, response_time: float, exception: object, **_kwargs: object) -> None:
+    RAW.append((round(time.time() - STARTED[0], 3), request_type, name, round(response_time, 1), int(bool(exception))))
+
+
+@events.quitting.add_listener
+def _dump(**_kwargs: object) -> None:
+    out = Path(os.environ.get("LOAD_RAW_CSV", "load-results/requests.csv"))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with out.open("w", newline="") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(["elapsed_s", "type", "name", "response_ms", "failed"])
+        writer.writerows(RAW)
 
 
 class Dreamer(HttpUser):

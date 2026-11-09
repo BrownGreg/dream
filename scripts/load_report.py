@@ -1,7 +1,8 @@
 """Rapport du test de charge : paliers, latences, erreurs, file et débit du worker.
 
 Sources (toutes produites par le test, aucune valeur saisie à la main) :
-- ``locust_stats_history.csv`` (Locust, ``--csv-full-history``) ;
+- ``requests.csv`` : chaque requête Locust avec son instant (``tests/load/locustfile.py``),
+  pour des percentiles exacts par palier (l'historique Locust est cumulatif) ;
 - ``file.csv`` (``scripts/sample_queue.py``) ;
 - la table des tâches ``django-tasks-db`` (dates de mise en file, début et fin).
 
@@ -13,12 +14,14 @@ import csv
 import math
 import os
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.prod")
 
-STAGES = ((5, "5 utilisateurs"), (20, "20 utilisateurs"), (50, "50 utilisateurs"))
+STAGES = ("5 utilisateurs", "20 utilisateurs", "50 utilisateurs")
+PIPELINE = "pipeline : bout en bout"
 
 
 def pct(values: list[float], p: float) -> float | None:
@@ -47,33 +50,38 @@ def stage_of(elapsed: float, stage_s: int) -> int:
     return min(int(elapsed // stage_s), len(STAGES) - 1)
 
 
-def locust_by_stage(path: Path, stage_s: int) -> dict[int, dict[str, dict[str, float]]]:
-    """Dernière ligne cumulée de chaque palier, par requête (les cumuls sont différenciés)."""
-    rows = list(csv.DictReader(path.open()))
-    if not rows:
-        return {}
-    t0 = int(rows[0]["Timestamp"])
-    snapshots: dict[int, dict[str, dict[str, str]]] = {}
-    for row in rows:
-        stage = stage_of(int(row["Timestamp"]) - t0, stage_s)
-        snapshots.setdefault(stage, {})[row["Name"]] = row
-    result: dict[int, dict[str, dict[str, float]]] = {}
-    previous: dict[str, dict[str, str]] = {}
-    for stage in sorted(snapshots):
-        result[stage] = {}
-        for name, row in snapshots[stage].items():
-            before = previous.get(name, {})
-            count = int(row["Total Request Count"]) - int(before.get("Total Request Count", 0) or 0)
-            failures = int(row["Total Failure Count"]) - int(before.get("Total Failure Count", 0) or 0)
-            result[stage][name] = {
-                "count": count,
-                "failures": failures,
-                "p50": float(row["50%"] or 0),
-                "p95": float(row["95%"] or 0),
-                "rps": float(row["Requests/s"] or 0),
-            }
-        previous.update(snapshots[stage])
-    return result
+def http_table(path: Path, stage_s: int) -> list[str]:
+    """Tableau par palier et par requête : nombre, échecs, p50, p95, débit moyen."""
+    groups: dict[tuple[int, str], list[tuple[float, int]]] = defaultdict(list)
+    for row in csv.DictReader(path.open()):
+        stage = stage_of(float(row["elapsed_s"]), stage_s)
+        groups[(stage, row["name"])].append((float(row["response_ms"]), int(row["failed"])))
+    lines = [
+        "| Palier | Requête | Nombre | Échecs | p50 | p95 | Req/s (moyenne) |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for stage, label in enumerate(STAGES):
+        pages: list[tuple[float, int]] = []
+        for (s, name), items in sorted(groups.items()):
+            if s != stage:
+                continue
+            times = [t for t, _ in items]
+            failures = sum(f for _, f in items)
+            if name != PIPELINE:
+                pages.extend(items)
+            lines.append(
+                f"| {label} | {name} | {len(items)} | {failures} | {fmt(pct(times, 50))} | {fmt(pct(times, 95))} "
+                f"| {len(items) / stage_s:.2f} |"
+            )
+        if pages:
+            times = [t for t, _ in pages]
+            failures = sum(f for _, f in pages)
+            lines.append(
+                f"| **{label}** | **toutes les requêtes HTTP** | **{len(pages)}** "
+                f"| **{failures} ({100 * failures / len(pages):.1f} %)** | **{fmt(pct(times, 50))}** "
+                f"| **{fmt(pct(times, 95))}** | **{len(pages) / stage_s:.2f}** |"
+            )
+    return lines
 
 
 def main() -> None:
@@ -92,7 +100,6 @@ def main() -> None:
     args = parser.parse_args()
     folder = Path(args.results)
 
-    per_stage = locust_by_stage(folder / "locust_stats_history.csv", args.stage_s)
     queue = list(csv.DictReader((folder / "file.csv").open())) if (folder / "file.csv").exists() else []
     tasks = [
         (enqueued, started, finished, status)
@@ -110,43 +117,31 @@ def main() -> None:
     lines = [
         "# Test de charge — résultats",
         "",
-        f"Paliers de {args.stage_s} s : 5 → 20 → 50 utilisateurs virtuels. Adapters **fake** "
-        f"(latence simulée {args.fake_latency_ms} ms par appel fournisseur, 4 appels par rêve). "
-        f"{args.workers} worker(s) `db_worker`, gunicorn 2 processus, PostgreSQL 17. "
+        f"Paliers de {args.stage_s} s : 5 → 20 → 50 utilisateurs virtuels (attente de 2 à 5 s entre deux actions). "
+        f"Adapters **fake** : latence simulée de {args.fake_latency_ms} ms par appel fournisseur, 4 appels par rêve. "
+        f"{args.workers} processus `db_worker`, gunicorn 2 processus synchrones, PostgreSQL 17. "
         f"Machine : {args.runner or 'non précisée'}.",
         "",
         "## Requêtes HTTP par palier",
         "",
-        "| Palier | Requête | Nombre | Échecs | p50 | p95 | Req/s |",
-        "|---|---|---|---|---|---|---|",
+        "Percentiles calculés sur les requêtes du palier seulement. « pipeline : bout en bout » = de l'envoi "
+        "à la page terminée, vu par l'utilisateur (polling toutes les 2 s), compté dans le palier où il se termine.",
+        "",
+        *http_table(folder / "requests.csv", args.stage_s),
+        "",
+        "## File de tâches et worker",
+        "",
     ]
-    for stage, (_, label) in enumerate(STAGES):
-        for name, row in sorted(per_stage.get(stage, {}).items()):
-            if name == "Aggregated":
-                continue
+    for stage, label in enumerate(STAGES):
+        samples = [r for r in queue if stage_of(float(r["elapsed_s"]), args.stage_s) == stage]
+        if samples:
             lines.append(
-                f"| {label} | {name} | {row['count']} | {row['failures']} | {fmt(row['p50'])} | {fmt(row['p95'])} "
-                f"| {row['rps']:.1f} |"
+                f"- {label} : file max **{max(int(r['ready']) for r in samples)}** tâches en attente, "
+                f"plus longue attente **{max(int(r['oldest_wait_s']) for r in samples)} s**."
             )
-        agg = per_stage.get(stage, {}).get("Aggregated")
-        if agg:
-            rate = 100 * agg["failures"] / agg["count"] if agg["count"] else 0
-            lines.append(
-                f"| **{label}** | **toutes** | **{agg['count']}** | **{agg['failures']} ({rate:.1f} %)** "
-                f"| **{fmt(agg['p50'])}** | **{fmt(agg['p95'])}** | **{agg['rps']:.1f}** |"
-            )
-    lines += ["", "## File de tâches et worker", ""]
-    if queue:
-        for stage, (_, label) in enumerate(STAGES):
-            samples = [r for r in queue if stage_of(float(r["elapsed_s"]), args.stage_s) == stage]
-            if samples:
-                lines.append(
-                    f"- {label} : file max **{max(int(r['ready']) for r in samples)}** tâches, "
-                    f"attente max {max(int(r['oldest_wait_s']) for r in samples)} s."
-                )
     lines += [
-        f"- Rêves traités : **{len(tasks)}** ({failed} en échec), débit mesuré "
-        f"**{(len(tasks) / span * 60) if span else 0:.1f} rêves/min**.",
+        f"- Rêves traités : **{len(tasks)}** ({failed} en échec), débit **{(len(tasks) / span * 60) if span else 0:.1f}"
+        " rêves/min**.",
         f"- Attente en file : p50 {fmt(ms(waits, 50))}, p95 {fmt(ms(waits, 95))}.",
         f"- Traitement par le worker : p50 {fmt(ms(runs, 50))}, p95 {fmt(ms(runs, 95))}.",
         f"- Mise en file → terminé : p50 {fmt(ms(totals, 50))}, p95 {fmt(ms(totals, 95))}.",
