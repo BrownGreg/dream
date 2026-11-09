@@ -33,6 +33,7 @@ entity Dream {
   audio_purged_at : DateTime
   created_at : DateTime
   updated_at : DateTime
+  finished_at : DateTime
 }
 entity Transcription {
   * id : BigAuto
