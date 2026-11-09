@@ -45,7 +45,7 @@ def main() -> None:
                 if isinstance(field, models.ForeignKey | models.OneToOneField):
                     target = field.related_model.__name__
                     cardinality = "||--||" if isinstance(field, models.OneToOneField) else "||--o{"
-                    on_delete = field.remote_field.on_delete.__name__
+                    on_delete = getattr(field.remote_field.on_delete, "__name__", "?")
                     relations.append(f"{target} {cardinality} {model.__name__} : {field.name} ({on_delete})")
                     lines.append(f"  {marker}{field.name}_id : FK → {target}")
                 else:
