@@ -1,0 +1,84 @@
+[project]
+name = "dreamsynth"
+version = "0.1.0"
+description = "Synthétiseur de rêves : récit vocal → transcription → émotion → image, avec tableau de bord personnel."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "Grégory" }]
+dependencies = [
+    "django>=6.0.10,<6.1",
+    "django-tasks-db>=0.13",
+    "django-environ>=0.14",
+    "django-htmx>=1.29",
+    "django-axes>=9.0",
+    "django-tailwind-cli>=4.8",
+    "whitenoise>=6.12",
+    "gunicorn>=26.2",
+    "psycopg[binary]>=3.3",
+    "structlog>=26.1",
+    "sentry-sdk[django]>=2.74",
+    "honcho>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.17",
+    "mypy>=2.4",
+    "django-stubs[compatible-mypy]>=6.0",
+    "pytest>=8.4",
+    "pytest-django>=4.14",
+    "pytest-cov>=7.0",
+    "pytest-mock>=3.15",
+    "factory-boy>=3.3",
+    "pre-commit>=4.3",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+extend-exclude = ["docs/preprod", "**/migrations"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "UP", "B", "S", "BLE", "DJ", "D", "RUF", "SIM", "PT", "ANN"]
+ignore = ["D100", "D104", "D105", "D106", "ANN401"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "D", "ANN"]
+"config/settings/*" = ["F405"]
+"manage.py" = ["D"]
+"scripts/*" = ["T201"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["mypy_django_plugin.main"]
+exclude = ["docs/preprod/", "migrations/", "tests/"]
+
+[[tool.mypy.overrides]]
+module = ["environ.*", "axes.*", "django_tasks_db.*", "factory.*"]
+ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = ["e2e: parcours navigateur (Playwright)", "load: test de charge"]
+filterwarnings = ["ignore:No directory at:UserWarning"]
+
+[tool.coverage.run]
+branch = true
+source = ["accounts", "dreams", "dashboard", "config"]
+omit = ["*/migrations/*", "config/wsgi.py", "config/settings/prod.py", "config/settings/dev.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false

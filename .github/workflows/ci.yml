@@ -1,0 +1,72 @@
+# Intégration continue : toute PR vers main doit être verte avant fusion.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  UV_FROZEN: "1"
+  DJANGO_SETTINGS_MODULE: config.settings.test
+
+jobs:
+  quality:
+    name: Lint et types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync
+      - name: ruff (PEP 8, docstrings Google)
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+      - name: mypy strict
+        run: uv run mypy .
+      - name: Migrations à jour
+        run: uv run python manage.py makemigrations --check --dry-run
+
+  tests:
+    name: Tests et couverture
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: dream
+          POSTGRES_PASSWORD: dream
+          POSTGRES_DB: dream
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U dream" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://dream:dream@localhost:5432/dream
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync
+      - name: pytest (PostgreSQL)
+        run: uv run pytest --cov --cov-report=term-missing --cov-report=json --cov-report=xml --cov-fail-under=70
+      - name: Seuil de 70 % par fonctionnalité critique
+        run: uv run python scripts/check_coverage.py coverage.json | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: couverture
+          path: |
+            coverage.json
+            coverage.xml
