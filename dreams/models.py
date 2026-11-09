@@ -222,3 +222,20 @@ class ApiCall(models.Model):
     def __str__(self) -> str:
         """Résumé technique de l'appel."""
         return f"{self.step}/{self.provider} {self.outcome} {self.latency_ms} ms"
+
+
+class StoredFile(models.Model):
+    """Fichier stocké en base par :class:`dreams.storage.DatabaseStorage` (ADR-010)."""
+
+    name = models.CharField(max_length=255, primary_key=True)
+    content = models.BinaryField()
+    size = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "fichier stocké"
+        verbose_name_plural = "fichiers stockés"
+
+    def __str__(self) -> str:
+        """Chemin et taille."""
+        return f"{self.name} ({self.size} o)"

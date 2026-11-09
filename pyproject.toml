@@ -21,6 +21,8 @@ dependencies = [
     "cryptography>=46",
     "tenacity>=9.2",
     "httpx>=0.28",
+    "pydantic>=2.12",
+    "python-magic>=0.4.27",
 ]
 
 [dependency-groups]
@@ -57,6 +59,7 @@ convention = "google"
 "config/settings/*" = ["F405"]
 "manage.py" = ["D"]
 "scripts/*" = ["T201"]
+"dreams/messages.py" = ["E501"]  # phrases destinées à l'utilisateur, plus lisibles sur une ligne
 
 [tool.mypy]
 python_version = "3.12"

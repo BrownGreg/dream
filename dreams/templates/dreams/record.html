@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Raconter un rêve · Synthétiseur de rêves{% endblock %}
+{% block content %}
+<h1 class="mb-2 text-2xl font-semibold">Raconter un rêve</h1>
+<p class="mb-6 text-slate-300">Parlez librement, comme à un ami, jusqu'à {{ max_seconds|floatformat:0 }} secondes. Vous pourrez réécouter avant d'envoyer.</p>
+
+{% if blocked %}
+  <p class="mb-6 rounded-lg border border-amber-300/40 bg-amber-950/40 px-4 py-3 text-amber-100" role="alert">{{ blocked }}</p>
+{% endif %}
+
+<section data-recorder data-max-seconds="{{ max_seconds }}" data-max-bytes="{{ max_bytes }}" data-upload-url="{% url 'dreams:record' %}"
+  class="mb-8 rounded-2xl border border-night-800 bg-night-900 p-6 text-center" aria-labelledby="micro-titre" hidden>
+  <h2 id="micro-titre" class="sr-only">Enregistrer au micro</h2>
+  <button type="button" data-rec-toggle aria-pressed="false"
+    class="mx-auto flex size-28 items-center justify-center rounded-full bg-dream-300 text-night-950 shadow-lg hover:bg-dream-400 aria-pressed:bg-rose-300"
+    {% if blocked %}disabled{% endif %}>
+    <span data-rec-label class="text-base font-semibold">Enregistrer</span>
+  </button>
+  <p class="mt-4 font-mono text-3xl tabular-nums" data-rec-timer role="timer" aria-label="Durée de l'enregistrement">0:00</p>
+  <p class="mt-1 text-sm text-slate-400">Maximum {{ max_seconds|floatformat:0 }} s</p>
+  <div data-rec-review hidden class="mt-6 space-y-4">
+    <audio data-rec-preview controls class="w-full"></audio>
+    <label class="flex items-center justify-center gap-2 text-sm text-slate-200">
+      <input type="checkbox" data-rec-no-image class="size-5 accent-dream-400"> Ne pas générer d'image pour ce rêve
+    </label>
+    <div class="flex flex-col gap-3 sm:flex-row sm:justify-center">
+      <button type="button" data-rec-send class="rounded-lg bg-dream-300 px-5 py-3 font-semibold text-night-950 hover:bg-dream-400">Envoyer ce rêve</button>
+      <button type="button" data-rec-redo class="rounded-lg border border-night-800 px-5 py-3 text-slate-200 hover:border-dream-300">Recommencer</button>
+    </div>
+  </div>
+  <p data-rec-status class="mt-4 min-h-6 text-sm text-slate-200" role="status" aria-live="polite"></p>
+</section>
+
+<div id="record-form">{% include "dreams/_record_form.html" %}</div>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/recorder.js' %}" defer></script>{% endblock %}
