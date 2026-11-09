@@ -4,10 +4,13 @@ Toute valeur sensible vient de l'environnement ; l'absence de ``DJANGO_SECRET_KE
 ou de ``DATABASE_URL`` fait échouer le démarrage plutôt que de dégrader la sécurité.
 """
 
+from config.observability import logging_config
+
 from .base import *  # noqa: F403
 from .base import ALLOWED_HOSTS, CSRF_TRUSTED_ORIGINS, env
 
 DEBUG = False
+LOGGING = logging_config(json_logs=env.bool("LOG_JSON", default=True), level=env("LOG_LEVEL", default="INFO"))
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 FIELD_ENCRYPTION_KEYS = env.list("FIELD_ENCRYPTION_KEYS")
 # Render fournit le nom d'hôte public du service.

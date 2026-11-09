@@ -10,7 +10,7 @@ pytestmark = pytest.mark.django_db
 def test_health_ok(client):
     response = client.get(reverse("health"))
     assert response.status_code == 200
-    assert response.json() == {"status": "ok", "checks": {"database": "ok"}}
+    assert response.json() == {"status": "ok", "checks": {"database": "ok", "worker": "ok"}}
     assert "no-cache" in response["Cache-Control"]
 
 
@@ -19,3 +19,12 @@ def test_health_503_si_la_base_tombe(client, mocker):
     response = client.get(reverse("health"))
     assert response.status_code == 503
     assert response.json()["checks"]["database"] == "error"
+
+
+def test_health_degrade_si_le_worker_est_en_retard(client):
+    from tests.integration.test_observability import queued_task
+
+    queued_task(minutes_ago=10)
+    response = client.get(reverse("health"))
+    assert response.status_code == 200
+    assert response.json() == {"status": "degraded", "checks": {"database": "ok", "worker": "stale"}}
