@@ -15,7 +15,7 @@
 {% else %}
   <div class="grid gap-6 md:grid-cols-2">
     <figure class="overflow-hidden rounded-2xl border border-night-800 bg-night-900">
-      {% if image %}
+      {% if image and image.file %}
         <img src="{{ image.file.url }}" alt="Image onirique générée à partir de votre rêve{% if emotion %}, ambiance {{ emotion.get_emotion_display|lower }}{% endif %}" width="1024" height="1024" class="aspect-square w-full object-cover">
         <figcaption class="px-4 py-2 text-xs text-slate-300">Image générée par IA</figcaption>
       {% else %}

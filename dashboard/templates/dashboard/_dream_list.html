@@ -1,0 +1,53 @@
+<section id="dream-list" aria-labelledby="liste-titre" aria-live="polite">
+  <h2 id="liste-titre" class="sr-only">Historique</h2>
+  {% if not items %}
+    <div class="rounded-2xl border border-dashed border-night-800 p-8 text-center text-slate-300">
+      {% if filtered %}
+        <p>Aucun rêve ne correspond à ces filtres.</p>
+        <a href="{% url 'dashboard:home' %}" class="mt-2 inline-block underline">Voir tous mes rêves</a>
+      {% else %}
+        <p>Vous n'avez encore raconté aucun rêve.</p>
+      {% endif %}
+    </div>
+  {% else %}
+    <p class="mb-3 text-sm text-slate-400">{{ page.paginator.count }} rêve{{ page.paginator.count|pluralize }}{% if filtered %} correspondant{{ page.paginator.count|pluralize }} aux filtres{% endif %}</p>
+    <ul class="space-y-3" role="list">
+      {% for item in items %}
+        <li>
+          <a href="{% url 'dreams:detail' item.dream.id %}" class="flex gap-4 rounded-2xl border border-night-800 bg-night-900 p-3 hover:border-dream-300">
+            {% if item.image and item.image.file %}
+              <img src="{{ item.image.file.url }}" alt="" width="80" height="80" loading="lazy" class="size-20 shrink-0 rounded-xl object-cover">
+            {% else %}
+              <span class="flex size-20 shrink-0 items-center justify-center rounded-xl bg-night-800 text-2xl" aria-hidden="true">{{ item.icon|default:"🌫️" }}</span>
+            {% endif %}
+            <span class="min-w-0 flex-1">
+              <span class="flex flex-wrap items-baseline justify-between gap-2">
+                <span class="font-medium text-white">{{ item.dream.title|default:"Rêve sans titre" }}</span>
+                <time datetime="{{ item.dream.created_at|date:'c' }}" class="text-xs text-slate-400">{{ item.dream.created_at|date:"j M Y" }}</time>
+              </span>
+              {% if item.emotion %}
+                <span class="mt-1 block text-sm" style="color: {{ item.color }}"><span aria-hidden="true">{{ item.icon }}</span> {{ item.emotion.get_emotion_display }}</span>
+              {% elif not item.dream.is_finished %}
+                <span class="mt-1 block text-sm text-dream-300">En cours de traitement…</span>
+              {% elif item.dream.status == "failed" %}
+                <span class="mt-1 block text-sm text-rose-300">Non traité</span>
+              {% endif %}
+              {% if item.excerpt %}<span class="mt-1 line-clamp-2 block text-sm text-slate-300">{{ item.excerpt }}</span>{% endif %}
+            </span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% if page.has_other_pages %}
+      <nav class="mt-6 flex items-center justify-between" aria-label="Pagination">
+        {% if page.has_previous %}
+          <a href="?{% if query %}{{ query }}&amp;{% endif %}page={{ page.previous_page_number }}" class="rounded-lg border border-night-800 px-4 py-2" rel="prev">← Plus récents</a>
+        {% else %}<span></span>{% endif %}
+        <span class="text-sm text-slate-400">Page {{ page.number }} sur {{ page.paginator.num_pages }}</span>
+        {% if page.has_next %}
+          <a href="?{% if query %}{{ query }}&amp;{% endif %}page={{ page.next_page_number }}" class="rounded-lg border border-night-800 px-4 py-2" rel="next">Plus anciens →</a>
+        {% else %}<span></span>{% endif %}
+      </nav>
+    {% endif %}
+  {% endif %}
+</section>
