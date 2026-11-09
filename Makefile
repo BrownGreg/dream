@@ -1,6 +1,6 @@
 # Raccourcis du projet. `make help` liste les cibles.
 .DEFAULT_GOAL := help
-.PHONY: help setup dev down test lint fmt load worker run
+.PHONY: help setup dev down test e2e lint fmt load worker run
 
 help: ## Affiche cette aide
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-8s\033[0m %s\n", $$1, $$2}'
@@ -23,6 +23,10 @@ worker: ## Lance le worker de tâches sans Docker
 test: ## Tests + couverture globale et par fonctionnalité critique (≥ 70 %)
 	uv run pytest --cov --cov-report=term-missing --cov-report=json --cov-fail-under=70
 	uv run python scripts/check_coverage.py coverage.json
+
+e2e: ## Tests navigateur (Playwright) : parcours et audit d'accessibilité
+	uv run python manage.py tailwind build
+	uv run pytest -m e2e -p no:cacheprovider
 
 lint: ## ruff (lint + format) et mypy strict
 	uv run ruff check .

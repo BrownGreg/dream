@@ -138,3 +138,13 @@ def test_un_autre_compte_n_est_pas_bloque_par_les_echecs_d_un_tiers(client, user
         client.post(LOGIN, {"username": "attaquant@example.org", "password": "faux"})
     response = client.post(LOGIN, {"username": user.email, "password": password})
     assert response.status_code == 302
+
+
+@pytest.mark.parametrize(
+    ("name", "args"),
+    [("accounts:password_reset", []), ("accounts:password_reset_done", []), ("accounts:password_reset_complete", [])],
+)
+def test_pages_mot_de_passe_utilisent_nos_gabarits_et_pas_ceux_de_l_admin(client, name, args):
+    html = client.get(reverse(name, args=args)).content.decode()
+    assert "administration de Django" not in html
+    assert "Synthétiseur de rêves" in html
