@@ -18,6 +18,11 @@ dependencies = [
     "structlog>=26.1",
     "sentry-sdk[django]>=2.74",
     "honcho>=2.0",
+    "cryptography>=46",
+    "tenacity>=9.2",
+    "httpx>=0.28",
+    "pydantic>=2.12",
+    "python-magic>=0.4.27",
 ]
 
 [dependency-groups]
@@ -31,6 +36,7 @@ dev = [
     "pytest-mock>=3.15",
     "factory-boy>=3.3",
     "pre-commit>=4.3",
+    "respx>=0.23",
 ]
 
 [tool.uv]
@@ -53,6 +59,7 @@ convention = "google"
 "config/settings/*" = ["F405"]
 "manage.py" = ["D"]
 "scripts/*" = ["T201"]
+"dreams/messages.py" = ["E501"]  # phrases destinées à l'utilisateur, plus lisibles sur une ligne
 
 [tool.mypy]
 python_version = "3.12"

@@ -19,6 +19,17 @@ THRESHOLD = 70.0
 CRITICAL: dict[str, list[str]] = {
     "Authentification et consentement": ["accounts/forms.py", "accounts/services.py", "accounts/views.py"],
     "Santé de l'application": ["config/views.py"],
+    "Garde-fou budget et quotas": ["dreams/services/budget.py", "dreams/services/pricing.py"],
+    "Client résilient (timeouts, retries)": ["dreams/services/http.py", "dreams/services/errors.py"],
+    "Données sensibles chiffrées": ["dreams/fields.py"],
+    "Upload et validation audio": ["dreams/audio.py"],
+    "Stockage et accès aux fichiers": ["dreams/storage.py", "dreams/views.py"],
+    "Pipeline et reprise par étape": ["dreams/pipeline.py", "dreams/tasks.py", "dreams/locks.py"],
+    "Pipeline IA : adapters": [
+        "dreams/services/adapters/*.py",
+        "dreams/services/registry.py",
+        "dreams/services/emotion.py",
+    ],
 }
 
 

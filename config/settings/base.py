@@ -101,6 +101,9 @@ AXES_USERNAME_FORM_FIELD = "username"
 # Version du texte de consentement affiché à l'inscription (preuve RGPD, art. 7).
 CONSENT_TEXT_VERSION = "2026-11-09"
 
+# Clés Fernet du chiffrement applicatif des récits ; la première chiffre, toutes déchiffrent (rotation).
+FIELD_ENCRYPTION_KEYS: list[str] = env.list("FIELD_ENCRYPTION_KEYS", default=[])
+
 # --- E-mail (réinitialisation du mot de passe)
 EMAIL_CONFIG = env.email_url("EMAIL_URL", default="consolemail://")
 vars().update(EMAIL_CONFIG)
@@ -116,8 +119,14 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "assets"]
+# Fichiers des rêves : en base (ADR-010) par défaut, sur disque si STORAGE_BACKEND=filesystem.
+STORAGE_BACKEND = env("STORAGE_BACKEND", default="database")
 STORAGES = {
-    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "default": {
+        "BACKEND": "dreams.storage.DatabaseStorage"
+        if STORAGE_BACKEND == "database"
+        else "dreams.storage.ProtectedFileSystemStorage"
+    },
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
 }
 MEDIA_URL = "media/"
@@ -134,3 +143,34 @@ TASKS = {
         "QUEUES": ["default"],
     }
 }
+
+# --- IA : adapters, budget et résilience (ADR-008, ADR-009)
+AI_MODE = env("AI_MODE", default="fake")  # real | fake
+AI_BUDGET_EUR = env.float("AI_BUDGET_EUR", default=15.0)
+AI_BUDGET_ALERT_RATIO = env.float("AI_BUDGET_ALERT_RATIO", default=0.8)
+AI_USD_EUR_RATE = env.float("AI_USD_EUR_RATE", default=1.0)
+AI_USER_DAILY_DREAMS = env.int("AI_USER_DAILY_DREAMS", default=5)
+AI_MAX_IMAGE_ATTEMPTS = env.int("AI_MAX_IMAGE_ATTEMPTS", default=2)
+AI_MAX_ATTEMPTS = env.int("AI_MAX_ATTEMPTS", default=3)
+AI_RETRY_BASE_SECONDS = env.float("AI_RETRY_BASE_SECONDS", default=1.0)
+AI_FAKE_LATENCY_MS = env.int("AI_FAKE_LATENCY_MS", default=0)
+AI_FAKE_FAIL_STEPS: list[str] = env.list("AI_FAKE_FAIL_STEPS", default=[])
+
+# --- Fournisseurs (ADR-002 à ADR-004, ADR-008)
+MISTRAL_API_KEY = env("MISTRAL_API_KEY", default="")
+MISTRAL_BASE_URL = env("MISTRAL_BASE_URL", default="https://api.mistral.ai")
+MISTRAL_STT_MODEL = env("MISTRAL_STT_MODEL", default="voxtral-mini-transcribe-3")
+MISTRAL_LLM_MODEL = env("MISTRAL_LLM_MODEL", default="mistral-small-2603")
+HF_TOKEN = env("HF_TOKEN", default="")
+HF_BASE_URL = env("HF_BASE_URL", default="https://router.huggingface.co/hf-inference")
+HF_EMOTION_MODEL = env("HF_EMOTION_MODEL", default="MoritzLaurer/mDeBERTa-v3-base-mnli-xnli")
+BFL_API_KEY = env("BFL_API_KEY", default="")
+BFL_BASE_URL = env("BFL_BASE_URL", default="https://api.eu.bfl.ai")
+BFL_IMAGE_MODEL = env("BFL_IMAGE_MODEL", default="flux-2-klein-4b")
+
+# --- Enregistrements (validation client et serveur)
+AUDIO_MAX_SECONDS = env.int("AUDIO_MAX_SECONDS", default=180)
+AUDIO_MIN_SECONDS = env.int("AUDIO_MIN_SECONDS", default=1)
+AUDIO_MAX_BYTES = env.int("AUDIO_MAX_BYTES", default=20 * 1024 * 1024)
+DATA_UPLOAD_MAX_MEMORY_SIZE = AUDIO_MAX_BYTES + 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024

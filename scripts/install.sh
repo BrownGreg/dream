@@ -11,7 +11,8 @@ if [[ ! -f .env ]]; then
   info "Création de .env depuis .env.example"
   cp .env.example .env
   secret=$(python3 -c 'import secrets; print(secrets.token_urlsafe(50))')
-  sed -i.bak "s|^DJANGO_SECRET_KEY=.*|DJANGO_SECRET_KEY=${secret}|" .env && rm -f .env.bak
+  fernet=$(python3 -c 'import base64, os; print(base64.urlsafe_b64encode(os.urandom(32)).decode())')
+  sed -i.bak -e "s|^DJANGO_SECRET_KEY=.*|DJANGO_SECRET_KEY=${secret}|" -e "s|^FIELD_ENCRYPTION_KEYS=.*|FIELD_ENCRYPTION_KEYS=${fernet}|" .env && rm -f .env.bak
 fi
 
 if [[ "${1:-}" == "--docker" ]]; then
