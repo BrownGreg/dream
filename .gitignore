@@ -38,3 +38,4 @@ assets/css/tailwind.css
 .django_tailwind_cli/
 coverage.json
 docs/rapport/body.typ
+docs/postmortem/body.typ

@@ -1,6 +1,6 @@
 # Raccourcis du projet. `make help` liste les cibles.
 .DEFAULT_GOAL := help
-.PHONY: help setup dev down test e2e lint fmt load worker run rapport
+.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem
 
 help: ## Affiche cette aide
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-8s\033[0m %s\n", $$1, $$2}'
@@ -47,3 +47,7 @@ rapport: ## Rapport PDF (pandoc + typst + plantuml) : docs/rapport/rapport_hery.
 	plantuml -tsvg docs/diagrams/coupe_circuit.puml
 	pandoc docs/rapport/rapport.md -f markdown -t typst -o docs/rapport/body.typ
 	typst compile --root . docs/rapport/main.typ docs/rapport/rapport_hery.pdf
+
+postmortem: ## Post-mortem PDF (matière factuelle + parties à rédiger) : docs/postmortem/postmortem_gregory.pdf
+	pandoc docs/postmortem/postmortem.md -f markdown -t typst -o docs/postmortem/body.typ
+	typst compile --root . docs/postmortem/main.typ docs/postmortem/postmortem_gregory.pdf
