@@ -1,6 +1,6 @@
 # Raccourcis du projet. `make help` liste les cibles.
 .DEFAULT_GOAL := help
-.PHONY: help setup dev down test e2e lint fmt load worker run
+.PHONY: help setup dev down test e2e lint fmt load worker run rapport
 
 help: ## Affiche cette aide
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-8s\033[0m %s\n", $$1, $$2}'
@@ -42,3 +42,8 @@ LOCUST_HOST ?= http://127.0.0.1:8000
 load: ## Test de charge Locust (serveur et worker lancés à part, AI_MODE=fake, comptes seed_load_users)
 	mkdir -p load-results
 	uv run locust --config tests/load/locust.conf --host $(LOCUST_HOST)
+
+rapport: ## Rapport PDF (pandoc + typst + plantuml) : docs/rapport/rapport_hery.pdf
+	plantuml -tsvg docs/diagrams/coupe_circuit.puml
+	pandoc docs/rapport/rapport.md -f markdown -t typst -o docs/rapport/body.typ
+	typst compile --root . docs/rapport/main.typ docs/rapport/rapport_hery.pdf
