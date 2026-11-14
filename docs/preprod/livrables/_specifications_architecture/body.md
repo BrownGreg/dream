@@ -1,6 +1,6 @@
 # 1. Architecture : diagrammes C4
 
-![C4 niveau 1 — contexte](../../diagrams/c4_context.svg)
+![C4 niveau 1 — contexte](../../diagrams/excalidraw/c4_context.png)
 
 ![C4 niveau 2 — conteneurs de l'architecture cible de production](../../diagrams/c4_container.svg)
 
