@@ -40,10 +40,9 @@ from dreamsynth.repository import DreamRepository
 from dreamsynth.services.factory import build_services
 from dreamsynth.services.mock import Failure, PlaceholderImageGenerator
 from dreamsynth.services.ports import Services
-from tests.conftest import CORPUS_MP3, make_wav
+from tests.conftest import CORPUS_MP3, DOCS, make_wav
 
-ROOT = Path(__file__).resolve().parents[2]
-SCHEMA = ROOT / "docs" / "schemas" / "dream.schema.json"
+SCHEMA = DOCS / "schemas" / "dream.schema.json"
 SOURCES = {"utilisateur": EmotionSource.USER, "modèle": EmotionSource.MODEL}
 
 scenarios(".")
