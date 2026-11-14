@@ -13,7 +13,10 @@ from pathlib import Path
 
 from dreamsynth.domain.models import SCHEMA_VERSION, DreamExport
 
-OUT = Path(__file__).resolve().parents[1] / "docs" / "schemas" / "dream.schema.json"
+ROOT = Path(__file__).resolve().parents[1]
+# `docs/` à côté de la maquette (dossier autonome) ou dossier parent (dépôt de production).
+DOCS = ROOT / "docs" if (ROOT / "docs").is_dir() else ROOT.parent
+OUT = DOCS / "schemas" / "dream.schema.json"
 
 
 def build() -> str:
