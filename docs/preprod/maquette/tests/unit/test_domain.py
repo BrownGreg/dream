@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
-from pathlib import Path
 
 import jsonschema
 import pytest
@@ -14,7 +13,6 @@ from pydantic import ValidationError
 from dreamsynth.domain.emotion import Emotion
 from dreamsynth.domain.models import AssetKind, Dream, DreamExport, GeneratedAsset
 from dreamsynth.errors import MESSAGES, ErrorCode
-
 from tests.conftest import DOCS, ROOT
 
 SCHEMA = DOCS / "schemas" / "dream.schema.json"
