@@ -12,7 +12,7 @@
 | 2026-11-09, 20 h 46 – 21 h 16 | Tableau de bord, détail, compte RGPD, ambiance sonore, accessibilité (DREAM-11 à 16) | PR #17 à #22 |
 | 2026-11-09, 21 h 39 – 22 h 03 | Observabilité (DREAM-17), stratégie de tests (DREAM-18), E2E et **correctif critique MediaRecorder** (DREAM-19), correctif de mesure (DREAM-17), charge Locust (DREAM-20) | PR #23 à #26, #28 |
 | 2026-11-09, 22 h 07 – 22 h 12 | README et schémas (DREAM-22) ; performance face aux SLO (DREAM-21, PR #29 ouverte) | PR #27, #29 |
-| 2026-11-11 | Rapport de production (DREAM-23), post-mortem (matière), dossier de code review (DREAM-24) | PR #30 |
+| 2026-11-11 | Rapport de production (DREAM-23), post-mortem (matière), dossier de code review (DREAM-24) ; la vérification en clone propre révèle l'incident n° 12 | PR #30, #31, #32 |
 | **À COMPLÉTER** | Création du service Render, premiers appels réels, mesure du coût et des latences | — |
 
 Les horodatages Git sont ceux des **fusions** (*squash*, un commit par PR), pas du début du travail : ils ne mesurent pas le temps passé.
@@ -64,13 +64,13 @@ Source : `docs/preprod/backlog/risks.toml`.
 
 # 3. Incidents
 
-11 incidents journalisés dans `docs/incidents.md`, détaillés dans le rapport (§7).
+12 incidents journalisés dans `docs/incidents.md`, détaillés dans le rapport (§7).
 
 | Catégorie | Incidents | Révélé par |
 |---|---|---|
 | Comportement implicite d'une bibliothèque | 1 (`normalize_email`), 2 (Axes), 7 (ordre des gabarits), 10 (`run_after`) | relecture des journaux, audit d'accessibilité, test de charge |
 | Format de fichier réel ≠ fichier de test | 4 (WAV sur flux), 9 (webm MediaRecorder sans durée) | essai manuel, parcours E2E navigateur |
-| Environnement de CI / build ≠ poste local | 5 (ffmpeg absent), 8 (`collectstatic` de production) | CI |
+| Environnement de CI / build / installation neuve ≠ poste local | 5 (ffmpeg absent), 8 (`collectstatic` de production), 12 (`DATABASE_URL` vide) | CI, clone propre |
 | Logique métier | 3 (égalité au plafond), 11 (mesure bout en bout) | tests, capture de `/ops` |
 | Outillage de test | 6 (simulation trop large, boucle infinie) | isolement test par test |
 
@@ -95,11 +95,11 @@ Un incident est classé **critique** : le n° 9. Sans lui, tout enregistrement a
 
 | Indicateur | Valeur |
 |---|---|
-| Commits sur `main` | 23 (*squash*, un par PR) |
-| PR fusionnées | 22 ; en revue : #29, #30 |
+| Commits sur `main` | 25 au 2026-11-14 (*squash*, un par PR) |
+| PR fusionnées | 24 ; en revue : #30, #32 |
 | PR Dependabot | 5 (#4 à #8), aucune fusionnée, 2 fermées |
 | Tickets Jira de production | 24 (12 stories, 12 tâches), 77 story points |
-| Tickets de correctif dédiés | 1 PR `fix` (#26) ; les autres correctifs sont dans la PR de la fonctionnalité concernée |
+| Tickets de correctif dédiés | 2 PR `fix` (#26, #31) ; les autres correctifs sont dans la PR de la fonctionnalité concernée |
 | Plus grosse PR (hors données) | #1, socle Django : 2 106 lignes ajoutées |
 
 # 6. À rédiger par l'auteur
