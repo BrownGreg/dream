@@ -6,7 +6,7 @@ from .base import BASE_DIR, env
 SECRET_KEY = "test-uniquement"  # noqa: S105 - clé de test, sans valeur hors tests
 DEBUG = False
 ALLOWED_HOSTS = ["testserver", "localhost"]
-DATABASES = {"default": env.db("DATABASE_URL", default="sqlite://:memory:")}
+DATABASES = {"default": env.db_url_config(env("DATABASE_URL", default="") or "sqlite://:memory:")}
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 STORAGES = {
