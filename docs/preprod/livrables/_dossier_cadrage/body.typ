@@ -806,6 +806,12 @@ objet, durée, nature et finalité du traitement.
 - #strong[Aucune prétention diagnostique ou thérapeutique] : ni
   interprétation, ni conseil, ni score de « santé » \; renvoi vers un
   professionnel dans l'aide.
+- #strong[Pourquoi aucune interprétation : un choix vécu] : j'ai été suivi et
+  j'ai déjà essayé de comprendre mes rêves au cours d'une séance. Le praticien
+  avait un avis tranché sur la question, alors que, même entre professionnels
+  du psychisme, l'interprétation des rêves divise. Il vaut mieux ne pas trop
+  s'y attarder et se concentrer sur des faits réels : l'application s'en tient
+  au récit, à l'image et à l'humeur, sans leur prêter de sens.
 - #strong[Cauchemars] : image désactivable par rêve, ton visuel atténué
   par consigne (« évocateur et non explicite »), aucun affichage
   automatique en plein écran.
