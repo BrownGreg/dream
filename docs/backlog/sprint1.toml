@@ -1,0 +1,78 @@
+# Sprint #1 de la phase Production — source unique (import Jira et section 6 générés).
+# Heures = estimation de l'auteur (planning poker en solo, base Fibonacci des stories).
+
+goal = "Un rêve raconté au micro, avec consentement, devient une transcription réelle (Voxtral) via l'API et le worker de l'architecture cible ; les premières latences et le WER sont mesurés."
+duration_days = 5
+capacity_hours = 25
+capacity_method = "5 jours × 5 h productives (hypothèse, travail individuel en parallèle des cours), dont 3,8 h de cérémonies ; le reste après tâches est une marge non planifiée"
+ceremonies_hours = 3.8
+next_sprint = ["US-08 Progression et erreurs (3 pts)", "US-02 Import de fichier (2 pts)", "US-06 Émotion (5 pts)", "CI : build Docker et pip-audit"]
+
+[[item]]
+story = "TECH"
+summary = "Socle technique"
+tasks = [
+  ["Projet FastAPI + Arq + Redis en docker compose, endpoint /healthz", 2.0],
+  ["PostgreSQL + Alembic : tables users, consents, dreams, audio_assets, transcriptions", 2.0],
+]
+
+[[item]]
+story = "US-03"
+summary = "Consentement explicite"
+tasks = [
+  ["PUT /v1/me/consents + historique horodaté (text_version)", 1.5],
+  ["Contrôle 403 consent_required avant toute tâche", 1.0],
+  ["Écran de consentement relié à l'API", 1.0],
+]
+
+[[item]]
+story = "US-01"
+summary = "Enregistrement micro"
+tasks = [
+  ["POST /v1/dreams multipart + validation (signature, taille, durée)", 2.0],
+  ["Dépôt S3 chiffré, clé aléatoire, 202 + status_url", 1.5],
+]
+
+[[item]]
+story = "US-04"
+summary = "Transcription réelle"
+tasks = [
+  ["Worker process_dream idempotent (verrou dream_id)", 2.0],
+  ["Adapter Voxtral branché, retries ×2, api_calls avec coût", 2.0],
+  ["Purge de l'audio après transcription + tâche 24 h", 1.0],
+  ["Campagne run_latency --live + WER sur le corpus", 1.0],
+]
+
+[[item]]
+story = "RGPD"
+summary = "Actions du plan AIPD (1 et 2)"
+tasks = [
+  ["Opt-out d'entraînement Mistral (capture conservée) + demande ZDR", 0.5],
+  ["Demande DPA + opt-out écrit à BFL (R-03)", 0.5],
+]
+
+[[ceremony]]
+name = "Sprint planning"
+when = "Lundi 9 h"
+duration = "1 h"
+output = "Objectif, stories engagées, tâches estimées"
+[[ceremony]]
+name = "Point quotidien (solo)"
+when = "Chaque matin"
+duration = "10 min"
+output = "Journal : fait / à faire / blocage, burndown mis à jour"
+[[ceremony]]
+name = "Affinage du backlog"
+when = "Mercredi"
+duration = "45 min"
+output = "Stories du Sprint 2 prêtes (DoR)"
+[[ceremony]]
+name = "Revue de sprint"
+when = "Vendredi 14 h"
+duration = "45 min"
+output = "Démo au tuteur ou à un pair, retours notés dans le backlog"
+[[ceremony]]
+name = "Rétrospective"
+when = "Vendredi 15 h"
+duration = "30 min"
+output = "1 action d'amélioration pour le sprint suivant"

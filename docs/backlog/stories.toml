@@ -1,0 +1,518 @@
+# Source unique du backlog (règle « un fait, un endroit »).
+# Génère : docs/cadrage/_gen/story_map.md, tests/features/*.feature,
+#          docs/annexes/jira_import.csv, docs/annexes/tracabilite.csv
+# via `python tools/backlog.py`.
+#
+# kano  : B = basique · P = performance · E = enthousiasmante · I = indifférente · R = inverse
+# moscow: Must · Should · Could · Won't   — règle : kano = B ⇒ moscow ∈ {Must, Should}
+# points: Fibonacci (1, 2, 3, 5, 8, 13)
+
+[[activity]]
+id = "A1"
+name = "Raconter mon rêve"
+[[activity]]
+id = "A2"
+name = "Comprendre mon rêve"
+[[activity]]
+id = "A3"
+name = "Voir et entendre mon rêve"
+[[activity]]
+id = "A4"
+name = "Retrouver mes rêves"
+[[activity]]
+id = "A5"
+name = "Garder le contrôle"
+
+# ---------------------------------------------------------------- A1
+[[story]]
+id = "US-01"
+activity = "A1"
+task = "Enregistrer"
+role = "rêveuse au réveil"
+want = "enregistrer mon rêve au micro en un seul geste"
+so_that = "le capturer avant qu'il ne s'efface"
+kano = "B"
+moscow = "Must"
+points = 3
+release = "MVP"
+persona = "Léa"
+requirements = ["EXF-01", "ENF-04"]
+gherkin = """
+Scénario: Enregistrement micro valide
+  Étant donné que j'ai accepté le consentement
+  Quand j'enregistre un récit de 45 secondes au micro
+  Alors l'audio est accepté pour traitement
+
+Scénario: Enregistrement trop court
+  Étant donné que j'ai accepté le consentement
+  Quand j'enregistre un récit de 1 seconde au micro
+  Alors je vois le message « Enregistrement trop court (minimum 3 s) »
+"""
+
+[[story]]
+id = "US-02"
+activity = "A1"
+task = "Importer"
+role = "utilisateur ayant déjà un mémo vocal"
+want = "importer un fichier .wav ou .mp3"
+so_that = "réutiliser un enregistrement fait avec mon dictaphone"
+kano = "B"
+moscow = "Must"
+points = 2
+release = "MVP"
+persona = "Karim"
+requirements = ["EXF-02"]
+gherkin = """
+Scénario: Import d'un fichier mp3 valide
+  Étant donné que j'ai accepté le consentement
+  Quand j'importe le fichier « reve.mp3 » de 2 Mo
+  Alors l'audio est accepté pour traitement
+
+Scénario: Import d'un format refusé
+  Étant donné que j'ai accepté le consentement
+  Quand j'importe le fichier « reve.ogg » de 2 Mo
+  Alors je vois le message « Format non pris en charge : utilisez .wav ou .mp3 »
+
+Scénario: Import d'un fichier trop lourd
+  Étant donné que j'ai accepté le consentement
+  Quand j'importe le fichier « reve.wav » de 30 Mo
+  Alors je vois le message « Fichier trop volumineux (maximum 20 Mo) »
+"""
+
+[[story]]
+id = "US-03"
+activity = "A1"
+task = "Consentir"
+role = "utilisateur"
+want = "donner un consentement explicite et séparé pour l'envoi de ma voix et de mon récit aux services d'IA"
+so_that = "savoir précisément ce qui sort de l'application et pouvoir le retirer"
+kano = "B"
+moscow = "Must"
+points = 3
+release = "MVP"
+persona = "Inès"
+requirements = ["EXF-03", "ENF-08"]
+gherkin = """
+Scénario: Traitement bloqué sans consentement
+  Étant donné que je n'ai pas accepté le consentement
+  Quand j'importe le fichier « reve.mp3 » de 2 Mo
+  Alors je vois le message « Consentement requis avant tout traitement »
+"""
+
+# ---------------------------------------------------------------- A2
+[[story]]
+id = "US-04"
+activity = "A2"
+task = "Transcrire"
+role = "rêveuse"
+want = "lire la transcription de mon récit"
+so_that = "vérifier que l'application a bien compris mon rêve"
+kano = "B"
+moscow = "Must"
+points = 5
+release = "MVP"
+persona = "Léa"
+requirements = ["EXF-04", "ENF-01"]
+gherkin = """
+Scénario: Transcription affichée
+  Étant donné que j'ai accepté le consentement
+  Et que j'ai soumis un récit valide
+  Quand le traitement se termine
+  Alors je vois une transcription non vide
+
+Scénario: Service de transcription indisponible
+  Étant donné que j'ai accepté le consentement
+  Et que le service de transcription est indisponible
+  Quand je soumets un récit valide
+  Alors je vois le message « Transcription indisponible, réessayez dans un instant »
+  Et mon audio n'est pas perdu
+"""
+
+[[story]]
+id = "US-05"
+activity = "A2"
+task = "Transcrire"
+role = "rêveuse"
+want = "corriger la transcription avant la génération"
+so_that = "que l'image corresponde à mon rêve et pas à une erreur de reconnaissance"
+kano = "P"
+moscow = "Should"
+points = 2
+release = "MVP"
+persona = "Léa"
+requirements = ["EXF-05"]
+gherkin = """
+Scénario: Correction prise en compte
+  Étant donné une transcription « un shat noir »
+  Quand je la corrige en « un chat noir »
+  Alors la génération utilise « un chat noir »
+"""
+
+[[story]]
+id = "US-06"
+activity = "A2"
+task = "Qualifier l'émotion"
+role = "utilisateur qui suit son humeur"
+want = "voir l'émotion dominante de mon rêve avec une icône et une couleur"
+so_that = "repérer d'un coup d'œil l'ambiance de mes nuits"
+kano = "P"
+moscow = "Must"
+points = 5
+release = "MVP"
+persona = "Karim"
+requirements = ["EXF-06", "ENF-09"]
+gherkin = """
+Scénario: Émotion affichée avec icône
+  Étant donné la transcription « je tombais dans le vide et personne ne m'entendait »
+  Quand l'émotion est classée
+  Alors je vois l'émotion « stressant » avec son icône et sa couleur
+"""
+
+[[story]]
+id = "US-14"
+activity = "A2"
+task = "Qualifier l'émotion"
+role = "utilisateur"
+want = "corriger l'émotion proposée"
+so_that = "mon historique reflète mon ressenti et non celui du modèle"
+kano = "P"
+moscow = "Should"
+points = 2
+release = "R2"
+persona = "Karim"
+requirements = ["EXF-07"]
+gherkin = """
+Scénario: Émotion corrigée par l'utilisateur
+  Étant donné un rêve classé « neutre »
+  Quand je choisis l'émotion « heureux »
+  Alors le rêve est enregistré avec l'émotion « heureux » et la source « utilisateur »
+"""
+
+# ---------------------------------------------------------------- A3
+[[story]]
+id = "US-07"
+activity = "A3"
+task = "Générer l'image"
+role = "rêveuse"
+want = "voir une image générée à partir de mon rêve, signalée comme produite par IA"
+so_that = "redécouvrir mon rêve sous une forme visuelle"
+kano = "P"
+moscow = "Must"
+points = 5
+release = "MVP"
+persona = "Léa"
+requirements = ["EXF-08", "EXF-09", "ENF-02"]
+gherkin = """
+Scénario: Image générée et marquée
+  Étant donné que j'ai accepté le consentement
+  Et que j'ai soumis un récit valide
+  Quand le traitement se termine
+  Alors je vois une image accompagnée de la mention « Image générée par IA »
+
+Scénario: Image refusée par le filtre du fournisseur
+  Étant donné que le fournisseur d'image refuse le prompt
+  Quand je soumets un récit valide
+  Alors mon rêve est enregistré sans image
+  Et je vois le message « Image non générée : le service a refusé ce contenu »
+"""
+
+[[story]]
+id = "US-08"
+activity = "A3"
+task = "Suivre le traitement"
+role = "utilisateur pressé le matin"
+want = "voir l'avancement étape par étape et un message clair en cas d'échec"
+so_that = "savoir s'il faut attendre, réessayer ou abandonner"
+kano = "B"
+moscow = "Must"
+points = 3
+release = "MVP"
+persona = "Karim"
+requirements = ["EXF-10", "ENF-03"]
+gherkin = """
+Scénario: Délai dépassé
+  Étant donné que j'ai accepté le consentement
+  Et que le service de transcription dépasse le délai
+  Quand je soumets un récit valide
+  Alors je vois le message « Le service met trop de temps à répondre »
+  Et je peux relancer le traitement
+"""
+
+[[story]]
+id = "US-11"
+activity = "A3"
+task = "Générer l'image"
+role = "personne sujette aux cauchemars"
+want = "choisir de ne pas générer d'image pour un rêve"
+so_that = "ne pas revoir une scène qui m'a angoissée"
+kano = "B"
+moscow = "Must"
+points = 2
+release = "MVP"
+persona = "Inès"
+requirements = ["EXF-11"]
+gherkin = """
+Scénario: Rêve sans image
+  Étant donné que j'ai accepté le consentement
+  Et que j'ai coché « Ne pas générer d'image »
+  Quand je soumets un récit valide
+  Alors aucun appel au générateur d'image n'est effectué
+  Et mon rêve est enregistré avec sa transcription et son émotion
+"""
+
+[[story]]
+id = "US-13"
+activity = "A3"
+task = "Ambiance sonore"
+role = "rêveuse"
+want = "écouter une ambiance sonore accordée à l'émotion de mon rêve"
+so_that = "replonger dans l'atmosphère du rêve"
+kano = "E"
+moscow = "Should"
+points = 5
+release = "MVP"
+persona = "Léa"
+requirements = ["EXF-12"]
+gherkin = """
+Scénario: Ambiance associée à l'émotion
+  Étant donné un rêve classé « mélancolique »
+  Quand j'ouvre le rêve
+  Alors une ambiance sonore « mélancolique » est proposée en lecture
+"""
+
+[[story]]
+id = "US-23"
+implemented = false
+activity = "A3"
+task = "Ambiance sonore"
+role = "rêveuse"
+want = "écouter le titre et le résumé de mon rêve lus par une voix française"
+so_that = "revivre mon rêve les yeux fermés"
+kano = "E"
+moscow = "Could"
+points = 3
+release = "R2"
+persona = "Léa"
+requirements = ["EXF-22"]
+gherkin = """
+Scénario: Lecture vocale du résumé
+  Étant donné un rêve classé « serein »
+  Quand je demande la lecture vocale
+  Alors un fichier audio du résumé est associé au rêve
+"""
+
+[[story]]
+id = "US-19"
+activity = "A3"
+task = "Générer l'image"
+role = "rêveuse créative"
+want = "choisir un style visuel (aquarelle, photo, croquis)"
+so_that = "obtenir une image qui me ressemble"
+kano = "E"
+moscow = "Could"
+points = 3
+release = "R3"
+persona = "Léa"
+requirements = ["EXF-13"]
+gherkin = """
+Scénario: Style appliqué
+  Étant donné que j'ai choisi le style « aquarelle »
+  Quand je soumets un récit valide
+  Alors le prompt visuel contient le style « aquarelle »
+"""
+
+[[story]]
+id = "US-20"
+implemented = false
+activity = "A3"
+task = "Micro-vidéo"
+role = "rêveuse"
+want = "obtenir une micro-vidéo de 5 secondes de mon rêve"
+so_that = "voir mon rêve en mouvement"
+kano = "E"
+moscow = "Could"
+points = 8
+release = "R3"
+persona = "Léa"
+requirements = ["EXF-14"]
+gherkin = """
+Scénario: Micro-vidéo à la demande
+  Étant donné un rêve avec image
+  Quand je demande une micro-vidéo
+  Alors une vidéo de 5 secondes maximum est associée au rêve
+"""
+
+# ---------------------------------------------------------------- A4
+[[story]]
+id = "US-09"
+activity = "A4"
+task = "Consulter l'historique"
+role = "utilisateur régulier"
+want = "retrouver la liste de mes rêves passés, du plus récent au plus ancien"
+so_that = "relire mes rêves de la semaine"
+kano = "B"
+moscow = "Must"
+points = 3
+release = "MVP"
+persona = "Karim"
+requirements = ["EXF-15"]
+gherkin = """
+Scénario: Historique trié
+  Étant donné que j'ai enregistré 3 rêves
+  Quand j'ouvre « Mes rêves »
+  Alors je vois 3 rêves du plus récent au plus ancien
+"""
+
+[[story]]
+id = "US-10"
+activity = "A4"
+task = "Filtrer"
+role = "utilisateur régulier"
+want = "filtrer mes rêves par émotion et les voir sur une frise"
+so_that = "repérer des périodes de rêves stressants"
+kano = "P"
+moscow = "Should"
+points = 3
+release = "MVP"
+persona = "Karim"
+requirements = ["EXF-16"]
+gherkin = """
+Scénario: Filtre par émotion
+  Étant donné que j'ai enregistré 2 rêves « heureux » et 1 rêve « stressant »
+  Quand je filtre sur « stressant »
+  Alors je vois 1 rêve
+"""
+
+[[story]]
+id = "US-16"
+activity = "A4"
+task = "Suivre mon humeur"
+role = "utilisateur qui suit son humeur"
+want = "voir la répartition mensuelle de mes émotions"
+so_that = "observer une tendance sans interprétation médicale"
+kano = "E"
+moscow = "Could"
+points = 5
+release = "R2"
+persona = "Karim"
+requirements = ["EXF-17"]
+gherkin = """
+Scénario: Répartition mensuelle
+  Étant donné que j'ai enregistré des rêves sur 2 mois
+  Quand j'ouvre la vue « Tendances »
+  Alors je vois une répartition des émotions par mois
+  Et je vois la mention « Indicateur personnel, sans valeur médicale »
+"""
+
+[[story]]
+id = "US-18"
+implemented = false
+activity = "A4"
+task = "Être rappelé"
+role = "utilisateur qui oublie"
+want = "recevoir un rappel matinal optionnel"
+so_that = "penser à raconter mon rêve au réveil"
+kano = "I"
+moscow = "Could"
+points = 2
+release = "R3"
+persona = "Karim"
+requirements = ["EXF-18"]
+gherkin = """
+Scénario: Rappel désactivé par défaut
+  Étant donné un nouveau compte
+  Alors aucun rappel n'est programmé
+"""
+
+# ---------------------------------------------------------------- A5
+[[story]]
+id = "US-12"
+activity = "A5"
+task = "Supprimer"
+role = "utilisateur"
+want = "supprimer définitivement un rêve et tous ses fichiers"
+so_that = "exercer mon droit à l'effacement"
+kano = "B"
+moscow = "Must"
+points = 3
+release = "MVP"
+persona = "Inès"
+requirements = ["EXF-19", "ENF-07"]
+gherkin = """
+Scénario: Suppression en cascade
+  Étant donné un rêve avec transcription, émotion et image
+  Quand je le supprime
+  Alors le rêve n'apparaît plus dans « Mes rêves »
+  Et aucun fichier associé ne subsiste
+"""
+
+[[story]]
+id = "US-15"
+activity = "A5"
+task = "Exporter"
+role = "utilisateur"
+want = "exporter tous mes rêves dans un format ouvert"
+so_that = "exercer mon droit à la portabilité"
+kano = "B"
+moscow = "Must"
+points = 3
+release = "R2"
+persona = "Inès"
+requirements = ["EXF-20"]
+gherkin = """
+Scénario: Export JSON
+  Étant donné que j'ai enregistré 2 rêves
+  Quand je demande l'export
+  Alors je reçois un fichier JSON valide contre « dream.schema.json » contenant 2 rêves
+"""
+
+[[story]]
+id = "US-17"
+activity = "A5"
+task = "Supprimer"
+role = "utilisateur"
+want = "supprimer mon compte et l'ensemble de mes données"
+so_that = "quitter le service sans laisser de trace"
+kano = "B"
+moscow = "Must"
+points = 5
+release = "R2"
+persona = "Inès"
+requirements = ["EXF-21", "ENF-07"]
+gherkin = """
+Scénario: Suppression du compte
+  Étant donné un compte avec 3 rêves
+  Quand je supprime mon compte
+  Alors aucun rêve, fichier ni consentement rattaché ne subsiste hors journal d'audit anonymisé
+"""
+
+# ---------------------------------------------------------------- Won't (décision tracée)
+[[story]]
+id = "US-21"
+activity = "A4"
+task = "Partager"
+role = "utilisateur"
+want = "publier mon rêve sur un réseau social"
+so_that = "le montrer à mes proches"
+kano = "R"
+moscow = "Won't"
+points = 0
+release = "—"
+persona = "Léa"
+requirements = []
+gherkin = ""
+
+[[story]]
+id = "US-22"
+activity = "A2"
+task = "Qualifier l'émotion"
+role = "utilisateur"
+want = "obtenir une interprétation psychologique de mon rêve"
+so_that = "comprendre ce qu'il « signifie »"
+kano = "R"
+moscow = "Won't"
+points = 0
+release = "—"
+persona = "Inès"
+requirements = []
+gherkin = ""
