@@ -37,7 +37,7 @@ Toutes les stories **Must** sont livrées, y compris US-15 et US-17 (export, sup
 | | Prévu | Réalisé |
 |---|---|---|
 | Durée du bloc production | 6 jours (labels `jour-1` à `jour-6`, 77 story points) | code fusionné le 9 novembre ; documentation le 11 novembre |
-| Vélocité de référence | 11 points par sprint d'une semaine (hypothèse du bloc 1) | 77 points en 24 tickets ; **temps réel : À COMPLÉTER** |
+| Vélocité de référence | 11 points par sprint d'une semaine (hypothèse du bloc 1) | 77 points en 24 tickets ; environ **42 h** (estimation *a posteriori* : 6 jours × 7 h, non chronométré) |
 | Mise en production | automatique depuis `main` (DREAM-2) | pipeline prêt ; service Render **non créé** au 14/11/2026 |
 
 ## 2.3 Architecture
@@ -95,8 +95,8 @@ Un incident est classé **critique** : le n° 9. Sans lui, tout enregistrement a
 
 | Indicateur | Valeur |
 |---|---|
-| Commits sur `main` | 25 au 2026-11-14 (*squash*, un par PR) |
-| PR fusionnées | 24 ; en revue : #30, #32 |
+| Commits sur `main` | 27 au 2026-11-14 (*squash*, un par PR) |
+| PR fusionnées | 26 ; en revue : #33 |
 | PR Dependabot | 5 (#4 à #8), aucune fusionnée, 2 fermées |
 | Tickets Jira de production | 24 (12 stories, 12 tâches), 77 story points |
 | Tickets de correctif dédiés | 2 PR `fix` (#26, #31) ; les autres correctifs sont dans la PR de la fonctionnalité concernée |

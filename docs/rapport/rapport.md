@@ -210,7 +210,7 @@ Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets
 | Jour 5 — observabilité, tests, charge, performance | DREAM-17 à 21 | 14 |
 | Jour 6 — documentation, rapport, code review | DREAM-22 à 24 | 7 |
 
-**Historique Git** (`main`) : 25 commits au 2026-11-14, dont 24 PR fusionnées (en revue : #30, #32). Aucune n'a été fusionnée avec un contrôle de CI en échec (lint, types, tests PostgreSQL, couverture par fonctionnalité, E2E, image Docker). Les commits datent tous du 9 novembre 2026, de 15 h 54 à 22 h 12 ; ils sont fusionnés par *squash*, donc un commit par PR, horodaté à la fusion et non au début du travail. Ces horodatages ne mesurent donc pas le temps passé par lot.
+**Historique Git** (`main`) : 27 commits au 2026-11-14, dont 26 PR fusionnées (en revue : #33). Aucune n'a été fusionnée avec un contrôle de CI en échec (lint, types, tests PostgreSQL, couverture par fonctionnalité, E2E, image Docker). Les commits datent tous du 9 novembre 2026, de 15 h 54 à 22 h 12 ; ils sont fusionnés par *squash*, donc un commit par PR, horodaté à la fusion et non au début du travail. Ces horodatages ne mesurent donc pas le temps passé par lot.
 
 | Lot | PR | Lignes ajoutées |
 |---|---|---|
@@ -220,7 +220,17 @@ Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets
 | Observabilité, tests, E2E, charge, performance | #23 à #26, #28, #29 | 7 929 (dont 5 575 lignes de résultats de charge en CSV) |
 | Documentation | #27 | 316 |
 
-**Temps réellement passé par lot :** **À COMPLÉTER par l'auteur** (Jira ne contient que les estimations en story points).
+**Temps passé par lot (estimation)** : non chronométré. Estimation *a posteriori* de l'auteur : 6 jours × 7 h = 42 h, répartis au prorata des story points de chaque lot.
+
+| Lot | Story points | Temps estimé |
+|---|---|---|
+| Jour 1 — socle, CI/CD, ADR | 9 | 5 h |
+| Jour 2 — données, client résilient, audio, transcription | 16 | 8 h 30 |
+| Jour 3 — émotion, image, tâche de fond | 13 | 7 h |
+| Jour 4 — tableau de bord, détail, RGPD, son, accessibilité | 18 | 10 h |
+| Jour 5 — observabilité, tests, charge, performance | 14 | 7 h 30 |
+| Jour 6 — documentation, rapport, code review | 7 | 4 h |
+| **Total** | **77** | **42 h** |
 
 Dependabot a ouvert 5 PR de mise à jour (#4 à #8) : aucune n'est fusionnée, 2 sont fermées. La PR #15, qui fait ignorer à Dependabot Django 6.1 et Python au-delà de 3.12 pour rester sur les versions validées, est encore ouverte.
 
