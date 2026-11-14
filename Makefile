@@ -1,6 +1,6 @@
 # Raccourcis du projet. `make help` liste les cibles.
 .DEFAULT_GOAL := help
-.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem eisvogel
+.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem code-review eisvogel
 
 help: ## Affiche cette aide
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-8s\033[0m %s\n", $$1, $$2}'
@@ -43,22 +43,27 @@ load: ## Test de charge Locust (serveur et worker lancés à part, AI_MODE=fake,
 	mkdir -p load-results
 	uv run locust --config tests/load/locust.conf --host $(LOCUST_HOST)
 
-rapport: ## Rapport PDF (pandoc + typst + plantuml) : docs/rapport/rapport_hery.pdf
+EV = $(CURDIR)/docs/templates/eisvogel
+EISVOGEL = pandoc --metadata-file=$(EV)/commun.yaml --template=$(EV)/eisvogel.latex \
+	--lua-filter=$(EV)/liens_locaux.lua --pdf-engine=xelatex
+
+rapport: ## Rapport de production (Eisvogel) : docs/rapport/rapport_hery.pdf
 	plantuml -tsvg docs/diagrams/coupe_circuit.puml
-	pandoc docs/rapport/rapport.md -f markdown -t typst -o docs/rapport/body.typ
-	typst compile --root . docs/rapport/main.typ docs/rapport/rapport_hery.pdf
+	for d in c4_container sequence_reve; do rsvg-convert -f pdf -o docs/rapport/$$d.pdf docs/diagrams/$$d.svg; done
+	cd docs/rapport && $(EISVOGEL) rapport.md --metadata-file=metadata.yaml -o rapport_hery.pdf
+	rm -f docs/rapport/c4_container.pdf docs/rapport/sequence_reve.pdf
 
-postmortem: ## Post-mortem PDF (matière factuelle + parties à rédiger) : docs/postmortem/postmortem_gregory.pdf
-	pandoc docs/postmortem/postmortem.md -f markdown -t typst -o docs/postmortem/body.typ
-	typst compile --root . docs/postmortem/main.typ docs/postmortem/postmortem_gregory.pdf
+postmortem: ## Post-mortem (Eisvogel) : docs/postmortem/postmortem_gregory.pdf
+	cd docs/postmortem && $(EISVOGEL) postmortem.md --metadata-file=metadata.yaml -o postmortem_gregory.pdf
 
-EISVOGEL = pandoc body.md --metadata-file=../../templates/eisvogel/commun.yaml \
-	--template=../../templates/eisvogel/eisvogel.latex --pdf-engine=xelatex
+code-review: ## Dossier de code review (Eisvogel) : docs/code-review/dossier_code_review.pdf
+	cd docs/code-review && $(EISVOGEL) README.md 01-bug-mediarecorder.md 02-bug-file-de-taches.md \
+		03-story-client-resilient.md questions.md --metadata-file=metadata.yaml -o dossier_code_review.pdf
 
 eisvogel: ## Dossiers du bloc 1 en rendu Eisvogel (pandoc + xelatex), en parallèle des versions Typst
-	cd docs/preprod/livrables/_dossier_cadrage && $(EISVOGEL) \
+	cd docs/preprod/livrables/_dossier_cadrage && $(EISVOGEL) body.md \
 		--metadata-file=../_dossier_cadrage_eisvogel/metadata.yaml -o ../dossier_cadrage_eisvogel.pdf
 	cp docs/preprod/diagrams/excalidraw/sequence_reve.png docs/preprod/diagrams/excalidraw/c4_container.png docs/preprod/livrables/_specifications_architecture/
-	cd docs/preprod/livrables/_specifications_architecture && $(EISVOGEL) \
+	cd docs/preprod/livrables/_specifications_architecture && $(EISVOGEL) body.md \
 		--metadata-file=../_specifications_architecture_eisvogel/metadata.yaml -o ../specifications_architecture_eisvogel.pdf
 	rm -f docs/preprod/livrables/_specifications_architecture/sequence_reve.png docs/preprod/livrables/_specifications_architecture/c4_container.png

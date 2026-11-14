@@ -1,5 +1,5 @@
-# Réglages Eisvogel communs aux dossiers du bloc 1 (skill « pdf-generation »).
-# Chaque dossier ajoute son titre : _<dossier>_eisvogel/metadata.yaml. Génération : make eisvogel
+# Réglages Eisvogel communs aux PDF du projet (skill « pdf-generation ») : dossiers du bloc 1, rapport, post-mortem, code review.
+# Chaque document ajoute son titre dans son propre metadata.yaml (voir Makefile).
 author: "Grégory Hery"
 date: "15/11/2026"
 lang: fr-FR
@@ -16,8 +16,8 @@ papersize: a4
 geometry: margin=2.5cm
 fontsize: 11pt
 colorlinks: true
-linkcolor: "1e3a8a"
-urlcolor: "1e3a8a"
+linkcolor: "liens"
+urlcolor: "liens"
 header-right: "Grégory Hery"
 footer-left: '`\mbox{}`{=latex}'  # pied de page gauche vide (sinon Eisvogel y met l'auteur)
 table-use-row-colors: true
@@ -35,6 +35,7 @@ header-includes:
   - |
     ```{=latex}
     \makeatletter\@ifundefined{c@none}{\newcounter{none}}{}\makeatother
+    \definecolor{liens}{HTML}{1E3A8A}  % couleur des liens (linkcolor, urlcolor)
     \usepackage{newunicodechar}
     \newunicodechar{ᴱ}{\textsuperscript{E}}
     \newunicodechar{ᵉ}{\textsuperscript{e}}

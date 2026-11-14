@@ -38,15 +38,27 @@ L'architecture cible du bloc 1 (FastAPI, Streamlit puis Next.js, Arq sur Redis, 
 
 Maintenus : ports et adapters (adapter réel ou `fake` choisi par `AI_MODE`), idempotence du traitement, suppression de l'audio après transcription réussie, mention « générée par IA » sur chaque image, émotion inférée du texte et jamais de la voix (ADR-001).
 
-## 2.2 Conteneurs (C4)
-
-![Diagramme C4 des conteneurs, régénéré depuis le code livré (docs/diagrams/c4_container.puml)](../diagrams/c4_container.svg)
+```{=latex}
+\begin{landscape}\thispagestyle{empty}
+\subsection{2.2 Conteneurs (C4)}
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth,height=0.82\textheight,keepaspectratio]{c4_container.pdf}
+\caption{Diagramme C4 des conteneurs, régénéré depuis le code livré (\texttt{docs/diagrams/c4\_container.puml})}
+\end{figure}
+\end{landscape}
+```
 
 Un seul conteneur applicatif porte le serveur web (gunicorn) et le worker (`db_worker`), lancés par honcho : Render n'a pas de worker gratuit (ADR-008). PostgreSQL porte à la fois les données, la file de tâches et les fichiers. Les vues ne parlent jamais à un SDK fournisseur : elles passent par `dreams/services`.
 
-## 2.3 Traitement d'un rêve (séquence)
-
-![Séquence du traitement complet d'un rêve (docs/diagrams/sequence_reve.puml)](../diagrams/sequence_reve.svg)
+```{=latex}
+\begin{landscape}\thispagestyle{empty}
+\subsection{2.3 Traitement d'un rêve (séquence)}
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth,height=0.82\textheight,keepaspectratio]{sequence_reve.pdf}
+\caption{Séquence du traitement complet d'un rêve (\texttt{docs/diagrams/sequence\_reve.puml})}
+\end{figure}
+\end{landscape}
+```
 
 La requête d'envoi valide l'audio, crée le rêve et met la tâche en file **après le commit** (`on_commit`) : elle répond en 50 à 60 ms (p50, §5). Chaque étape enregistre son résultat avant la suivante ; une reprise après plantage repart de l'étape échouée sans rejouer un appel déjà payé. Le modèle de données est généré depuis les modèles Django (`scripts/export_erd.py` → `docs/diagrams/erd.svg`).
 
@@ -169,7 +181,7 @@ Test `test_observability.py` : un récit de rêve passé dans une requête n'app
 Journal tenu au fil de l'eau : `docs/incidents.md` (12 entrées). Format : symptôme → diagnostic → correctif → test de non-régression → PR.
 
 | # | Ticket | Symptôme | Diagnostic | Correctif | Test de non-régression |
-|---|---|---|---|---|---|
+|--|------------|--------------|--------------|------------|----------------|
 | 1 | DREAM-1 | `Lea@Example.org` et `lea@…` donnent deux comptes | `normalize_email` ne met en minuscules que le domaine | minuscules + refus d'un doublon `iexact` | `test_inscription_refuse_un_doublon_a_la_casse_pres` |
 | 2 | DREAM-1 | Axes journalise `username: "None"` ; blocage par IP seule | Axes lit `email`, le formulaire poste `username` | `AXES_USERNAME_FORM_FIELD = "username"` | `test_un_autre_compte_n_est_pas_bloque_…` |
 | 3 | DREAM-5 | à 15,00 € pile, un appel à coût nul passe encore | comparaison stricte `>` | blocage dès `dépensé ≥ plafond` | `test_depassement_atteint` |
