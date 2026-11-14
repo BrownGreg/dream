@@ -6,10 +6,10 @@ author: "Grégory Hery"
 date: "15/11/2026"
 lang: fr-FR
 titlepage: true
-titlepage-color: "1e3a8a"
-titlepage-text-color: "ffffff"
-titlepage-rule-color: "ffffff"
-titlepage-rule-height: 2
+titlepage-color: "FFFFFF"
+titlepage-text-color: "1F2937"
+titlepage-rule-color: "1E3A8A"
+titlepage-rule-height: 1
 toc: true
 toc-depth: 2
 toc-own-page: true
@@ -22,7 +22,7 @@ linkcolor: "1e3a8a"
 urlcolor: "1e3a8a"
 header-left: "Dossier de Cadrage Pré-Production"
 header-right: "Grégory Hery"
-footer-left: "HETIC · rendu le 15/11/2026"
+footer-left: '`\mbox{}`{=latex}'  # pied de page gauche vide (sinon Eisvogel y met l'auteur)
 table-use-row-colors: true
 float-placement-figure: H
 # Polices : TeX Gyre Pagella et Heros (fournies par TeX Live, accents complets). Source Sans Pro
