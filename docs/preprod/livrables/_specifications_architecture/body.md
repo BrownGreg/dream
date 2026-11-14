@@ -101,6 +101,29 @@ Conventions communes : `id` UUID v4 généré côté serveur (sauf `api_calls` e
 ]
 ```
 
+```{=latex}
+% Équivalent LaTeX (rendu Eisvogel) du bloc Typst ci-dessus ; chaque moteur ignore le bloc de l'autre.
+\begin{landscape}\thispagestyle{empty}
+\section{3. Séquence clé : traitement complet d'un rêve}
+\noindent\begin{minipage}[t]{0.66\linewidth}\vspace{0pt}
+\centering\includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{sequence_reve.pdf}\\[2pt]
+{\small\itshape Diagramme de séquence UML — traitement d'un rêve, branches d'erreur incluses}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.31\linewidth}\vspace{0pt}\small\raggedright
+\textbf{Points de conception}
+\begin{itemize}\setlength\itemsep{2pt}
+\item \textbf{Validation avant tout stockage} (3–6) : fichier invalide, consentement absent ou quota atteint ne déclenchent aucun appel payant.
+\item \textbf{Audio éphémère} (21) : supprimé dès la transcription enregistrée ; en cas d'échec définitif, conservé 24 h au plus pour « Relancer », puis purgé.
+\item \textbf{Retries comptés} (16) : 2 nouvelles tentatives après 0,5 s puis 1 s (backoff exponentiel), sur timeout, \texttt{429} et \texttt{5xx} ; une ligne \texttt{api\_calls} par tentative.
+\item \textbf{Sortie LLM contrôlée} (24) : validée contre \texttt{DreamAnalysis}, un second essai, puis échec explicite.
+\item \textbf{Image ∥ ambiance} (bloc \texttt{par}) : sautée si l'utilisateur l'a refusée, sans consentement « image » ou budget épuisé (ADR-007).
+\item \textbf{Rejet du filtre de sécurité} (28–29) : le rêve aboutit sans image, motif \texttt{safety}, sans nouvelle tentative avec un prompt modifié.
+\item \textbf{Copie immédiate} (31) : l'URL fournisseur expire en 10 min et n'est jamais exposée au navigateur.
+\end{itemize}
+\end{minipage}
+\end{landscape}
+```
+
 # 4. API : choix argumenté et contrats internes
 
 ## API externes retenues

@@ -1,0 +1,44 @@
+# Réglages Eisvogel communs aux dossiers du bloc 1 (skill « pdf-generation »).
+# Chaque dossier ajoute son titre : _<dossier>_eisvogel/metadata.yaml. Génération : make eisvogel
+author: "Grégory Hery"
+date: "15/11/2026"
+lang: fr-FR
+titlepage: true
+titlepage-color: "FFFFFF"
+titlepage-text-color: "1F2937"
+titlepage-rule-color: "1E3A8A"
+titlepage-rule-height: 1
+toc: true
+toc-depth: 2
+toc-own-page: true
+documentclass: article
+papersize: a4
+geometry: margin=2.5cm
+fontsize: 11pt
+colorlinks: true
+linkcolor: "1e3a8a"
+urlcolor: "1e3a8a"
+header-right: "Grégory Hery"
+footer-left: '`\mbox{}`{=latex}'  # pied de page gauche vide (sinon Eisvogel y met l'auteur)
+table-use-row-colors: true
+float-placement-figure: H
+# Polices : TeX Gyre Pagella et Heros (fournies par TeX Live, accents complets). Source Sans Pro
+# (police d'Eisvogel) exigerait texlive-fonts-extra (1,7 Go) ; le gras d'EB Garamond (Debian) n'a
+# pas tous les accents français.
+mainfont: "TeX Gyre Pagella"
+sansfont: "TeX Gyre Heros"
+monofont: "DejaVu Sans Mono"
+monofontoptions: "Scale=0.85"
+# pandoc ≥ 3.2 écrit \def\LTcaptype{none} pour les tableaux sans légende ; Eisvogel 3.2.0 ne déclare
+# pas ce compteur (le template par défaut de pandoc, si). Exposants Unicode absents de Pagella → \textsuperscript.
+header-includes:
+  - |
+    ```{=latex}
+    \makeatletter\@ifundefined{c@none}{\newcounter{none}}{}\makeatother
+    \usepackage{newunicodechar}
+    \newunicodechar{ᴱ}{\textsuperscript{E}}
+    \newunicodechar{ᵉ}{\textsuperscript{e}}
+    \newunicodechar{ʳ}{\textsuperscript{r}}
+    \usepackage{pdflscape}
+    \AtBeginDocument{\renewcommand{\_}{\textunderscore\allowbreak}}  % coupure permise après « _ », sans tiret
+    ```

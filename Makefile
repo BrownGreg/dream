@@ -1,6 +1,6 @@
 # Raccourcis du projet. `make help` liste les cibles.
 .DEFAULT_GOAL := help
-.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem cadrage-eisvogel
+.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem eisvogel
 
 help: ## Affiche cette aide
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-8s\033[0m %s\n", $$1, $$2}'
@@ -52,9 +52,13 @@ postmortem: ## Post-mortem PDF (matière factuelle + parties à rédiger) : docs
 	pandoc docs/postmortem/postmortem.md -f markdown -t typst -o docs/postmortem/body.typ
 	typst compile --root . docs/postmortem/main.typ docs/postmortem/postmortem_gregory.pdf
 
-cadrage-eisvogel: ## Dossier de cadrage, rendu Eisvogel (pandoc + xelatex), en parallèle de la version Typst
-	cd docs/preprod/livrables/_dossier_cadrage && pandoc body.md \
-		--metadata-file=../_dossier_cadrage_eisvogel/metadata.yaml \
-		--template=../../templates/eisvogel/eisvogel.latex \
-		--pdf-engine=xelatex --number-sections=false \
-		-o ../dossier_cadrage_eisvogel.pdf
+EISVOGEL = pandoc body.md --metadata-file=../../templates/eisvogel/commun.yaml \
+	--template=../../templates/eisvogel/eisvogel.latex --pdf-engine=xelatex
+
+eisvogel: ## Dossiers du bloc 1 en rendu Eisvogel (pandoc + xelatex), en parallèle des versions Typst
+	cd docs/preprod/livrables/_dossier_cadrage && $(EISVOGEL) \
+		--metadata-file=../_dossier_cadrage_eisvogel/metadata.yaml -o ../dossier_cadrage_eisvogel.pdf
+	rsvg-convert -f pdf -o docs/preprod/livrables/_specifications_architecture/sequence_reve.pdf docs/preprod/diagrams/sequence_reve.svg
+	cd docs/preprod/livrables/_specifications_architecture && $(EISVOGEL) \
+		--metadata-file=../_specifications_architecture_eisvogel/metadata.yaml -o ../specifications_architecture_eisvogel.pdf
+	rm -f docs/preprod/livrables/_specifications_architecture/sequence_reve.pdf
