@@ -1,4 +1,4 @@
-> **Accès.** Code : <https://github.com/BrownGreg/dream> (branches, PR et CI publiques) · Suivi : Jira, projet **DREAM**, tickets DREAM-1 à DREAM-24 (export dans `docs/backlog/jira_production.csv`) · Production : **À COMPLÉTER — URL Render** · Toutes les valeurs de ce rapport sont tirées d'un fichier de mesure du dépôt, cité à chaque fois. Ce qui n'a pas pu être mesuré est marqué **NON MESURÉ** ou **À COMPLÉTER**, et n'est pas estimé à la place.
+> **Accès.** Code : <https://github.com/BrownGreg/dream> (branches, PR et CI publiques) · Suivi : Jira, projet **DREAM**, tickets DREAM-1 à DREAM-24 (export dans `docs/backlog/jira_production.csv`) · Production : **non déployée** au 14/11/2026 (service Render non créé, voir §9) · Toutes les valeurs de ce rapport sont tirées d'un fichier de mesure du dépôt, cité à chaque fois. Ce qui n'a pas pu être mesuré est marqué **NON MESURÉ**, avec sa cause, et n'est pas estimé à la place.
 
 # 1. Le produit livré
 
@@ -8,9 +8,9 @@ L'utilisateur dicte un rêve (micro du navigateur ou fichier audio). Un worker, 
 |---|---|---|
 | Inscription, connexion, réinitialisation, consentements séparés (traitement, image) | DREAM-1, DREAM-14 | Livré, testé |
 | Enregistrement micro et import audio validés (format, durée, taille) | DREAM-6, DREAM-19 | Livré, parcours E2E micro simulé |
-| Transcription Voxtral | DREAM-7 | Livré en mode `fake` ; appel réel **NON MESURÉ** |
-| Émotion : Hugging Face → Mistral → lexique français | DREAM-8 | Livré ; appel réel **NON MESURÉ** |
-| Prompt visuel Mistral Small et image FLUX.2 [klein] | DREAM-9 | Livré ; appel réel **NON MESURÉ** |
+| Transcription Voxtral | DREAM-7 | Livré en mode `fake` ; appel réel tenté le 14/11/2026 : refusé par Mistral (429, compte sans quota d'API), 3 tentatives puis échec propre, 0 $ facturé |
+| Émotion : Hugging Face → Mistral → lexique français | DREAM-8 | Livré ; token HF valide et modèle en service (vérifié le 14/11/2026) ; appel réel non atteint, la transcription échouant avant |
+| Prompt visuel Mistral Small et image FLUX.2 [klein] | DREAM-9 | Livré ; appel réel impossible au 14/11/2026 (Mistral sans quota, BFL à 0 crédit) |
 | Traitement en tâche de fond idempotent, reprise par étape, suivi HTMX | DREAM-10 | Livré |
 | Historique paginé, filtres date et humeur, statistiques | DREAM-11, DREAM-12 | Livré |
 | Détail : corriger le récit, régénérer l'image, supprimer | DREAM-13 | Livré |
@@ -90,8 +90,8 @@ Le contrôle a lieu **avant chaque tentative**, retries compris. Budget atteint,
 
 | Indicateur | Valeur | Source |
 |---|---|---|
-| Coût réel consommé en production | **À COMPLÉTER** | somme de `ApiCall.cost_usd` (page `/ops`) |
-| Coût réel par rêve | **À COMPLÉTER** | `ApiCall` groupé par `dream_id` |
+| Coût réel consommé | **0 €** : aucun appel facturé. Les 3 tentatives réelles du 14/11/2026 (refusées, HTTP 429) sont journalisées à 0 $ | `ApiCall` (base locale) ; pas de production déployée |
+| Coût réel par rêve | **non calculable** : aucun rêve réel n'a abouti | `ApiCall` groupé par `dream_id` |
 | Coût estimé par rêve (1 min d'audio, émotion par HF) | ≈ 0,018 $ : STT 0,0035 + prompt 900 jetons 0,000135 + image 1,4 crédit 0,014 | constantes du code (`ESTIMATED_CREDITS`, `estimated_tokens`, `pricing.py`) — ESTIMÉ |
 | Projection mensuelle, bêta à 15 rêves/jour (ADR-007) | ≈ 8 $/mois (450 rêves × 0,018 $) — ESTIMÉ | même calcul ; à remplacer par le coût réel |
 | Rêves finançables avant coupe-circuit | ≈ 850 au coût estimé | 15 € ÷ 0,018 $ au taux 1,0 |
@@ -154,9 +154,9 @@ Détail : `docs/tests/performance.md`.
 |---|---|---|---|
 | Accusé de réception de l'envoi | p95 ≤ 1 s | 77 à 178 ms selon le palier | Tenu jusqu'à 50 utilisateurs |
 | Bout en bout | p95 ≤ 30 s | ≤ 30 s jusqu'à 5 utilisateurs (1 worker), jusqu'à 50 (3 workers) — latence simulée | **Partiel** |
-| Transcription | p95 ≤ 8 s | **NON MESURÉ** | À mesurer en production |
-| Analyse LLM | p95 ≤ 4 s | **NON MESURÉ** | À mesurer en production |
-| Image | p95 ≤ 15 s | **NON MESURÉ** | À mesurer en production |
+| Transcription | p95 ≤ 8 s | **NON MESURÉ** : accès API Mistral inactif (429) | À mesurer |
+| Analyse LLM | p95 ≤ 4 s | **NON MESURÉ** : accès API Mistral inactif (429) | À mesurer |
+| Image | p95 ≤ 15 s | **NON MESURÉ** : compte BFL à 0 crédit | À mesurer |
 | Fiabilité | ≤ 2 % de rêves `failed` | 0 / 224 en charge | Tenu en simulation |
 | Disponibilité | ≥ 99,5 % de réponses non-5xx | 0 erreur sur 5 012 requêtes en charge | Tenu en charge |
 
@@ -228,8 +228,8 @@ Dependabot a ouvert 5 PR de mise à jour (#4 à #8) : aucune n'est fusionnée, 2
 
 | Écart | Justification | Suite |
 |---|---|---|
-| Production Render non déployée au moment de la rédaction | création du service et des clés réservée à l'auteur | créer le service (`render.yaml`), ajouter `RENDER_DEPLOY_HOOK_URL` et `PROD_URL` ; la CI déploie puis vérifie `/health` |
-| Latences et coûts réels non mesurés | aucune clé d'API utilisée jusqu'ici (budget protégé, tests en `fake`) | quelques rêves réels sur le corpus synthétique, puis lecture de `/ops` et d'`ApiCall` |
+| Production Render non déployée au 14/11/2026 | service non créé : le job de déploiement de la CI est sauté faute de `RENDER_DEPLOY_HOOK_URL` | créer le service (`render.yaml`), ajouter `RENDER_DEPLOY_HOOK_URL` et `PROD_URL` ; la CI déploie puis vérifie `/health` |
+| Latences et coûts réels non mesurés | essai réel du 14/11/2026 : clés valides, mais compte Mistral limité à 0 requête/min (HTTP 429) et compte BFL à 0 crédit ; les tests, la CI et la charge tournent en `fake` par conception | quelques rêves réels sur le corpus synthétique, puis lecture de `/ops` et d'`ApiCall` |
 | Cassettes VCR non enregistrées (5 tests ignorés) | demandent les vraies clés | `AI_MODE=real pytest tests/integration/test_vcr_providers.py --record-mode=once` |
 | Bout en bout > 30 s au-delà de 5 utilisateurs avec 1 worker | offre gratuite Render : web et worker dans un seul conteneur | workers supplémentaires (payant) si la charge réelle le demande |
 | Réveil d'environ une minute après 15 min d'inactivité | offre gratuite Render | instance payante le jour de la soutenance, ou visite préalable |
