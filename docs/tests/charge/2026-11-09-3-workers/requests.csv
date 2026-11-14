@@ -1,0 +1,2435 @@
+elapsed_s,type,name,response_ms,failed
+0.037,GET,connexion (GET),36.3,0
+0.288,POST,connexion (POST),251.5,0
+0.303,GET,statistiques,14.6,0
+1.14,GET,connexion (GET),138.8,0
+1.403,POST,connexion (POST),262.7,0
+1.415,GET,historique,12.0,0
+2.007,GET,connexion (GET),4.6,0
+2.235,POST,connexion (POST),227.5,0
+3.009,GET,connexion (GET),3.8,0
+3.223,POST,connexion (POST),214.5,0
+3.233,GET,historique filtré,9.7,0
+3.546,GET,statistiques,12.1,0
+4.01,GET,connexion (GET),3.6,0
+4.224,POST,connexion (POST),214.2,0
+4.235,GET,statistiques,10.7,0
+5.309,GET,statistiques,14.4,0
+5.654,GET,statistiques,11.9,0
+7.619,GET,historique,13.0,0
+8.876,GET,statistiques,12.1,0
+9.374,GET,historique filtré,10.9,0
+10.008,GET,historique filtré,11.2,0
+11.671,GET,statistiques,12.2,0
+12.758,GET,historique filtré,13.3,0
+13.323,GET,historique,13.1,0
+13.732,GET,statistiques,12.5,0
+13.962,GET,enregistrement (GET),9.7,0
+14.277,GET,historique filtré,11.8,0
+14.916,GET,historique,13.9,0
+15.3,POST,envoi d'un rêve,1338.2,0
+16.143,GET,historique,12.9,0
+16.482,GET,historique,13.2,0
+17.045,GET,historique,12.7,0
+17.311,GET,statut (polling),10.0,0
+17.763,GET,statistiques,12.3,0
+18.708,GET,historique,12.9,0
+19.32,GET,statut (polling),9.3,0
+20.331,GET,historique,13.0,0
+20.862,GET,historique,13.2,0
+21.327,GET,statut (polling),5.4,0
+21.327,PIPELINE,pipeline : bout en bout,7365.2,0
+21.892,GET,historique,13.1,0
+22.49,GET,historique,12.9,0
+24.582,GET,historique,14.3,0
+24.69,GET,enregistrement (GET),8.6,0
+24.746,POST,envoi d'un rêve,56.1,0
+25.234,GET,historique filtré,10.2,0
+26.756,GET,statut (polling),9.1,0
+26.84,GET,historique,13.1,0
+27.102,GET,statistiques,18.2,0
+28.767,GET,statut (polling),9.5,0
+29.045,GET,historique filtré,10.2,0
+29.791,GET,historique,13.2,0
+30.774,GET,statut (polling),5.5,0
+30.774,PIPELINE,pipeline : bout en bout,6083.9,0
+31.087,GET,enregistrement (GET),7.1,0
+31.144,POST,envoi d'un rêve,56.3,0
+31.827,GET,historique filtré,14.3,0
+32.744,GET,enregistrement (GET),7.6,0
+32.798,POST,envoi d'un rêve,53.9,0
+33.157,GET,statut (polling),12.7,0
+33.686,GET,historique filtré,10.7,0
+34.809,GET,statut (polling),8.9,0
+35.166,GET,statut (polling),8.8,0
+35.366,GET,historique,13.4,0
+36.82,GET,statut (polling),10.1,0
+37.172,GET,statut (polling),5.2,0
+37.172,PIPELINE,pipeline : bout en bout,6084.9,0
+37.934,GET,enregistrement (GET),7.2,0
+37.989,POST,envoi d'un rêve,54.0,0
+38.826,GET,statut (polling),5.4,0
+38.826,PIPELINE,pipeline : bout en bout,6082.2,0
+39.237,GET,historique,17.5,0
+39.338,GET,historique filtré,10.8,0
+39.836,GET,enregistrement (GET),7.5,0
+39.89,POST,envoi d'un rêve,53.4,0
+39.998,GET,statut (polling),9.2,0
+41.901,GET,statut (polling),9.1,0
+42.008,GET,statut (polling),9.0,0
+43.555,GET,historique filtré,10.9,0
+43.831,GET,historique filtré,10.3,0
+43.88,GET,enregistrement (GET),6.4,0
+43.914,GET,statut (polling),12.5,0
+43.938,POST,envoi d'un rêve,57.7,0
+44.014,GET,statut (polling),5.1,0
+44.014,PIPELINE,pipeline : bout en bout,6079.6,0
+45.921,GET,statut (polling),5.4,0
+45.921,PIPELINE,pipeline : bout en bout,6084.8,0
+45.947,GET,statut (polling),8.7,0
+46.79,GET,historique,13.9,0
+47.361,GET,statistiques,12.4,0
+47.389,GET,historique filtré,10.1,0
+47.957,GET,statut (polling),9.2,0
+49.712,GET,historique,14.2,0
+49.891,GET,historique,14.4,0
+49.963,GET,statut (polling),5.5,0
+49.963,PIPELINE,pipeline : bout en bout,6083.1,0
+50.833,GET,statistiques,12.4,0
+51.284,GET,statistiques,12.8,0
+53.0,GET,historique filtré,10.0,0
+53.163,GET,statistiques,12.4,0
+53.992,GET,enregistrement (GET),7.0,0
+54.045,POST,envoi d'un rêve,53.5,0
+54.349,GET,historique,13.5,0
+55.9,GET,historique,14.0,0
+56.033,GET,historique filtré,10.1,0
+56.053,GET,statut (polling),7.8,0
+56.281,GET,historique,13.6,0
+57.294,GET,historique filtré,10.9,0
+58.064,GET,statut (polling),9.5,0
+59.252,GET,historique,25.4,0
+59.471,GET,historique,14.9,0
+60.07,GET,statut (polling),5.5,0
+60.07,PIPELINE,pipeline : bout en bout,6078.5,0
+60.48,GET,enregistrement (GET),7.3,0
+60.535,POST,envoi d'un rêve,54.4,0
+61.493,GET,statistiques,24.0,0
+61.77,GET,détail d'un rêve,16.8,0
+62.545,GET,statut (polling),9.0,0
+63.673,GET,statistiques,12.9,0
+63.771,GET,historique,20.0,0
+64.555,GET,statut (polling),9.2,0
+65.714,GET,historique,14.0,0
+66.22,GET,historique,13.7,0
+66.257,GET,historique,13.2,0
+66.561,GET,statut (polling),5.2,0
+66.561,PIPELINE,pipeline : bout en bout,6081.0,0
+67.202,GET,statistiques,12.3,0
+70.199,GET,détail d'un rêve,16.0,0
+70.507,GET,historique filtré,13.9,0
+70.512,GET,détail d'un rêve,14.1,0
+70.668,GET,historique filtré,10.5,0
+70.973,GET,historique filtré,10.4,0
+72.927,GET,historique,13.8,0
+74.556,GET,détail d'un rêve,13.7,0
+74.8,GET,détail d'un rêve,13.5,0
+75.507,GET,historique,14.6,0
+75.881,GET,statistiques,12.6,0
+76.411,GET,historique,13.9,0
+78.875,GET,statistiques,12.3,0
+79.028,GET,enregistrement (GET),7.6,0
+79.084,POST,envoi d'un rêve,56.0,0
+79.216,GET,historique filtré,10.2,0
+80.219,GET,statistiques,12.5,0
+80.693,GET,historique,13.6,0
+81.094,GET,statut (polling),9.0,0
+82.854,GET,détail d'un rêve,25.5,0
+82.885,GET,historique,12.9,0
+83.104,GET,statut (polling),9.1,0
+84.236,GET,historique,13.2,0
+85.111,GET,statut (polling),6.8,0
+85.111,PIPELINE,pipeline : bout en bout,6083.3,0
+85.119,GET,historique,15.9,0
+86.693,GET,statistiques,14.1,0
+87.037,GET,historique,14.0,0
+88.403,GET,historique,14.5,0
+88.444,GET,historique,13.3,0
+88.535,GET,détail d'un rêve,51.0,0
+90.022,GET,statistiques,12.8,0
+90.171,GET,connexion (GET),5.3,0
+90.174,GET,connexion (GET),8.7,0
+90.489,POST,connexion (POST),318.4,0
+90.506,GET,historique,16.2,0
+90.508,POST,connexion (POST),334.1,0
+90.529,GET,statistiques,11.9,0
+91.172,GET,connexion (GET),4.2,0
+91.173,GET,connexion (GET),6.0,0
+91.492,POST,connexion (POST),319.8,0
+91.499,GET,enregistrement (GET),7.6,0
+91.534,POST,connexion (POST),361.5,0
+91.547,GET,historique filtré,12.7,0
+91.567,POST,envoi d'un rêve,67.5,0
+91.653,GET,enregistrement (GET),10.6,0
+91.71,POST,envoi d'un rêve,57.4,0
+92.158,GET,historique filtré,10.7,0
+92.173,GET,connexion (GET),4.9,0
+92.174,GET,connexion (GET),5.0,0
+92.491,POST,connexion (POST),316.8,0
+92.499,POST,connexion (POST),325.5,0
+92.507,GET,historique filtré,17.9,0
+92.518,GET,historique,26.8,0
+92.522,GET,historique,23.0,0
+92.894,GET,historique,18.0,0
+93.104,GET,historique filtré,15.1,0
+93.175,GET,connexion (GET),5.4,0
+93.179,GET,connexion (GET),9.2,0
+93.545,POST,connexion (POST),370.0,0
+93.561,GET,historique filtré,15.3,0
+93.588,GET,statut (polling),20.3,0
+93.702,POST,connexion (POST),522.9,0
+93.722,GET,historique,19.4,0
+93.729,GET,statut (polling),17.3,0
+94.182,GET,connexion (GET),9.3,0
+94.184,GET,connexion (GET),11.6,0
+94.514,GET,statistiques,129.2,0
+94.528,POST,connexion (POST),345.3,0
+94.542,GET,historique filtré,14.2,0
+94.55,POST,connexion (POST),366.1,0
+94.556,GET,enregistrement (GET),6.3,0
+94.612,POST,envoi d'un rêve,56.0,0
+95.179,GET,connexion (GET),5.4,0
+95.18,GET,connexion (GET),5.8,0
+95.499,GET,historique,242.8,0
+95.505,GET,statistiques,191.4,0
+95.517,POST,connexion (POST),337.4,0
+95.521,POST,connexion (POST),342.2,0
+95.532,GET,historique,14.7,0
+95.599,GET,statut (polling),10.6,0
+95.642,GET,détail d'un rêve,14.6,0
+95.682,GET,enregistrement (GET),7.7,0
+95.74,GET,statut (polling),10.6,0
+95.751,POST,envoi d'un rêve,69.2,0
+95.927,GET,statistiques,13.5,0
+96.168,GET,historique,13.1,0
+96.18,GET,connexion (GET),4.1,0
+96.181,GET,connexion (GET),5.5,0
+96.496,GET,détail d'un rêve,196.5,0
+96.505,POST,connexion (POST),324.7,0
+96.513,POST,connexion (POST),332.0,0
+96.52,GET,statistiques,15.8,0
+96.526,GET,statistiques,13.7,0
+96.622,GET,statut (polling),9.7,0
+97.181,GET,connexion (GET),3.6,0
+97.397,POST,connexion (POST),216.3,0
+97.606,GET,statut (polling),6.7,0
+97.606,PIPELINE,pipeline : bout en bout,6107.3,0
+97.746,GET,statut (polling),5.5,0
+97.746,PIPELINE,pipeline : bout en bout,6093.6,0
+97.761,GET,statut (polling),9.0,0
+97.894,GET,statistiques,14.0,0
+98.455,GET,historique,13.8,0
+98.561,GET,historique filtré,13.4,0
+98.633,GET,statut (polling),10.1,0
+98.803,GET,statistiques,13.4,0
+99.116,GET,historique,15.4,0
+99.21,GET,statistiques,15.8,0
+99.613,GET,historique,14.7,0
+99.636,GET,historique filtré,13.0,0
+99.772,GET,statut (polling),10.8,0
+99.88,GET,historique filtré,12.1,0
+100.005,GET,historique,15.0,0
+100.157,GET,historique,15.1,0
+100.642,GET,statut (polling),7.9,0
+100.642,PIPELINE,pipeline : bout en bout,6085.9,0
+100.648,GET,historique,19.5,0
+100.836,GET,historique,14.6,0
+101.05,GET,historique,16.0,0
+101.208,GET,statistiques,17.1,0
+101.513,GET,historique,17.2,0
+101.6,GET,historique,16.5,0
+101.782,GET,statut (polling),9.3,0
+101.782,PIPELINE,pipeline : bout en bout,6099.9,0
+101.794,GET,historique,17.5,0
+101.85,GET,historique filtré,16.3,0
+102.033,GET,statistiques,14.4,0
+102.04,GET,enregistrement (GET),7.3,0
+102.099,POST,envoi d'un rêve,59.3,0
+102.206,GET,statistiques,17.1,0
+102.945,GET,historique,14.9,0
+103.271,GET,statistiques,14.9,0
+103.671,GET,historique,15.0,0
+104.111,GET,statut (polling),10.8,0
+104.234,GET,historique filtré,12.7,0
+104.271,GET,historique,14.5,0
+104.347,GET,historique,18.7,0
+104.6,GET,historique,17.6,0
+104.731,GET,historique filtré,12.2,0
+104.754,GET,historique,15.3,0
+104.798,GET,statistiques,14.7,0
+105.123,GET,statistiques,14.2,0
+105.54,GET,historique,17.7,0
+105.608,GET,statistiques,15.9,0
+105.992,GET,statistiques,14.7,0
+106.028,GET,statistiques,14.1,0
+106.123,GET,statut (polling),10.6,0
+106.282,GET,enregistrement (GET),9.2,0
+106.346,POST,envoi d'un rêve,64.0,0
+106.56,GET,détail d'un rêve,18.0,0
+106.69,GET,historique,13.9,0
+107.008,GET,historique filtré,12.1,0
+107.092,GET,statistiques,14.5,0
+107.125,GET,historique filtré,12.0,0
+107.473,GET,enregistrement (GET),8.4,0
+107.54,POST,envoi d'un rêve,66.7,0
+107.652,GET,statistiques,13.5,0
+107.722,GET,statistiques,14.4,0
+107.883,GET,historique,14.9,0
+108.089,GET,statistiques,13.0,0
+108.129,GET,statut (polling),6.0,0
+108.129,PIPELINE,pipeline : bout en bout,6089.4,0
+108.357,GET,statut (polling),10.4,0
+108.48,GET,historique filtré,11.4,0
+108.588,GET,historique,17.1,0
+108.975,GET,historique,17.2,0
+109.135,GET,historique filtré,14.9,0
+109.386,GET,statistiques,16.5,0
+109.418,GET,enregistrement (GET),7.5,0
+109.491,GET,historique filtré,33.5,0
+109.495,POST,envoi d'un rêve,76.9,0
+109.554,GET,statut (polling),13.0,0
+109.609,GET,historique,14.8,0
+109.841,GET,historique filtré,14.7,0
+110.204,GET,statistiques,15.2,0
+110.314,GET,historique,15.6,0
+110.349,GET,historique filtré,12.4,0
+110.369,GET,statut (polling),11.5,0
+110.488,GET,historique filtré,12.1,0
+110.528,GET,historique,15.2,0
+110.591,GET,statistiques,13.3,0
+110.864,GET,statistiques,12.9,0
+110.992,GET,historique,15.1,0
+111.247,GET,enregistrement (GET),8.8,0
+111.311,POST,envoi d'un rêve,64.3,0
+111.529,GET,statut (polling),32.1,0
+111.57,GET,statut (polling),15.2,0
+111.617,GET,historique,16.0,0
+112.376,GET,statut (polling),6.0,0
+112.376,PIPELINE,pipeline : bout en bout,6094.2,0
+112.511,GET,historique,14.5,0
+112.741,GET,enregistrement (GET),8.1,0
+112.801,POST,envoi d'un rêve,59.4,0
+113.113,GET,enregistrement (GET),8.0,0
+113.171,POST,envoi d'un rêve,58.7,0
+113.322,GET,statut (polling),10.1,0
+113.469,GET,historique,16.7,0
+113.481,GET,statistiques,15.3,0
+113.539,GET,statut (polling),10.2,0
+113.576,GET,statut (polling),5.8,0
+113.576,PIPELINE,pipeline : bout en bout,6103.2,0
+113.655,GET,historique,17.5,0
+113.741,GET,historique filtré,12.2,0
+114.078,GET,détail d'un rêve,19.4,0
+114.455,GET,détail d'un rêve,14.6,0
+114.679,GET,historique,14.6,0
+114.812,GET,statut (polling),9.8,0
+114.875,GET,historique,14.7,0
+114.955,GET,enregistrement (GET),8.1,0
+115.016,POST,envoi d'un rêve,60.7,0
+115.182,GET,statut (polling),10.2,0
+115.333,GET,statut (polling),10.2,0
+115.456,GET,historique,15.0,0
+115.546,GET,statut (polling),5.8,0
+115.546,PIPELINE,pipeline : bout en bout,6127.5,0
+115.58,GET,historique filtré,13.5,0
+115.941,GET,historique,14.9,0
+116.202,GET,historique filtré,12.1,0
+116.285,GET,statistiques,15.1,0
+116.471,GET,enregistrement (GET),8.0,0
+116.529,POST,envoi d'un rêve,58.3,0
+116.683,GET,historique,16.0,0
+116.769,GET,historique,16.0,0
+116.822,GET,statut (polling),10.0,0
+116.872,GET,historique,14.8,0
+117.029,GET,statut (polling),12.9,0
+117.168,GET,historique filtré,13.4,0
+117.194,GET,statut (polling),10.9,0
+117.34,GET,statut (polling),6.3,0
+117.34,PIPELINE,pipeline : bout en bout,6093.7,0
+117.991,GET,historique,15.7,0
+118.06,GET,statistiques,13.7,0
+118.173,GET,historique filtré,17.1,0
+118.283,GET,historique filtré,11.3,0
+118.35,GET,détail d'un rêve,14.3,0
+118.54,GET,statut (polling),9.9,0
+118.828,GET,statut (polling),5.8,0
+118.828,PIPELINE,pipeline : bout en bout,6086.8,0
+119.04,GET,statut (polling),10.4,0
+119.088,GET,statistiques,18.3,0
+119.201,GET,statut (polling),6.2,0
+119.201,PIPELINE,pipeline : bout en bout,6088.6,0
+119.271,GET,historique filtré,24.0,0
+119.363,GET,historique,16.2,0
+119.54,GET,historique filtré,12.3,0
+119.723,GET,détail d'un rêve,19.9,0
+119.878,GET,historique filtré,11.2,0
+120.549,GET,historique filtré,16.5,0
+120.557,GET,statut (polling),16.5,0
+120.562,GET,historique filtré,20.3,0
+121.002,GET,historique,14.2,0
+121.022,GET,détail d'un rêve,14.7,0
+121.047,GET,statut (polling),5.8,0
+121.047,PIPELINE,pipeline : bout en bout,6092.0,0
+121.573,GET,détail d'un rêve,27.8,0
+121.618,GET,statistiques,16.0,0
+121.872,GET,historique,15.1,0
+121.99,GET,historique,16.8,0
+122.001,GET,enregistrement (GET),8.0,0
+122.061,POST,envoi d'un rêve,60.5,0
+122.223,GET,historique filtré,11.4,0
+122.565,GET,statut (polling),6.2,0
+122.565,PIPELINE,pipeline : bout en bout,6094.3,0
+122.763,GET,historique,15.3,0
+122.953,GET,historique filtré,12.5,0
+122.966,GET,historique,14.4,0
+123.218,GET,historique filtré,11.9,0
+123.865,GET,détail d'un rêve,14.1,0
+124.075,GET,statut (polling),12.9,0
+124.077,GET,historique,20.2,0
+124.136,GET,enregistrement (GET),10.0,0
+124.156,GET,statistiques,22.0,0
+124.21,POST,envoi d'un rêve,73.6,0
+124.213,GET,historique,22.0,0
+124.393,GET,historique,14.0,0
+124.517,GET,détail d'un rêve,14.7,0
+124.554,GET,détail d'un rêve,15.0,0
+124.714,GET,historique filtré,17.8,0
+124.943,GET,historique,14.5,0
+125.323,GET,détail d'un rêve,18.5,0
+125.51,GET,historique,15.0,0
+125.72,GET,historique filtré,12.8,0
+125.745,GET,statistiques,20.8,0
+125.746,GET,historique,23.3,0
+125.759,GET,détail d'un rêve,35.8,0
+126.088,GET,statut (polling),11.2,0
+126.225,GET,statut (polling),13.9,0
+126.877,GET,détail d'un rêve,16.2,0
+127.038,GET,statistiques,14.0,0
+127.251,GET,statistiques,14.7,0
+127.362,GET,enregistrement (GET),7.9,0
+127.423,POST,envoi d'un rêve,60.0,0
+127.572,GET,historique,21.8,0
+127.613,GET,statistiques,14.9,0
+127.692,GET,historique,15.5,0
+127.848,GET,historique filtré,13.0,0
+128.095,GET,statut (polling),6.3,0
+128.095,PIPELINE,pipeline : bout en bout,6094.1,0
+128.197,GET,enregistrement (GET),10.8,0
+128.24,GET,statut (polling),14.7,0
+128.263,POST,envoi d'un rêve,66.2,0
+128.568,GET,historique,15.4,0
+129.025,GET,enregistrement (GET),9.9,0
+129.033,GET,historique,20.2,0
+129.09,POST,envoi d'un rêve,64.9,0
+129.19,GET,détail d'un rêve,14.5,0
+129.433,GET,statut (polling),10.0,0
+129.472,GET,statistiques,17.9,0
+129.479,GET,détail d'un rêve,20.9,0
+129.594,GET,historique,15.2,0
+129.717,GET,enregistrement (GET),7.8,0
+129.733,GET,enregistrement (GET),10.7,0
+129.84,POST,envoi d'un rêve,122.6,0
+129.85,POST,envoi d'un rêve,117.4,0
+129.864,GET,détail d'un rêve,70.9,0
+130.075,GET,historique,15.7,0
+130.145,GET,historique filtré,12.7,0
+130.248,GET,statut (polling),7.7,0
+130.249,PIPELINE,pipeline : bout en bout,6112.3,0
+130.258,GET,enregistrement (GET),7.8,0
+130.279,GET,statut (polling),14.8,0
+130.322,POST,envoi d'un rêve,63.9,0
+130.341,GET,statistiques,13.1,0
+131.091,GET,statistiques,18.2,0
+131.102,GET,statut (polling),11.1,0
+131.203,GET,historique filtré,11.5,0
+131.318,GET,détail d'un rêve,14.9,0
+131.444,GET,statut (polling),10.4,0
+131.854,GET,statut (polling),13.1,0
+131.866,GET,statut (polling),14.5,0
+132.068,GET,historique,15.6,0
+132.265,GET,détail d'un rêve,15.7,0
+132.29,GET,statut (polling),11.0,0
+132.334,GET,statut (polling),10.8,0
+132.76,GET,historique,16.2,0
+133.114,GET,statut (polling),10.4,0
+133.295,GET,détail d'un rêve,15.2,0
+133.459,GET,statut (polling),14.1,0
+133.459,PIPELINE,pipeline : bout en bout,6096.6,0
+133.475,GET,historique,24.1,0
+133.57,GET,détail d'un rêve,15.0,0
+133.584,GET,historique,15.2,0
+133.626,GET,historique,14.8,0
+133.864,GET,statut (polling),10.0,0
+133.876,GET,statut (polling),9.6,0
+133.898,GET,statistiques,13.6,0
+133.95,GET,enregistrement (GET),7.8,0
+133.994,GET,historique,24.5,0
+134.019,POST,envoi d'un rêve,69.3,0
+134.297,GET,statut (polling),6.0,0
+134.297,PIPELINE,pipeline : bout en bout,6100.2,0
+134.344,GET,statut (polling),9.6,0
+134.412,GET,statistiques,14.3,0
+134.501,GET,statistiques,14.2,0
+134.608,GET,historique,15.4,0
+134.961,GET,historique,28.5,0
+135.121,GET,statut (polling),6.5,0
+135.121,PIPELINE,pipeline : bout en bout,6095.9,0
+135.797,GET,statistiques,14.6,0
+135.876,GET,statut (polling),10.9,0
+135.885,GET,statut (polling),9.2,0
+136.032,GET,statut (polling),12.1,0
+136.098,GET,statistiques,13.7,0
+136.145,GET,détail d'un rêve,15.6,0
+136.355,GET,statut (polling),10.0,0
+136.496,GET,historique filtré,13.7,0
+136.801,GET,détail d'un rêve,15.5,0
+136.95,GET,détail d'un rêve,15.0,0
+137.483,GET,historique,16.2,0
+137.711,GET,détail d'un rêve,17.1,0
+137.816,GET,détail d'un rêve,16.2,0
+137.866,GET,historique,15.3,0
+137.882,GET,statut (polling),5.9,0
+137.882,PIPELINE,pipeline : bout en bout,8165.6,0
+137.894,GET,statut (polling),7.9,0
+137.894,PIPELINE,pipeline : bout en bout,8160.9,0
+137.904,GET,historique,15.6,0
+137.929,GET,statistiques,14.5,0
+138.045,GET,statut (polling),12.1,0
+138.078,GET,historique,16.1,0
+138.172,GET,historique filtré,12.4,0
+138.362,GET,statut (polling),6.4,0
+138.362,PIPELINE,pipeline : bout en bout,8103.4,0
+139.051,GET,détail d'un rêve,17.5,0
+139.077,GET,historique filtré,14.7,0
+139.414,GET,détail d'un rêve,16.1,0
+139.528,GET,détail d'un rêve,14.8,0
+139.714,GET,historique filtré,11.5,0
+139.799,GET,détail d'un rêve,14.3,0
+140.041,GET,historique,26.8,0
+140.069,GET,statut (polling),23.6,0
+140.249,GET,historique filtré,14.7,0
+140.26,GET,historique filtré,12.1,0
+140.669,GET,historique,15.9,0
+141.131,GET,statistiques,14.7,0
+141.545,GET,historique,19.7,0
+141.619,GET,historique,16.3,0
+141.704,GET,détail d'un rêve,19.6,0
+141.707,GET,historique filtré,20.5,0
+141.802,GET,historique,14.6,0
+142.076,GET,statut (polling),6.1,0
+142.076,PIPELINE,pipeline : bout en bout,8126.3,0
+142.128,GET,enregistrement (GET),7.8,0
+142.187,POST,envoi d'un rêve,58.4,0
+142.575,GET,enregistrement (GET),10.6,0
+142.593,GET,détail d'un rêve,33.1,0
+142.629,GET,historique,34.0,0
+142.664,POST,envoi d'un rêve,88.6,0
+142.744,GET,historique,14.6,0
+142.868,GET,détail d'un rêve,14.9,0
+142.939,GET,détail d'un rêve,14.4,0
+143.047,GET,détail d'un rêve,15.4,0
+143.208,GET,historique,14.9,0
+143.254,GET,historique,15.4,0
+143.268,GET,détail d'un rêve,14.8,0
+143.764,GET,historique filtré,11.5,0
+144.197,GET,statut (polling),9.7,0
+144.259,GET,détail d'un rêve,14.6,0
+144.677,GET,statut (polling),11.3,0
+144.779,GET,historique,15.8,0
+144.968,GET,historique filtré,13.1,0
+145.407,GET,historique filtré,11.6,0
+145.445,GET,enregistrement (GET),8.6,0
+145.504,POST,envoi d'un rêve,59.3,0
+145.566,GET,historique,14.7,0
+146.02,GET,historique,22.4,0
+146.025,GET,statistiques,20.4,0
+146.195,GET,historique,18.7,0
+146.208,GET,statut (polling),10.1,0
+146.301,GET,historique,15.4,0
+146.368,GET,statistiques,13.7,0
+146.526,GET,historique,15.2,0
+146.688,GET,statut (polling),11.0,0
+146.725,GET,historique filtré,12.9,0
+147.1,GET,statistiques,13.5,0
+147.119,GET,historique,14.9,0
+147.302,GET,historique,21.9,0
+147.306,GET,détail d'un rêve,17.9,0
+147.43,GET,détail d'un rêve,14.7,0
+147.465,GET,enregistrement (GET),7.9,0
+147.521,GET,statut (polling),16.7,0
+147.528,POST,envoi d'un rêve,63.4,0
+147.744,GET,historique filtré,12.0,0
+148.056,GET,historique filtré,10.8,0
+148.216,GET,statut (polling),6.3,0
+148.216,PIPELINE,pipeline : bout en bout,6087.5,0
+148.329,GET,historique,15.5,0
+148.456,GET,historique filtré,11.5,0
+148.695,GET,statut (polling),5.9,0
+148.695,PIPELINE,pipeline : bout en bout,6119.9,0
+148.984,GET,historique,15.8,0
+149.244,GET,historique filtré,11.6,0
+149.273,GET,détail d'un rêve,14.3,0
+149.534,GET,statut (polling),11.6,0
+149.542,GET,statut (polling),12.3,0
+149.691,GET,statistiques,13.4,0
+149.977,GET,historique filtré,15.7,0
+150.027,GET,statistiques,14.3,0
+150.093,GET,historique,15.3,0
+150.286,GET,détail d'un rêve,16.2,0
+150.391,GET,historique filtré,11.9,0
+150.588,GET,historique filtré,13.4,0
+150.663,GET,enregistrement (GET),8.5,0
+150.723,POST,envoi d'un rêve,59.8,0
+150.835,GET,historique filtré,12.7,0
+151.275,GET,historique filtré,15.1,0
+151.442,GET,enregistrement (GET),7.9,0
+151.503,POST,envoi d'un rêve,61.8,0
+151.542,GET,statut (polling),7.3,0
+151.542,PIPELINE,pipeline : bout en bout,6097.1,0
+151.552,GET,statut (polling),10.1,0
+151.576,GET,historique filtré,13.4,0
+151.747,GET,historique,22.7,0
+151.95,GET,historique filtré,12.0,0
+152.094,GET,statistiques,18.0,0
+152.3,GET,enregistrement (GET),13.4,0
+152.378,POST,envoi d'un rêve,78.1,0
+152.474,GET,historique,20.3,0
+152.679,GET,statistiques,19.6,0
+152.739,GET,statut (polling),14.9,0
+153.261,GET,enregistrement (GET),9.9,0
+153.325,POST,envoi d'un rêve,64.7,0
+153.377,GET,historique,15.7,0
+153.46,GET,statistiques,13.7,0
+153.519,GET,statut (polling),14.4,0
+153.524,GET,historique,16.8,0
+153.558,GET,statut (polling),5.5,0
+153.558,PIPELINE,pipeline : bout en bout,6093.5,0
+153.69,GET,enregistrement (GET),8.4,0
+153.752,POST,envoi d'un rêve,62.1,0
+153.898,GET,statistiques,14.7,0
+154.057,GET,historique filtré,12.3,0
+154.389,GET,statut (polling),10.5,0
+154.55,GET,détail d'un rêve,16.2,0
+154.75,GET,statut (polling),10.2,0
+154.955,GET,historique,15.7,0
+155.088,GET,statistiques,14.5,0
+155.188,GET,statistiques,13.8,0
+155.28,GET,historique,29.3,0
+155.337,GET,statut (polling),10.5,0
+155.423,GET,enregistrement (GET),10.0,0
+155.49,POST,envoi d'un rêve,67.1,0
+155.534,GET,statut (polling),14.3,0
+155.764,GET,statut (polling),10.5,0
+155.977,GET,détail d'un rêve,14.6,0
+156.105,GET,historique,15.2,0
+156.402,GET,statut (polling),11.9,0
+156.721,GET,statistiques,15.7,0
+156.759,GET,statut (polling),7.1,0
+156.759,PIPELINE,pipeline : bout en bout,6095.8,0
+156.995,GET,historique,17.1,0
+157.028,GET,détail d'un rêve,17.6,0
+157.22,GET,historique,16.9,0
+157.318,GET,détail d'un rêve,18.7,0
+157.349,GET,statut (polling),12.4,0
+157.377,GET,historique,16.9,0
+157.501,GET,statistiques,20.1,0
+157.508,GET,statut (polling),17.2,0
+157.545,GET,statut (polling),10.3,0
+157.545,PIPELINE,pipeline : bout en bout,6103.7,0
+157.616,GET,historique,25.9,0
+157.776,GET,statut (polling),10.6,0
+158.288,GET,historique,15.2,0
+158.362,GET,statistiques,14.4,0
+158.409,GET,statut (polling),6.3,0
+158.409,PIPELINE,pipeline : bout en bout,6109.2,0
+158.504,GET,enregistrement (GET),8.3,0
+158.562,POST,envoi d'un rêve,58.4,0
+158.735,GET,statistiques,13.8,0
+159.121,GET,historique,15.6,0
+159.358,GET,statut (polling),8.1,0
+159.358,PIPELINE,pipeline : bout en bout,6097.4,0
+159.364,GET,historique,19.1,0
+159.519,GET,statut (polling),10.2,0
+159.787,GET,statut (polling),10.4,0
+159.91,GET,détail d'un rêve,14.4,0
+160.14,GET,historique filtré,13.3,0
+160.189,GET,historique,17.3,0
+160.367,GET,historique filtré,23.5,0
+160.574,GET,statut (polling),10.4,0
+160.599,GET,historique,16.3,0
+160.719,GET,historique,15.5,0
+160.814,GET,historique,15.9,0
+161.056,GET,enregistrement (GET),8.0,0
+161.124,POST,envoi d'un rêve,68.4,0
+161.144,GET,historique,16.7,0
+161.442,GET,détail d'un rêve,15.7,0
+161.465,GET,détail d'un rêve,15.7,0
+161.528,GET,statut (polling),8.0,0
+161.528,PIPELINE,pipeline : bout en bout,6105.2,0
+161.794,GET,statut (polling),6.4,0
+161.794,PIPELINE,pipeline : bout en bout,8104.0,0
+161.992,GET,détail d'un rêve,15.8,0
+162.23,GET,statistiques,13.5,0
+162.285,GET,historique,15.4,0
+162.37,GET,historique,14.4,0
+162.586,GET,détail d'un rêve,18.6,0
+162.588,GET,statut (polling),13.6,0
+162.635,GET,historique filtré,12.3,0
+162.882,GET,historique filtré,12.0,0
+162.925,GET,historique,15.2,0
+163.045,GET,historique filtré,12.3,0
+163.135,GET,statut (polling),10.2,0
+163.261,GET,historique,14.1,0
+163.296,GET,historique,14.7,0
+163.978,GET,détail d'un rêve,15.2,0
+164.114,GET,historique,15.7,0
+164.203,GET,historique filtré,12.9,0
+164.254,GET,détail d'un rêve,15.6,0
+164.388,GET,historique filtré,12.5,0
+164.596,GET,statut (polling),6.2,0
+164.596,PIPELINE,pipeline : bout en bout,6092.1,0
+164.705,GET,enregistrement (GET),8.5,0
+164.764,POST,envoi d'un rêve,58.9,0
+164.914,GET,historique filtré,12.3,0
+165.043,GET,détail d'un rêve,18.6,0
+165.145,GET,statut (polling),9.9,0
+165.51,GET,historique filtré,14.2,0
+165.883,GET,statistiques,13.7,0
+166.018,GET,historique filtré,12.9,0
+166.215,GET,historique filtré,12.1,0
+166.525,GET,historique,16.3,0
+166.659,GET,statistiques,13.7,0
+166.774,GET,statut (polling),9.8,0
+166.848,GET,détail d'un rêve,14.4,0
+167.155,GET,statut (polling),8.2,0
+167.155,PIPELINE,pipeline : bout en bout,6098.8,0
+167.161,GET,historique,18.2,0
+167.226,GET,historique,21.0,0
+167.227,GET,historique,22.2,0
+167.338,GET,historique,14.6,0
+167.404,GET,historique,14.8,0
+167.672,GET,historique filtré,12.3,0
+168.059,GET,historique filtré,13.3,0
+168.565,GET,historique,14.7,0
+168.696,GET,historique,15.1,0
+168.785,GET,statut (polling),10.4,0
+168.821,GET,statistiques,13.7,0
+169.259,GET,historique,18.4,0
+169.266,GET,historique,18.5,0
+169.355,GET,statistiques,13.3,0
+169.548,GET,enregistrement (GET),8.0,0
+169.59,GET,historique,23.7,0
+169.618,POST,envoi d'un rêve,69.7,0
+169.819,GET,historique,15.7,0
+169.925,GET,statistiques,13.7,0
+169.96,GET,historique,15.7,0
+170.137,GET,enregistrement (GET),7.6,0
+170.198,POST,envoi d'un rêve,60.7,0
+170.349,GET,enregistrement (GET),8.0,0
+170.407,POST,envoi d'un rêve,57.7,0
+170.438,GET,détail d'un rêve,14.4,0
+170.733,GET,statistiques,18.0,0
+170.792,GET,statut (polling),5.8,0
+170.792,PIPELINE,pipeline : bout en bout,6087.0,0
+170.819,GET,détail d'un rêve,14.3,0
+171.231,GET,historique,16.1,0
+171.28,GET,historique filtré,11.8,0
+171.328,GET,historique filtré,15.6,0
+171.629,GET,statut (polling),10.7,0
+172.071,GET,historique,15.4,0
+172.21,GET,statut (polling),11.1,0
+172.418,GET,statut (polling),10.8,0
+172.541,GET,historique,15.4,0
+172.702,GET,historique,15.7,0
+172.885,GET,historique filtré,10.9,0
+172.916,GET,historique,17.3,0
+173.038,GET,détail d'un rêve,16.3,0
+173.424,GET,historique,16.4,0
+173.526,GET,détail d'un rêve,16.1,0
+173.641,GET,statut (polling),11.1,0
+173.675,GET,détail d'un rêve,15.7,0
+173.877,GET,statistiques,14.1,0
+173.922,GET,statistiques,14.0,0
+173.999,GET,détail d'un rêve,18.0,0
+174.003,GET,historique,19.6,0
+174.221,GET,statut (polling),10.6,0
+174.411,GET,historique,15.9,0
+174.429,GET,statut (polling),10.0,0
+174.921,GET,historique filtré,13.0,0
+175.088,GET,historique,16.9,0
+175.477,GET,détail d'un rêve,14.2,0
+175.545,GET,statistiques,13.1,0
+175.648,GET,statut (polling),5.6,0
+175.648,PIPELINE,pipeline : bout en bout,6100.0,0
+176.228,GET,statut (polling),5.8,0
+176.228,PIPELINE,pipeline : bout en bout,6091.2,0
+176.329,GET,historique,14.2,0
+176.425,GET,détail d'un rêve,14.9,0
+176.436,GET,statut (polling),6.7,0
+176.436,PIPELINE,pipeline : bout en bout,6087.4,0
+176.44,GET,historique,16.8,0
+177.047,GET,historique,14.6,0
+177.121,GET,historique,15.9,0
+177.297,GET,détail d'un rêve,24.1,0
+177.298,GET,historique,19.9,0
+177.313,GET,statistiques,13.1,0
+177.383,GET,détail d'un rêve,14.1,0
+177.859,GET,historique,15.9,0
+178.011,GET,historique,15.6,0
+178.177,GET,historique,14.3,0
+178.286,GET,historique filtré,11.1,0
+178.372,GET,historique,15.4,0
+178.874,GET,historique,15.5,0
+178.939,GET,statistiques,19.0,0
+179.225,GET,enregistrement (GET),7.6,0
+179.297,POST,envoi d'un rêve,71.5,0
+179.299,GET,historique,43.9,0
+179.403,GET,statistiques,14.2,0
+179.417,GET,détail d'un rêve,17.0,0
+179.431,GET,statistiques,15.1,0
+179.527,GET,statistiques,13.8,0
+179.957,GET,statistiques,13.4,0
+180.356,GET,connexion (GET),7.7,0
+180.357,GET,connexion (GET),6.8,0
+180.362,GET,connexion (GET),13.3,0
+180.364,GET,connexion (GET),15.3,0
+180.368,GET,connexion (GET),18.2,0
+181.076,GET,historique,662.3,0
+181.091,GET,détail d'un rêve,489.0,0
+181.108,POST,connexion (POST),751.7,0
+181.123,GET,statistiques,397.5,0
+181.139,POST,connexion (POST),781.6,0
+181.154,GET,historique filtré,403.9,0
+181.168,GET,détail d'un rêve,171.2,0
+181.186,POST,connexion (POST),823.2,0
+181.205,GET,historique,173.6,0
+181.22,POST,connexion (POST),855.5,0
+181.238,GET,statistiques,129.9,0
+181.253,GET,historique filtré,114.0,0
+181.266,GET,statistiques,80.7,0
+181.276,GET,enregistrement (GET),56.0,0
+181.298,GET,historique,58.6,0
+181.322,GET,statut (polling),23.3,0
+181.339,POST,connexion (POST),970.5,0
+181.367,GET,historique,28.8,0
+181.369,GET,connexion (GET),15.2,0
+181.375,GET,connexion (GET),20.6,0
+181.378,GET,connexion (GET),19.4,0
+181.382,GET,connexion (GET),22.6,0
+181.387,GET,connexion (GET),27.9,0
+181.4,POST,envoi d'un rêve,124.1,0
+181.408,GET,détail d'un rêve,45.5,0
+182.104,GET,historique,450.0,0
+182.118,POST,connexion (POST),748.2,0
+182.135,POST,connexion (POST),759.5,0
+182.152,GET,historique,348.8,0
+182.168,GET,historique,158.0,0
+182.182,POST,connexion (POST),804.1,0
+182.199,POST,connexion (POST),816.8,0
+182.217,GET,historique,98.7,0
+182.223,GET,enregistrement (GET),88.2,0
+182.234,GET,enregistrement (GET),51.6,0
+182.312,POST,envoi d'un rêve,88.3,0
+182.363,GET,historique,80.3,0
+182.384,POST,connexion (POST),996.8,0
+182.386,GET,connexion (GET),28.5,0
+182.391,GET,connexion (GET),32.7,0
+182.396,GET,connexion (GET),36.9,0
+182.4,GET,connexion (GET),40.8,0
+182.409,GET,connexion (GET),49.2,0
+182.428,GET,historique,44.8,0
+182.458,POST,envoi d'un rêve,224.5,0
+183.087,GET,historique filtré,545.7,0
+183.104,GET,historique,559.1,0
+183.119,GET,historique,495.2,0
+183.14,GET,historique,404.9,0
+183.154,POST,connexion (POST),768.0,0
+183.17,POST,connexion (POST),778.9,0
+183.189,POST,connexion (POST),792.7,0
+183.206,POST,connexion (POST),805.9,0
+183.222,GET,statistiques,96.9,0
+183.235,GET,historique filtré,65.4,0
+183.249,GET,historique filtré,59.9,0
+183.265,GET,historique,71.0,0
+183.278,GET,historique filtré,72.0,0
+183.299,GET,statistiques,16.8,0
+183.335,GET,statut (polling),13.0,0
+183.343,POST,connexion (POST),934.0,0
+183.358,GET,historique,14.2,0
+183.367,GET,connexion (GET),6.4,0
+183.368,GET,connexion (GET),6.2,0
+183.372,GET,connexion (GET),11.7,0
+183.374,GET,connexion (GET),12.3,0
+183.375,GET,connexion (GET),13.9,0
+184.066,GET,statut (polling),665.5,0
+184.083,POST,connexion (POST),714.6,0
+184.099,POST,connexion (POST),731.9,0
+184.118,GET,historique,157.9,0
+184.133,GET,historique,161.2,0
+184.15,POST,connexion (POST),777.1,0
+184.168,POST,connexion (POST),792.6,0
+184.177,GET,enregistrement (GET),94.8,0
+184.196,GET,statistiques,97.0,0
+184.211,GET,historique filtré,61.8,0
+184.226,GET,statistiques,58.4,0
+184.301,POST,envoi d'un rêve,123.8,0
+184.326,GET,statut (polling),13.5,0
+184.335,POST,connexion (POST),961.7,0
+184.349,GET,historique,13.6,0
+184.369,GET,connexion (GET),5.2,0
+184.37,GET,connexion (GET),8.7,0
+184.374,GET,connexion (GET),10.9,0
+184.376,GET,connexion (GET),13.7,0
+184.378,GET,connexion (GET),14.6,0
+185.007,GET,historique filtré,557.2,0
+185.016,GET,statut (polling),557.6,0
+185.031,GET,détail d'un rêve,564.9,0
+185.046,POST,connexion (POST),677.3,0
+185.061,POST,connexion (POST),690.7,0
+185.069,GET,enregistrement (GET),294.2,0
+185.084,POST,connexion (POST),709.8,0
+185.1,POST,connexion (POST),723.5,0
+185.116,GET,historique,54.8,0
+185.189,POST,envoi d'un rêve,120.6,0
+185.206,GET,historique,121.9,0
+185.222,GET,historique,136.8,0
+185.237,GET,statistiques,136.5,0
+185.249,GET,historique filtré,110.9,0
+185.263,GET,statistiques,73.9,0
+185.293,POST,connexion (POST),915.1,0
+185.306,GET,historique,13.0,0
+185.342,GET,statut (polling),5.7,0
+185.342,PIPELINE,pipeline : bout en bout,6116.7,0
+185.368,GET,détail d'un rêve,22.6,0
+185.372,GET,statistiques,22.6,0
+185.376,GET,connexion (GET),10.9,0
+185.38,GET,enregistrement (GET),22.4,0
+185.381,GET,connexion (GET),15.8,0
+185.384,GET,connexion (GET),18.1,0
+185.386,GET,connexion (GET),20.2,0
+185.389,GET,connexion (GET),22.6,0
+185.406,GET,historique,35.9,0
+185.478,POST,envoi d'un rêve,98.0,0
+186.173,GET,détail d'un rêve,503.3,0
+186.188,GET,historique,506.5,0
+186.202,POST,connexion (POST),825.7,0
+186.213,GET,historique filtré,448.0,0
+186.229,POST,connexion (POST),847.5,0
+186.24,GET,historique filtré,380.6,0
+186.255,POST,connexion (POST),870.8,0
+186.259,GET,statut (polling),189.7,0
+186.259,PIPELINE,pipeline : bout en bout,4983.5,0
+186.274,POST,connexion (POST),887.4,0
+186.289,GET,historique,87.8,0
+186.295,GET,enregistrement (GET),66.6,0
+186.312,GET,historique,57.1,0
+186.323,GET,historique filtré,49.8,0
+186.394,POST,envoi d'un rêve,98.9,0
+186.403,GET,statut (polling),99.4,0
+186.415,GET,statut (polling),87.7,0
+186.426,POST,connexion (POST),1036.2,0
+186.442,GET,historique,13.8,0
+186.804,GET,historique,14.8,0
+186.951,GET,historique,19.8,0
+186.956,GET,historique filtré,16.8,0
+186.969,GET,historique,14.3,0
+187.027,GET,statut (polling),9.5,0
+187.195,GET,statistiques,13.6,0
+187.202,GET,statut (polling),11.3,0
+187.218,GET,historique filtré,11.6,0
+187.233,GET,historique,13.5,0
+187.256,GET,historique,14.4,0
+187.274,GET,historique filtré,10.7,0
+187.362,GET,historique filtré,11.4,0
+187.487,GET,statut (polling),9.0,0
+187.513,GET,enregistrement (GET),7.0,0
+187.543,GET,historique,21.6,0
+187.562,GET,historique,20.0,0
+187.576,GET,historique filtré,20.5,0
+187.591,POST,envoi d'un rêve,78.4,0
+187.704,GET,historique,18.7,0
+187.747,GET,enregistrement (GET),10.9,0
+187.76,GET,historique filtré,21.3,0
+187.813,POST,envoi d'un rêve,66.2,0
+187.985,GET,historique,13.9,0
+188.044,GET,détail d'un rêve,13.6,0
+188.105,GET,historique filtré,11.0,0
+188.115,GET,statistiques,14.2,0
+188.173,GET,historique,14.1,0
+188.212,GET,enregistrement (GET),7.5,0
+188.267,POST,envoi d'un rêve,54.5,0
+188.404,GET,statut (polling),9.2,0
+188.412,GET,statut (polling),8.4,0
+188.42,GET,statut (polling),4.2,0
+188.42,PIPELINE,pipeline : bout en bout,6196.4,0
+188.447,GET,historique,12.9,0
+188.576,GET,statistiques,13.1,0
+188.641,GET,historique,21.0,0
+188.647,GET,détail d'un rêve,22.3,0
+188.84,GET,statistiques,13.4,0
+189.033,GET,statut (polling),5.5,0
+189.033,PIPELINE,pipeline : bout en bout,6799.4,0
+189.059,GET,historique,13.3,0
+189.128,GET,statistiques,12.6,0
+189.214,GET,statut (polling),11.0,0
+189.217,GET,enregistrement (GET),8.8,0
+189.28,POST,envoi d'un rêve,63.0,0
+189.28,GET,historique,19.0,0
+189.376,GET,statistiques,14.4,0
+189.411,GET,historique,15.0,0
+189.46,GET,historique filtré,15.1,0
+189.466,GET,historique,14.3,0
+189.482,GET,historique filtré,10.0,0
+189.497,GET,statut (polling),8.5,0
+189.601,GET,statut (polling),9.2,0
+189.622,GET,statistiques,12.7,0
+189.658,GET,statistiques,13.6,0
+189.669,GET,historique filtré,9.7,0
+189.71,GET,statistiques,13.6,0
+189.766,GET,historique,16.6,0
+189.824,GET,statut (polling),9.2,0
+190.008,GET,statistiques,13.8,0
+190.123,GET,historique filtré,15.3,0
+190.132,GET,historique,15.5,0
+190.277,GET,statut (polling),9.4,0
+190.289,GET,historique,13.2,0
+190.336,GET,détail d'un rêve,14.7,0
+190.414,GET,statut (polling),9.3,0
+190.418,GET,statut (polling),5.1,0
+190.418,PIPELINE,pipeline : bout en bout,6240.3,0
+190.628,GET,historique,14.8,0
+190.741,GET,historique,14.4,0
+190.812,GET,historique,14.7,0
+190.887,GET,statistiques,24.1,0
+190.914,GET,enregistrement (GET),16.4,0
+190.924,GET,historique filtré,26.9,0
+190.989,POST,envoi d'un rêve,75.0,0
+191.0,GET,historique filtré,10.3,0
+191.098,GET,détail d'un rêve,15.3,0
+191.17,GET,historique filtré,11.6,0
+191.205,GET,historique,13.4,0
+191.219,GET,statut (polling),5.3,0
+191.219,PIPELINE,pipeline : bout en bout,6150.6,0
+191.291,GET,statut (polling),10.3,0
+191.3,GET,historique filtré,10.7,0
+191.448,GET,historique,13.9,0
+191.507,GET,statut (polling),9.7,0
+191.542,GET,détail d'un rêve,13.3,0
+191.593,GET,statistiques,12.9,0
+191.61,GET,statut (polling),8.1,0
+191.639,GET,historique,13.4,0
+191.836,GET,statut (polling),12.0,0
+191.977,GET,historique filtré,12.3,0
+192.039,GET,statistiques,13.1,0
+192.258,GET,historique,14.4,0
+192.286,GET,statut (polling),8.2,0
+192.344,GET,statistiques,12.5,0
+192.419,GET,historique filtré,14.2,0
+192.43,GET,statut (polling),15.6,0
+192.514,GET,statistiques,14.8,0
+192.933,GET,historique,13.5,0
+192.982,GET,historique,14.3,0
+192.999,GET,statut (polling),9.1,0
+193.162,GET,historique,14.7,0
+193.205,GET,détail d'un rêve,19.5,0
+193.206,GET,historique filtré,13.8,0
+193.301,GET,statut (polling),9.0,0
+193.328,GET,historique,13.0,0
+193.403,GET,enregistrement (GET),7.9,0
+193.422,GET,historique,18.4,0
+193.466,POST,envoi d'un rêve,62.8,0
+193.512,GET,statut (polling),5.6,0
+193.513,PIPELINE,pipeline : bout en bout,8132.5,0
+193.581,GET,historique filtré,11.8,0
+193.62,GET,statut (polling),9.8,0
+193.632,GET,historique,13.0,0
+193.749,GET,historique,19.4,0
+193.751,GET,statistiques,15.6,0
+193.76,GET,enregistrement (GET),7.4,0
+193.819,POST,envoi d'un rêve,59.7,0
+193.846,GET,statut (polling),9.3,0
+193.914,GET,historique,13.6,0
+193.935,GET,historique,11.9,0
+193.967,GET,statistiques,12.1,0
+194.135,GET,historique filtré,10.8,0
+194.259,GET,historique,13.7,0
+194.299,GET,statut (polling),12.1,0
+194.403,GET,détail d'un rêve,14.8,0
+194.437,GET,statut (polling),5.8,0
+194.437,PIPELINE,pipeline : bout en bout,8141.4,0
+194.546,GET,statistiques,18.9,0
+194.547,GET,statistiques,18.7,0
+194.725,GET,historique filtré,11.7,0
+194.818,GET,statistiques,19.1,0
+194.864,GET,historique,19.9,0
+194.896,GET,détail d'un rêve,14.2,0
+194.984,GET,historique,13.7,0
+195.008,GET,statut (polling),8.9,0
+195.142,GET,historique,13.6,0
+195.169,GET,historique,13.3,0
+195.31,GET,statut (polling),9.2,0
+195.342,GET,historique filtré,9.7,0
+195.418,GET,enregistrement (GET),7.4,0
+195.477,POST,envoi d'un rêve,58.0,0
+195.478,GET,statut (polling),11.6,0
+195.538,GET,historique,15.2,0
+195.626,GET,statut (polling),5.8,0
+195.626,PIPELINE,pipeline : bout en bout,8113.8,0
+195.749,GET,historique,13.5,0
+195.83,GET,statut (polling),9.2,0
+195.856,GET,statut (polling),9.3,0
+196.19,GET,historique,16.8,0
+196.196,GET,historique,17.9,0
+196.24,GET,historique,13.8,0
+196.311,GET,statut (polling),11.0,0
+196.312,GET,historique,18.0,0
+196.409,GET,historique,15.0,0
+196.466,GET,historique,13.6,0
+196.557,GET,historique filtré,13.0,0
+196.606,GET,historique filtré,11.4,0
+196.651,GET,statistiques,14.5,0
+196.664,GET,historique,13.4,0
+196.7,GET,statistiques,14.3,0
+196.76,GET,statistiques,12.9,0
+196.778,GET,historique,13.5,0
+196.831,GET,détail d'un rêve,13.7,0
+196.977,GET,historique,14.2,0
+197.018,GET,statut (polling),9.0,0
+197.252,GET,historique,13.7,0
+197.272,GET,historique,11.3,0
+197.308,GET,statistiques,19.1,0
+197.313,GET,historique,24.4,0
+197.323,GET,détail d'un rêve,19.0,0
+197.324,GET,statut (polling),12.2,0
+197.348,GET,statistiques,12.5,0
+197.457,GET,historique,15.1,0
+197.466,GET,historique filtré,12.3,0
+197.475,GET,historique filtré,10.2,0
+197.487,GET,statut (polling),9.7,0
+197.49,GET,statut (polling),11.1,0
+197.538,GET,historique,13.2,0
+197.609,GET,historique filtré,14.1,0
+197.614,GET,historique,17.0,0
+197.661,GET,historique,14.9,0
+197.768,GET,historique,16.0,0
+197.84,GET,statut (polling),9.7,0
+197.86,GET,statistiques,13.3,0
+197.863,GET,statut (polling),6.1,0
+197.863,PIPELINE,pipeline : bout en bout,10115.5,0
+197.962,GET,historique,14.2,0
+197.971,GET,historique filtré,9.2,0
+198.014,GET,historique,13.5,0
+198.034,GET,enregistrement (GET),7.2,0
+198.087,POST,envoi d'un rêve,53.9,0
+198.309,GET,statistiques,12.9,0
+198.32,GET,statut (polling),8.8,0
+198.453,GET,historique filtré,11.4,0
+198.594,GET,historique,15.7,0
+199.029,GET,statut (polling),10.1,0
+199.072,GET,historique,13.7,0
+199.214,GET,détail d'un rêve,14.0,0
+199.289,GET,historique filtré,13.8,0
+199.292,GET,historique,18.1,0
+199.329,GET,statut (polling),4.6,0
+199.329,PIPELINE,pipeline : bout en bout,10112.2,0
+199.371,GET,historique filtré,10.6,0
+199.412,GET,historique,14.4,0
+199.427,GET,détail d'un rêve,13.9,0
+199.482,GET,historique,13.8,0
+199.498,GET,statut (polling),10.2,0
+199.501,GET,statut (polling),10.6,0
+199.694,GET,historique,13.3,0
+199.739,GET,historique,13.9,0
+199.85,GET,statut (polling),9.3,0
+200.016,GET,enregistrement (GET),13.4,0
+200.032,GET,historique,30.7,0
+200.041,GET,historique,30.5,0
+200.094,POST,envoi d'un rêve,78.6,0
+200.098,GET,statut (polling),10.1,0
+200.155,GET,historique,14.7,0
+200.265,GET,historique,13.0,0
+200.277,GET,historique filtré,8.8,0
+200.325,GET,statut (polling),5.2,0
+200.325,PIPELINE,pipeline : bout en bout,12113.1,0
+200.57,GET,historique filtré,10.3,0
+200.65,GET,historique,15.0,0
+200.66,GET,statistiques,15.2,0
+200.689,GET,historique,13.2,0
+200.766,GET,historique,13.8,0
+200.803,GET,historique,17.2,0
+200.808,GET,détail d'un rêve,17.9,0
+200.882,GET,statistiques,13.3,0
+200.897,GET,historique filtré,10.0,0
+200.944,GET,détail d'un rêve,12.3,0
+200.997,GET,détail d'un rêve,13.7,0
+201.034,GET,statut (polling),5.1,0
+201.034,PIPELINE,pipeline : bout en bout,10119.8,0
+201.141,GET,historique,13.3,0
+201.233,GET,historique filtré,12.1,0
+201.353,GET,historique filtré,11.8,0
+201.42,GET,enregistrement (GET),7.7,0
+201.482,GET,détail d'un rêve,33.3,0
+201.496,POST,envoi d'un rêve,76.0,0
+201.508,GET,statut (polling),10.0,0
+201.512,GET,statut (polling),10.5,0
+201.629,GET,historique filtré,11.1,0
+201.662,GET,historique filtré,14.0,0
+201.677,GET,historique,22.5,0
+201.682,GET,statistiques,16.9,0
+201.861,GET,statut (polling),9.6,0
+202.091,GET,historique,13.2,0
+202.105,GET,statut (polling),9.1,0
+202.11,GET,statut (polling),11.2,0
+202.21,GET,historique,14.0,0
+202.281,GET,historique,16.5,0
+202.315,GET,historique filtré,9.6,0
+202.393,GET,historique filtré,11.1,0
+202.477,GET,historique,18.3,0
+202.526,GET,enregistrement (GET),10.0,0
+202.593,POST,envoi d'un rêve,66.6,0
+202.598,GET,historique filtré,15.1,0
+202.655,GET,historique,14.2,0
+202.715,GET,statistiques,13.3,0
+202.727,GET,détail d'un rêve,15.2,0
+202.967,GET,historique,14.0,0
+203.064,GET,détail d'un rêve,13.2,0
+203.134,GET,historique,19.4,0
+203.138,GET,historique,18.0,0
+203.184,GET,historique filtré,12.4,0
+203.308,GET,détail d'un rêve,13.4,0
+203.357,GET,statistiques,12.9,0
+203.468,GET,détail d'un rêve,13.8,0
+203.505,GET,statut (polling),9.2,0
+203.518,GET,statut (polling),5.6,0
+203.518,PIPELINE,pipeline : bout en bout,10115.3,0
+203.519,GET,statut (polling),10.2,0
+203.563,GET,historique,18.7,0
+203.574,GET,statistiques,12.6,0
+203.679,GET,détail d'un rêve,15.1,0
+203.746,GET,historique filtré,14.7,0
+203.75,GET,statistiques,14.8,0
+203.867,GET,statut (polling),5.5,0
+203.867,PIPELINE,pipeline : bout en bout,10107.2,0
+204.024,GET,enregistrement (GET),7.4,0
+204.089,POST,envoi d'un rêve,65.4,0
+204.124,GET,statut (polling),18.5,0
+204.128,GET,statut (polling),16.3,0
+204.23,GET,statistiques,12.8,0
+204.291,GET,historique filtré,10.9,0
+204.351,GET,historique filtré,11.1,0
+204.389,GET,historique,12.3,0
+204.498,GET,statistiques,12.8,0
+204.528,GET,statistiques,11.6,0
+204.56,GET,historique filtré,10.1,0
+204.603,GET,statut (polling),9.0,0
+204.688,GET,historique,15.6,0
+204.771,GET,historique filtré,12.2,0
+204.893,GET,historique,13.8,0
+204.915,GET,détail d'un rêve,12.9,0
+205.12,GET,enregistrement (GET),7.7,0
+205.18,POST,envoi d'un rêve,60.7,0
+205.223,GET,historique filtré,14.6,0
+205.228,GET,statistiques,16.2,0
+205.305,GET,historique,17.7,0
+205.312,GET,historique,17.2,0
+205.324,GET,historique,13.0,0
+205.516,GET,statut (polling),9.4,0
+205.524,GET,statut (polling),4.6,0
+205.524,PIPELINE,pipeline : bout en bout,10105.1,0
+205.664,GET,historique,13.2,0
+205.732,GET,détail d'un rêve,13.5,0
+205.753,GET,historique filtré,10.5,0
+205.799,GET,historique,14.2,0
+205.927,GET,historique,13.7,0
+205.962,GET,détail d'un rêve,14.6,0
+206.06,GET,historique filtré,12.3,0
+206.099,GET,statut (polling),9.1,0
+206.126,GET,historique filtré,15.8,0
+206.144,GET,statut (polling),15.8,0
+206.147,GET,statut (polling),23.1,0
+206.364,GET,enregistrement (GET),7.7,0
+206.422,POST,envoi d'un rêve,57.2,0
+206.51,GET,statistiques,16.5,0
+206.515,GET,statistiques,17.7,0
+206.539,GET,historique filtré,14.0,0
+206.543,GET,historique,17.2,0
+206.596,GET,historique,20.1,0
+206.615,GET,statut (polling),10.8,0
+206.639,GET,historique filtré,12.5,0
+206.733,GET,historique filtré,13.7,0
+206.739,GET,historique filtré,16.4,0
+206.778,GET,enregistrement (GET),10.6,0
+206.838,POST,envoi d'un rêve,59.7,0
+206.843,GET,historique,19.7,0
+206.994,GET,historique,13.2,0
+207.191,GET,statut (polling),8.9,0
+207.244,GET,détail d'un rêve,13.1,0
+207.255,GET,enregistrement (GET),6.7,0
+207.313,POST,envoi d'un rêve,57.7,0
+207.392,GET,historique,13.8,0
+207.526,GET,statut (polling),9.7,0
+207.654,GET,historique,14.3,0
+207.864,GET,historique filtré,11.2,0
+207.936,GET,statistiques,13.3,0
+208.021,GET,détail d'un rêve,14.1,0
+208.111,GET,statut (polling),10.9,0
+208.153,GET,statut (polling),9.1,0
+208.153,PIPELINE,pipeline : bout en bout,10119.9,0
+208.157,GET,statut (polling),9.2,0
+208.157,PIPELINE,pipeline : bout en bout,8141.6,0
+208.162,GET,statistiques,20.8,0
+208.173,GET,statistiques,14.5,0
+208.341,GET,historique,14.3,0
+208.359,GET,historique,12.2,0
+208.425,GET,historique filtré,11.8,0
+208.432,GET,statut (polling),9.2,0
+208.447,GET,statistiques,12.3,0
+208.47,GET,historique filtré,10.2,0
+208.624,GET,statut (polling),9.4,0
+208.707,GET,enregistrement (GET),7.3,0
+208.765,POST,envoi d'un rêve,57.6,0
+208.766,GET,historique filtré,14.9,0
+208.848,GET,statut (polling),9.4,0
+208.889,GET,détail d'un rêve,15.8,0
+208.908,GET,historique filtré,12.0,0
+209.092,GET,historique,13.9,0
+209.168,GET,historique,16.2,0
+209.18,GET,statistiques,16.6,0
+209.2,GET,statut (polling),8.8,0
+209.217,GET,historique,15.0,0
+209.224,GET,historique filtré,12.1,0
+209.269,GET,historique,14.6,0
+209.282,GET,historique,14.8,0
+209.301,GET,historique,13.1,0
+209.322,GET,statut (polling),9.0,0
+209.532,GET,statut (polling),5.7,0
+209.532,PIPELINE,pipeline : bout en bout,8112.8,0
+209.566,GET,historique,13.0,0
+209.687,GET,enregistrement (GET),7.1,0
+209.741,POST,envoi d'un rêve,54.1,0
+209.88,GET,historique filtré,14.5,0
+209.97,GET,historique filtré,11.3,0
+210.122,GET,statut (polling),11.1,0
+210.21,GET,détail d'un rêve,14.1,0
+210.438,GET,historique filtré,12.5,0
+210.442,GET,statut (polling),9.8,0
+210.571,GET,historique,14.4,0
+210.634,GET,statut (polling),9.3,0
+210.659,GET,statistiques,11.6,0
+210.706,GET,historique,24.0,0
+210.778,GET,statut (polling),12.3,0
+210.786,GET,statistiques,17.8,0
+210.835,GET,historique,14.3,0
+210.858,GET,statut (polling),9.3,0
+210.9,GET,historique filtré,10.7,0
+210.916,GET,détail d'un rêve,12.3,0
+210.944,GET,historique filtré,10.2,0
+211.078,GET,historique,16.5,0
+211.203,GET,détail d'un rêve,18.1,0
+211.234,GET,statut (polling),33.9,0
+211.332,GET,statut (polling),9.1,0
+211.36,GET,enregistrement (GET),6.1,0
+211.404,GET,statistiques,20.7,0
+211.423,POST,envoi d'un rêve,63.0,0
+211.471,GET,historique filtré,11.1,0
+211.539,GET,historique filtré,9.7,0
+211.567,GET,historique,13.4,0
+211.665,GET,historique,22.5,0
+211.675,GET,historique,26.8,0
+211.691,GET,détail d'un rêve,19.1,0
+211.759,GET,statut (polling),17.1,0
+211.773,GET,historique,27.6,0
+212.009,GET,historique filtré,13.6,0
+212.028,GET,historique,16.3,0
+212.081,GET,historique,17.9,0
+212.126,GET,historique filtré,15.7,0
+212.132,GET,statut (polling),8.1,0
+212.132,PIPELINE,pipeline : bout en bout,8107.9,0
+212.197,GET,historique filtré,13.8,0
+212.275,GET,historique filtré,18.2,0
+212.455,GET,statut (polling),12.2,0
+212.54,GET,statistiques,16.6,0
+212.643,GET,statut (polling),8.0,0
+212.643,PIPELINE,pipeline : bout en bout,10116.5,0
+212.739,GET,historique filtré,16.5,0
+212.741,GET,historique,18.0,0
+212.788,GET,statut (polling),9.3,0
+212.836,GET,historique,13.8,0
+212.868,GET,statut (polling),9.1,0
+212.958,GET,historique,13.9,0
+213.241,GET,statut (polling),5.4,0
+213.241,PIPELINE,pipeline : bout en bout,8121.2,0
+213.342,GET,statut (polling),9.7,0
+213.41,GET,statistiques,17.5,0
+213.41,GET,statistiques,17.5,0
+213.433,GET,statut (polling),9.6,0
+213.443,GET,historique filtré,10.6,0
+213.533,GET,statistiques,12.8,0
+213.563,GET,historique,12.0,0
+213.602,GET,historique filtré,10.5,0
+213.654,GET,historique,12.3,0
+213.698,GET,historique filtré,9.9,0
+213.769,GET,statut (polling),9.3,0
+213.975,GET,historique filtré,10.9,0
+214.185,GET,historique,14.2,0
+214.226,GET,historique,18.1,0
+214.229,GET,historique filtré,15.9,0
+214.268,GET,historique,17.9,0
+214.273,GET,historique filtré,15.0,0
+214.375,GET,historique,14.7,0
+214.465,GET,statut (polling),9.4,0
+214.479,GET,historique,12.1,0
+214.533,GET,historique,13.0,0
+214.599,GET,statistiques,12.5,0
+214.8,GET,statut (polling),11.4,0
+214.825,GET,historique,20.5,0
+214.878,GET,statut (polling),9.3,0
+215.082,GET,historique,13.7,0
+215.121,GET,historique filtré,9.8,0
+215.171,GET,historique filtré,11.0,0
+215.272,GET,enregistrement (GET),8.7,0
+215.35,POST,envoi d'un rêve,77.3,0
+215.359,GET,statut (polling),15.1,0
+215.4,GET,historique,13.0,0
+215.444,GET,statut (polling),10.3,0
+215.458,GET,statistiques,11.7,0
+215.545,GET,enregistrement (GET),8.5,0
+215.588,GET,détail d'un rêve,17.2,0
+215.605,POST,envoi d'un rêve,59.7,0
+215.726,GET,détail d'un rêve,18.1,0
+215.731,GET,historique,16.6,0
+215.766,GET,statistiques,12.6,0
+215.778,GET,statut (polling),8.0,0
+215.894,GET,statistiques,12.9,0
+215.972,GET,historique,13.2,0
+216.096,GET,historique filtré,11.3,0
+216.123,GET,historique,11.9,0
+216.145,GET,détail d'un rêve,14.6,0
+216.152,GET,historique,16.3,0
+216.341,GET,historique filtré,13.3,0
+216.406,GET,détail d'un rêve,19.2,0
+216.473,GET,statut (polling),7.9,0
+216.473,PIPELINE,pipeline : bout en bout,10108.9,0
+216.48,GET,historique filtré,13.5,0
+216.705,GET,statistiques,12.5,0
+216.727,GET,historique,12.6,0
+216.805,GET,historique filtré,12.4,0
+216.811,GET,statut (polling),11.0,0
+216.871,GET,enregistrement (GET),7.4,0
+216.889,GET,statut (polling),9.3,0
+216.889,PIPELINE,pipeline : bout en bout,10110.5,0
+216.906,GET,historique,25.8,0
+216.938,POST,envoi d'un rêve,67.6,0
+217.009,GET,enregistrement (GET),6.8,0
+217.063,POST,envoi d'un rêve,54.0,0
+217.216,GET,historique filtré,11.3,0
+217.267,GET,détail d'un rêve,15.4,0
+217.282,GET,historique,23.0,0
+217.283,GET,historique,23.0,0
+217.293,GET,historique,14.9,0
+217.317,GET,détail d'un rêve,12.0,0
+217.361,GET,statut (polling),10.8,0
+217.363,GET,statistiques,17.5,0
+217.365,GET,statut (polling),5.6,0
+217.365,PIPELINE,pipeline : bout en bout,10110.6,0
+217.454,GET,statut (polling),9.3,0
+217.491,GET,statistiques,12.7,0
+217.527,GET,détail d'un rêve,13.2,0
+217.614,GET,statut (polling),9.0,0
+217.641,GET,détail d'un rêve,12.7,0
+217.669,GET,historique,14.4,0
+217.789,GET,statut (polling),11.1,0
+217.795,GET,historique,17.8,0
+217.948,GET,statistiques,12.8,0
+218.1,GET,historique,13.7,0
+218.143,GET,historique,13.5,0
+218.151,GET,historique filtré,13.3,0
+218.201,GET,détail d'un rêve,13.1,0
+218.621,GET,enregistrement (GET),7.7,0
+218.674,GET,historique,21.2,0
+218.692,POST,envoi d'un rêve,70.9,0
+218.692,GET,historique,33.9,0
+218.779,GET,statistiques,12.8,0
+218.827,GET,statut (polling),15.7,0
+218.952,GET,statut (polling),12.9,0
+218.968,GET,historique,14.6,0
+219.018,GET,historique,13.3,0
+219.073,GET,statut (polling),8.6,0
+219.134,GET,historique,12.7,0
+219.301,GET,détail d'un rêve,13.5,0
+219.37,GET,statut (polling),7.9,0
+219.434,GET,historique,18.9,0
+219.463,GET,statut (polling),8.8,0
+219.526,GET,historique,14.4,0
+219.624,GET,statut (polling),9.5,0
+219.679,GET,historique filtré,11.0,0
+219.725,GET,détail d'un rêve,12.8,0
+219.796,GET,statut (polling),5.6,0
+219.796,PIPELINE,pipeline : bout en bout,10109.0,0
+219.809,GET,historique,12.4,0
+219.819,GET,enregistrement (GET),6.3,0
+219.868,GET,statistiques,17.9,0
+219.88,POST,envoi d'un rêve,61.2,0
+220.04,GET,historique,14.5,0
+220.052,GET,historique,11.6,0
+220.075,GET,historique,12.4,0
+220.147,GET,historique,13.0,0
+220.219,GET,enregistrement (GET),7.5,0
+220.273,POST,envoi d'un rêve,54.6,0
+220.545,GET,enregistrement (GET),7.5,0
+220.599,POST,envoi d'un rêve,54.0,0
+220.702,GET,statut (polling),9.2,0
+220.719,GET,statistiques,11.9,0
+220.728,GET,enregistrement (GET),6.6,0
+220.782,POST,envoi d'un rêve,54.4,0
+220.797,GET,historique filtré,10.3,0
+220.815,GET,historique,12.9,0
+220.834,GET,statut (polling),6.1,0
+220.834,PIPELINE,pipeline : bout en bout,12127.1,0
+220.85,GET,historique,15.8,0
+220.857,GET,statistiques,13.9,0
+220.908,GET,statistiques,12.7,0
+220.944,GET,historique filtré,11.2,0
+220.96,GET,statut (polling),8.0,0
+221.027,GET,historique,13.5,0
+221.082,GET,statut (polling),8.7,0
+221.119,GET,détail d'un rêve,17.2,0
+221.144,GET,historique,12.1,0
+221.337,GET,historique,13.5,0
+221.378,GET,statut (polling),8.0,0
+221.407,GET,historique,20.8,0
+221.471,GET,statut (polling),7.4,0
+221.471,PIPELINE,pipeline : bout en bout,10110.8,0
+221.56,GET,enregistrement (GET),7.2,0
+221.614,POST,envoi d'un rêve,53.9,0
+221.633,GET,statut (polling),8.5,0
+221.891,GET,statut (polling),9.3,0
+221.982,GET,historique,14.3,0
+222.048,GET,statistiques,12.2,0
+222.117,GET,historique,14.0,0
+222.168,GET,détail d'un rêve,16.1,0
+222.174,GET,historique,16.9,0
+222.231,GET,enregistrement (GET),6.9,0
+222.287,GET,statut (polling),13.1,0
+222.288,POST,envoi d'un rêve,56.7,0
+222.533,GET,historique filtré,11.2,0
+222.608,GET,statut (polling),8.8,0
+222.714,GET,statut (polling),11.9,0
+222.714,GET,détail d'un rêve,15.6,0
+222.79,GET,historique,16.0,0
+222.793,GET,statut (polling),9.8,0
+222.817,GET,enregistrement (GET),7.6,0
+222.87,GET,historique,17.0,0
+222.879,POST,envoi d'un rêve,61.1,0
+222.97,GET,statut (polling),9.6,0
+223.092,GET,statut (polling),9.0,0
+223.282,GET,historique,13.6,0
+223.379,GET,historique filtré,11.6,0
+223.383,GET,statut (polling),4.6,0
+223.383,PIPELINE,pipeline : bout en bout,8110.8,0
+223.414,GET,historique,11.8,0
+223.453,GET,détail d'un rêve,13.7,0
+223.464,GET,statistiques,14.6,0
+223.485,GET,historique,15.3,0
+223.559,GET,historique,26.5,0
+223.567,GET,historique,26.9,0
+223.624,GET,statut (polling),9.2,0
+223.638,GET,statut (polling),4.6,0
+223.638,PIPELINE,pipeline : bout en bout,8092.8,0
+223.655,GET,historique filtré,10.8,0
+223.748,GET,historique,19.0,0
+223.751,GET,historique,19.8,0
+223.898,GET,enregistrement (GET),8.9,0
+223.902,GET,statut (polling),10.8,0
+223.953,POST,envoi d'un rêve,54.6,0
+224.072,GET,historique filtré,14.8,0
+224.077,GET,historique,20.7,0
+224.078,GET,enregistrement (GET),8.5,0
+224.102,GET,historique filtré,16.0,0
+224.141,GET,historique,18.3,0
+224.144,POST,envoi d'un rêve,65.4,0
+224.175,GET,historique,13.2,0
+224.29,GET,détail d'un rêve,14.3,0
+224.298,GET,statut (polling),10.5,0
+224.3,GET,statut (polling),11.7,0
+224.336,GET,statistiques,12.0,0
+224.356,GET,historique,12.8,0
+224.483,GET,historique,13.5,0
+224.497,GET,enregistrement (GET),5.9,0
+224.551,POST,envoi d'un rêve,53.6,0
+224.621,GET,statut (polling),12.4,0
+224.686,GET,historique,14.2,0
+224.704,GET,détail d'un rêve,12.0,0
+224.723,GET,historique,15.0,0
+224.725,GET,statut (polling),10.1,0
+224.802,GET,statut (polling),9.1,0
+224.889,GET,statut (polling),9.1,0
+224.976,GET,statut (polling),5.6,0
+224.977,PIPELINE,pipeline : bout en bout,8106.0,0
+225.106,GET,détail d'un rêve,18.6,0
+225.106,GET,statut (polling),13.6,0
+225.153,GET,historique,12.9,0
+225.18,GET,historique filtré,9.8,0
+225.538,GET,historique,13.2,0
+225.634,GET,statut (polling),8.9,0
+225.911,GET,enregistrement (GET),9.5,0
+225.913,GET,statut (polling),11.2,0
+225.943,GET,enregistrement (GET),9.8,0
+225.978,POST,envoi d'un rêve,67.2,0
+225.988,GET,statut (polling),33.0,0
+226.003,GET,historique,27.9,0
+226.016,POST,envoi d'un rêve,73.3,0
+226.088,GET,historique,14.2,0
+226.156,GET,statut (polling),11.4,0
+226.161,GET,enregistrement (GET),7.9,0
+226.219,POST,envoi d'un rêve,58.5,0
+226.312,GET,statut (polling),12.4,0
+226.322,GET,historique,21.2,0
+226.324,GET,statut (polling),23.3,0
+226.361,GET,statistiques,12.9,0
+226.483,GET,historique,25.2,0
+226.508,GET,historique filtré,14.1,0
+226.56,GET,historique,18.2,0
+226.563,GET,statut (polling),11.6,0
+226.631,GET,statut (polling),9.0,0
+226.736,GET,statut (polling),9.6,0
+226.787,GET,historique,13.9,0
+226.812,GET,statut (polling),9.1,0
+226.899,GET,statut (polling),9.5,0
+226.919,GET,enregistrement (GET),7.3,0
+226.941,GET,historique,19.4,0
+226.98,POST,envoi d'un rêve,60.7,0
+227.114,GET,statut (polling),7.8,0
+227.114,PIPELINE,pipeline : bout en bout,10104.9,0
+227.183,GET,historique,15.8,0
+227.261,GET,historique,14.9,0
+227.323,GET,historique filtré,12.6,0
+227.388,GET,historique filtré,11.7,0
+227.462,GET,enregistrement (GET),7.5,0
+227.519,POST,envoi d'un rêve,57.0,0
+227.562,GET,historique,14.8,0
+227.602,GET,historique,19.9,0
+227.65,GET,statistiques,35.8,0
+227.653,GET,statistiques,31.8,0
+227.664,GET,statut (polling),27.7,0
+227.928,GET,statut (polling),13.9,0
+227.93,GET,historique,19.6,0
+227.988,GET,statut (polling),9.4,0
+227.997,GET,statut (polling),8.2,0
+228.026,GET,statut (polling),9.3,0
+228.077,GET,historique,13.9,0
+228.106,GET,détail d'un rêve,13.6,0
+228.168,GET,statut (polling),10.7,0
+228.176,GET,historique,15.7,0
+228.232,GET,statut (polling),12.4,0
+228.235,GET,statistiques,18.9,0
+228.322,GET,statut (polling),9.5,0
+228.334,GET,statut (polling),8.7,0
+228.356,GET,historique,14.2,0
+228.379,GET,détail d'un rêve,14.8,0
+228.448,GET,historique,13.6,0
+228.572,GET,statut (polling),9.2,0
+228.641,GET,statut (polling),9.5,0
+228.75,GET,statut (polling),13.0,0
+228.75,PIPELINE,pipeline : bout en bout,10128.7,0
+228.759,GET,historique,37.2,0
+228.825,GET,statut (polling),11.9,0
+228.911,GET,statut (polling),11.4,0
+228.985,GET,statistiques,21.9,0
+228.991,GET,statut (polling),10.4,0
+229.125,GET,historique filtré,11.8,0
+229.226,GET,enregistrement (GET),7.9,0
+229.284,POST,envoi d'un rêve,58.0,0
+229.302,GET,détail d'un rêve,13.4,0
+229.325,GET,historique,15.3,0
+229.411,GET,historique,13.9,0
+229.456,GET,historique filtré,10.9,0
+229.491,GET,historique,14.5,0
+229.52,GET,historique,13.7,0
+229.528,GET,statut (polling),8.3,0
+229.653,GET,historique filtré,11.3,0
+229.679,GET,statut (polling),14.3,0
+229.681,GET,historique filtré,14.9,0
+229.862,GET,historique,14.4,0
+229.899,GET,statistiques,13.2,0
+229.935,GET,statut (polling),6.1,0
+229.935,PIPELINE,pipeline : bout en bout,10116.0,0
+230.0,GET,enregistrement (GET),8.9,0
+230.002,GET,statut (polling),13.2,0
+230.01,GET,statut (polling),11.3,0
+230.04,GET,statut (polling),14.1,0
+230.055,GET,détail d'un rêve,28.1,0
+230.067,POST,envoi d'un rêve,66.8,0
+230.178,GET,statut (polling),9.2,0
+230.212,GET,historique,15.0,0
+230.228,GET,historique,12.2,0
+230.241,GET,statut (polling),8.4,0
+230.321,GET,historique filtré,12.2,0
+230.331,GET,statut (polling),8.5,0
+230.343,GET,statut (polling),8.3,0
+230.524,GET,détail d'un rêve,13.8,0
+230.582,GET,statut (polling),8.9,0
+230.596,GET,enregistrement (GET),6.7,0
+230.653,GET,statut (polling),11.7,0
+230.656,POST,envoi d'un rêve,59.4,0
+230.779,GET,historique,13.6,0
+230.834,GET,statut (polling),9.4,0
+230.921,GET,statut (polling),9.1,0
+231.003,GET,statut (polling),10.7,0
+231.011,GET,historique filtré,12.1,0
+231.119,GET,historique,13.2,0
+231.295,GET,statut (polling),9.5,0
+231.538,GET,statut (polling),8.9,0
+231.605,GET,détail d'un rêve,27.5,0
+231.61,GET,historique,20.6,0
+231.689,GET,statut (polling),9.0,0
+231.791,GET,historique filtré,10.6,0
+231.93,GET,détail d'un rêve,13.8,0
+231.943,GET,historique filtré,11.1,0
+232.001,GET,détail d'un rêve,14.3,0
+232.012,GET,statut (polling),9.4,0
+232.02,GET,statut (polling),9.7,0
+232.053,GET,statut (polling),12.6,0
+232.055,GET,historique,18.9,0
+232.077,GET,statut (polling),9.4,0
+232.098,GET,historique filtré,15.2,0
+232.099,GET,enregistrement (GET),10.1,0
+232.156,POST,envoi d'un rêve,57.3,0
+232.188,GET,statut (polling),9.7,0
+232.219,GET,historique filtré,12.6,0
+232.251,GET,statut (polling),9.5,0
+232.315,GET,historique filtré,34.8,0
+232.337,GET,statut (polling),5.7,0
+232.337,PIPELINE,pipeline : bout en bout,12118.6,0
+232.353,GET,statut (polling),9.2,0
+232.377,GET,historique,14.1,0
+232.428,GET,historique,14.3,0
+232.471,GET,historique,13.9,0
+232.529,GET,historique,13.8,0
+232.592,GET,statut (polling),8.9,0
+232.661,GET,statut (polling),6.9,0
+232.661,PIPELINE,pipeline : bout en bout,12115.5,0
+232.667,GET,statut (polling),10.1,0
+232.83,GET,statistiques,19.6,0
+232.849,GET,historique,38.7,0
+232.852,GET,historique,32.1,0
+232.855,GET,statut (polling),19.3,0
+232.855,PIPELINE,pipeline : bout en bout,12127.5,0
+232.93,GET,statut (polling),8.8,0
+232.958,GET,historique filtré,9.6,0
+233.011,GET,statut (polling),8.2,0
+233.15,GET,historique filtré,11.5,0
+233.184,GET,historique,14.0,0
+233.248,GET,historique,17.3,0
+233.278,GET,détail d'un rêve,12.9,0
+233.304,GET,statut (polling),7.8,0
+233.548,GET,statut (polling),8.9,0
+233.646,GET,historique,14.3,0
+233.699,GET,statut (polling),9.0,0
+233.753,GET,historique filtré,9.7,0
+233.956,GET,historique filtré,11.4,0
+234.021,GET,statut (polling),8.2,0
+234.028,GET,statut (polling),7.6,0
+234.062,GET,statut (polling),8.2,0
+234.075,GET,historique,11.9,0
+234.086,GET,statut (polling),7.6,0
+234.122,GET,statistiques,12.4,0
+234.128,GET,enregistrement (GET),6.7,0
+234.169,GET,statut (polling),12.0,0
+234.187,POST,envoi d'un rêve,59.4,0
+234.198,GET,statut (polling),9.7,0
+234.199,GET,statistiques,18.9,0
+234.224,GET,historique,12.8,0
+234.26,GET,statut (polling),8.3,0
+234.363,GET,statut (polling),9.6,0
+234.44,GET,enregistrement (GET),7.4,0
+234.494,POST,envoi d'un rêve,53.8,0
+234.601,GET,statut (polling),8.9,0
+234.62,GET,détail d'un rêve,12.9,0
+234.677,GET,statut (polling),9.0,0
+234.806,GET,enregistrement (GET),7.3,0
+234.867,POST,envoi d'un rêve,60.9,0
+234.869,GET,détail d'un rêve,16.4,0
+234.917,GET,historique filtré,10.6,0
+234.939,GET,statut (polling),8.6,0
+235.021,GET,statut (polling),9.2,0
+235.066,GET,enregistrement (GET),7.4,0
+235.122,POST,envoi d'un rêve,55.6,0
+235.175,GET,historique,17.4,0
+235.179,GET,détail d'un rêve,15.5,0
+235.29,GET,historique,18.9,0
+235.32,GET,statut (polling),15.9,0
+235.327,GET,historique filtré,16.7,0
+235.45,GET,historique,15.1,0
+235.502,GET,historique,19.8,0
+235.509,GET,historique,22.0,0
+235.559,GET,statut (polling),10.1,0
+235.568,GET,historique filtré,12.1,0
+235.705,GET,statut (polling),5.6,0
+235.705,PIPELINE,pipeline : bout en bout,14144.7,0
+235.717,GET,statistiques,11.8,0
+235.762,GET,historique,14.7,0
+235.833,GET,historique,19.3,0
+235.855,GET,enregistrement (GET),17.7,0
+235.861,GET,statistiques,24.3,0
+235.919,POST,envoi d'un rêve,64.0,0
+235.949,GET,historique,14.1,0
+236.032,GET,statut (polling),10.1,0
+236.039,GET,statut (polling),10.1,0
+236.048,GET,statistiques,11.9,0
+236.07,GET,statut (polling),7.7,0
+236.093,GET,statut (polling),7.5,0
+236.18,GET,statut (polling),11.4,0
+236.185,GET,historique,17.5,0
+236.195,GET,statut (polling),7.8,0
+236.206,GET,statut (polling),7.9,0
+236.267,GET,historique,15.5,0
+236.27,GET,statut (polling),9.6,0
+236.369,GET,statut (polling),5.6,0
+236.369,PIPELINE,pipeline : bout en bout,14137.9,0
+236.385,GET,historique,11.8,0
+236.421,GET,historique,15.2,0
+236.497,GET,statistiques,20.5,0
+236.498,GET,détail d'un rêve,20.3,0
+236.506,GET,statut (polling),10.5,0
+236.611,GET,statut (polling),8.9,0
+236.69,GET,statut (polling),12.5,0
+236.721,GET,historique,13.4,0
+236.878,GET,statut (polling),10.0,0
+236.947,GET,statut (polling),7.7,0
+236.947,PIPELINE,pipeline : bout en bout,14129.7,0
+236.972,GET,historique,12.2,0
+236.993,GET,détail d'un rêve,12.1,0
+237.03,GET,statut (polling),8.3,0
+237.132,GET,statut (polling),8.9,0
+237.286,GET,enregistrement (GET),7.3,0
+237.304,GET,statistiques,16.8,0
+237.332,GET,statut (polling),10.6,0
+237.355,POST,envoi d'un rêve,69.1,0
+237.569,GET,statut (polling),9.3,0
+237.901,GET,historique,15.7,0
+237.93,GET,statut (polling),9.5,0
+237.953,GET,historique,13.1,0
+238.044,GET,statut (polling),10.6,0
+238.05,GET,statut (polling),10.8,0
+238.079,GET,statut (polling),8.7,0
+238.102,GET,statut (polling),7.8,0
+238.19,GET,statut (polling),9.2,0
+238.204,GET,statut (polling),8.4,0
+238.215,GET,statut (polling),8.7,0
+238.238,GET,statistiques,14.8,0
+238.281,GET,statut (polling),9.1,0
+238.415,GET,détail d'un rêve,17.8,0
+238.415,GET,historique,19.4,0
+238.52,GET,statut (polling),12.9,0
+238.621,GET,statut (polling),9.5,0
+238.7,GET,statut (polling),9.2,0
+238.781,GET,statistiques,13.3,0
+238.8,GET,historique,13.5,0
+238.816,GET,statistiques,12.1,0
+238.85,GET,historique filtré,11.3,0
+238.889,GET,statistiques,19.8,0
+238.894,GET,statistiques,18.4,0
+238.9,GET,statut (polling),21.1,0
+238.981,GET,historique,14.0,0
+239.04,GET,statut (polling),9.1,0
+239.129,GET,statistiques,12.8,0
+239.144,GET,statut (polling),11.7,0
+239.152,GET,historique filtré,12.7,0
+239.241,GET,détail d'un rêve,13.5,0
+239.324,GET,statistiques,12.7,0
+239.34,GET,statut (polling),8.2,0
+239.367,GET,statut (polling),11.7,0
+239.436,GET,détail d'un rêve,25.0,0
+239.452,GET,historique,34.4,0
+239.578,GET,statut (polling),9.2,0
+239.715,GET,historique,13.2,0
+239.927,GET,historique filtré,14.6,0
+239.944,GET,statut (polling),13.8,0
+239.976,GET,statistiques,17.5,0
+240.057,GET,statut (polling),11.9,0
+240.057,GET,statut (polling),6.6,0
+240.057,PIPELINE,pipeline : bout en bout,16159.2,0
+240.073,GET,historique filtré,12.0,0
+240.09,GET,statut (polling),10.0,0
+240.117,GET,statut (polling),13.8,0
+240.122,GET,détail d'un rêve,17.7,0
+240.2,GET,statut (polling),9.0,0
+240.213,GET,statut (polling),8.2,0
+240.225,GET,statut (polling),8.8,0
+240.225,PIPELINE,pipeline : bout en bout,16146.4,0
+240.228,GET,historique,13.8,0
+240.29,GET,statut (polling),9.1,0
+240.344,GET,détail d'un rêve,13.9,0
+240.499,GET,détail d'un rêve,13.5,0
+240.529,GET,statut (polling),8.7,0
+240.545,GET,historique,12.4,0
+240.595,GET,historique filtré,10.6,0
+240.632,GET,statut (polling),11.2,0
+240.639,GET,détail d'un rêve,14.6,0
+240.71,GET,statut (polling),9.0,0
+240.909,GET,statut (polling),8.9,0
+240.945,GET,détail d'un rêve,13.5,0
+241.052,GET,statut (polling),10.8,0
+241.155,GET,statut (polling),9.6,0
+241.291,GET,historique,13.8,0
+241.356,GET,statut (polling),14.3,0
+241.376,GET,statut (polling),8.5,0
+241.563,GET,historique filtré,11.1,0
+241.591,GET,statut (polling),11.9,0
+241.594,GET,historique filtré,11.9,0
+241.74,GET,historique,19.2,0
+241.85,GET,historique,23.2,0
+241.86,GET,historique,27.7,0
+241.91,GET,historique filtré,11.9,0
+241.956,GET,statut (polling),11.3,0
+241.961,GET,historique,17.4,0
+241.993,GET,détail d'un rêve,13.2,0
+242.067,GET,statut (polling),9.0,0
+242.099,GET,statut (polling),8.3,0
+242.125,GET,statut (polling),7.7,0
+242.165,GET,historique,13.3,0
+242.21,GET,statut (polling),8.9,0
+242.221,GET,statut (polling),7.6,0
+242.3,GET,statut (polling),9.2,0
+242.532,GET,détail d'un rêve,13.9,0
+242.538,GET,statut (polling),8.9,0
+242.638,GET,statut (polling),5.1,0
+242.638,PIPELINE,pipeline : bout en bout,18141.5,0
+242.72,GET,statut (polling),9.7,0
+242.733,GET,historique,13.7,0
+242.76,GET,historique,19.2,0
+242.765,GET,historique filtré,16.5,0
+242.834,GET,statistiques,14.4,0
+242.919,GET,statut (polling),9.3,0
+242.931,GET,détail d'un rêve,13.1,0
+242.965,GET,statistiques,13.4,0
+242.98,GET,statistiques,11.2,0
+243.065,GET,statut (polling),11.8,0
+243.135,GET,statistiques,13.1,0
+243.164,GET,statut (polling),9.1,0
+243.178,GET,historique filtré,10.2,0
+243.346,GET,statistiques,13.2,0
+243.365,GET,statut (polling),8.7,0
+243.385,GET,statut (polling),8.7,0
+243.465,GET,historique,18.5,0
+243.575,GET,historique,14.6,0
+243.599,GET,statut (polling),8.1,0
+243.685,GET,historique filtré,11.2,0
+243.853,GET,historique,13.6,0
+243.969,GET,statut (polling),12.7,0
+243.971,GET,historique,17.1,0
+244.036,GET,enregistrement (GET),10.8,0
+244.079,GET,statut (polling),10.6,0
+244.079,PIPELINE,pipeline : bout en bout,18168.0,0
+244.11,GET,statut (polling),8.8,0
+244.11,PIPELINE,pipeline : bout en bout,18167.6,0
+244.122,POST,envoi d'un rêve,85.3,0
+244.135,GET,statut (polling),9.6,0
+244.22,GET,statut (polling),9.1,0
+244.231,GET,statut (polling),8.8,0
+244.295,GET,statistiques,18.2,0
+244.296,GET,statistiques,16.7,0
+244.312,GET,statut (polling),12.0,0
+244.324,GET,historique,19.6,0
+244.325,GET,détail d'un rêve,17.7,0
+244.413,GET,historique,14.4,0
+244.451,GET,historique,13.0,0
+244.549,GET,statut (polling),9.9,0
+244.635,GET,statistiques,13.3,0
+244.661,GET,historique,15.8,0
+244.73,GET,statut (polling),9.1,0
+244.929,GET,statut (polling),9.0,0
+244.968,GET,historique,14.4,0
+244.979,GET,historique,14.1,0
+245.076,GET,statut (polling),9.9,0
+245.159,GET,historique,20.0,0
+245.174,GET,statistiques,18.2,0
+245.176,GET,statut (polling),11.1,0
+245.248,GET,statistiques,12.7,0
+245.351,GET,historique,13.7,0
+245.37,GET,historique,13.5,0
+245.376,GET,statut (polling),10.5,0
+245.394,GET,statut (polling),8.1,0
+245.513,GET,statistiques,12.9,0
+245.595,GET,historique,14.2,0
+245.608,GET,statut (polling),8.9,0
+245.652,GET,détail d'un rêve,14.4,0
+245.688,GET,historique filtré,10.6,0
+245.98,GET,statut (polling),9.4,0
+246.132,GET,statut (polling),9.4,0
+246.146,GET,statut (polling),10.4,0
+246.23,GET,statut (polling),9.2,0
+246.239,GET,statut (polling),7.7,0
+246.309,GET,enregistrement (GET),7.5,0
+246.319,GET,statut (polling),5.5,0
+246.319,PIPELINE,pipeline : bout en bout,20157.9,0
+246.369,POST,envoi d'un rêve,60.2,0
+246.43,GET,détail d'un rêve,14.1,0
+246.473,GET,statistiques,12.7,0
+246.489,GET,statistiques,11.5,0
+246.559,GET,statut (polling),9.5,0
+246.671,GET,enregistrement (GET),7.3,0
+246.726,POST,envoi d'un rêve,54.5,0
+246.739,GET,statut (polling),8.2,0
+246.789,GET,historique filtré,15.2,0
+246.939,GET,statut (polling),9.1,0
+246.972,GET,historique,12.6,0
+247.082,GET,historique,17.9,0
+247.09,GET,statut (polling),14.3,0
+247.099,GET,historique,21.8,0
+247.104,GET,statistiques,19.0,0
+247.189,GET,statut (polling),12.0,0
+247.233,GET,enregistrement (GET),7.5,0
+247.287,POST,envoi d'un rêve,54.8,0
+247.386,GET,statut (polling),9.1,0
+247.403,GET,statut (polling),7.7,0
+247.501,GET,historique,13.8,0
+247.532,GET,détail d'un rêve,13.1,0
+247.629,GET,statut (polling),19.4,0
+247.633,GET,historique,24.2,0
+247.659,GET,historique,14.7,0
+247.688,GET,enregistrement (GET),7.1,0
+247.743,POST,envoi d'un rêve,55.3,0
+247.923,GET,détail d'un rêve,13.9,0
+247.99,GET,statut (polling),9.1,0
+248.067,GET,détail d'un rêve,13.7,0
+248.142,GET,statut (polling),9.7,0
+248.16,GET,statut (polling),13.4,0
+248.189,GET,historique,19.9,0
+248.21,GET,détail d'un rêve,20.8,0
+248.243,GET,statut (polling),12.5,0
+248.25,GET,statut (polling),10.1,0
+248.379,GET,statut (polling),9.4,0
+248.445,GET,détail d'un rêve,14.1,0
+248.471,GET,historique,14.6,0
+248.569,GET,statut (polling),9.2,0
+248.666,GET,historique,13.7,0
+248.735,GET,statut (polling),9.3,0
+248.748,GET,statut (polling),8.1,0
+248.798,GET,enregistrement (GET),7.7,0
+248.853,POST,envoi d'un rêve,55.4,0
+248.88,GET,historique,14.1,0
+248.901,GET,historique,12.7,0
+248.948,GET,statut (polling),8.6,0
+248.999,GET,historique,14.2,0
+249.097,GET,statut (polling),6.1,0
+249.097,PIPELINE,pipeline : bout en bout,22177.5,0
+249.154,GET,historique,14.3,0
+249.201,GET,statut (polling),11.1,0
+249.297,GET,statut (polling),9.1,0
+249.387,GET,historique filtré,12.0,0
+249.391,GET,statut (polling),5.2,0
+249.391,PIPELINE,pipeline : bout en bout,20165.0,0
+249.412,GET,statut (polling),8.9,0
+249.468,GET,historique filtré,10.1,0
+249.546,GET,historique,13.8,0
+249.6,GET,statistiques,12.5,0
+249.636,GET,statut (polling),5.1,0
+249.636,PIPELINE,pipeline : bout en bout,22173.8,0
+249.753,GET,statut (polling),9.1,0
+249.822,GET,détail d'un rêve,13.8,0
+249.835,GET,historique,12.5,0
+249.885,GET,historique,14.6,0
+249.895,GET,historique filtré,9.7,0
+249.934,GET,historique,14.0,0
+250.0,GET,statut (polling),9.0,0
+250.133,GET,historique,14.3,0
+250.152,GET,statut (polling),8.9,0
+250.17,GET,statut (polling),9.2,0
+250.189,GET,statistiques,17.2,0
+250.19,GET,historique,18.3,0
+250.26,GET,statut (polling),16.7,0
+250.262,GET,historique,24.2,0
+250.268,GET,statut (polling),16.2,0
+250.389,GET,statut (polling),9.1,0
+250.579,GET,statut (polling),9.3,0
+250.625,GET,historique,13.1,0
+250.745,GET,statut (polling),9.2,0
+250.757,GET,statut (polling),8.1,0
+250.811,GET,historique,14.4,0
+250.863,GET,statut (polling),9.1,0
+250.899,GET,historique filtré,11.0,0
+250.944,GET,historique filtré,12.4,0
+250.952,GET,statistiques,15.5,0
+250.958,GET,statut (polling),9.4,0
+251.211,GET,statut (polling),9.2,0
+251.272,GET,historique,14.6,0
+251.307,GET,statut (polling),8.8,0
+251.422,GET,statut (polling),9.4,0
+251.762,GET,statut (polling),8.9,0
+251.858,GET,enregistrement (GET),9.9,0
+251.893,GET,statistiques,31.0,0
+251.955,POST,envoi d'un rêve,97.6,0
+252.01,GET,statut (polling),9.1,0
+252.107,GET,statistiques,13.4,0
+252.127,GET,détail d'un rêve,12.5,0
+252.138,GET,historique,12.8,0
+252.162,GET,statut (polling),9.4,0
+252.177,GET,statut (polling),6.3,0
+252.177,PIPELINE,pipeline : bout en bout,22176.9,0
+252.272,GET,statut (polling),11.5,0
+252.282,GET,statut (polling),13.9,0
+252.345,GET,historique,21.6,0
+252.399,GET,statut (polling),9.0,0
+252.592,GET,statut (polling),12.5,0
+252.594,GET,historique,19.0,0
+252.717,GET,historique,13.3,0
+252.754,GET,statut (polling),8.7,0
+252.762,GET,statut (polling),4.5,0
+252.762,PIPELINE,pipeline : bout en bout,22165.6,0
+252.84,GET,détail d'un rêve,13.9,0
+252.873,GET,statut (polling),9.1,0
+252.937,GET,statistiques,13.3,0
+252.97,GET,statut (polling),11.3,0
+252.974,GET,historique,19.6,0
+252.984,GET,détail d'un rêve,13.4,0
+253.033,GET,historique,18.2,0
+253.039,GET,statistiques,21.4,0
+253.044,GET,historique filtré,13.2,0
+253.085,GET,enregistrement (GET),7.3,0
+253.14,POST,envoi d'un rêve,55.0,0
+253.221,GET,statut (polling),9.3,0
+253.271,GET,historique,13.4,0
+253.318,GET,statut (polling),10.6,0
+253.359,GET,historique,20.0,0
+253.392,GET,statistiques,12.6,0
+253.431,GET,statut (polling),8.3,0
+253.463,GET,historique,12.4,0
+253.49,GET,statistiques,11.7,0
+253.507,GET,historique filtré,10.2,0
+253.555,GET,historique,14.7,0
+253.558,GET,enregistrement (GET),8.2,0
+253.612,POST,envoi d'un rêve,54.3,0
+253.686,GET,historique,13.7,0
+253.775,GET,statut (polling),11.8,0
+253.776,GET,historique,17.5,0
+253.965,GET,statut (polling),9.3,0
+254.019,GET,statut (polling),8.9,0
+254.05,GET,détail d'un rêve,13.7,0
+254.153,GET,historique filtré,12.6,0
+254.17,GET,statistiques,14.3,0
+254.175,GET,statut (polling),12.5,0
+254.228,GET,historique,13.7,0
+254.28,GET,statut (polling),6.6,0
+254.28,PIPELINE,pipeline : bout en bout,22181.3,0
+254.28,GET,historique filtré,14.3,0
+254.291,GET,statut (polling),8.4,0
+254.31,GET,historique,12.7,0
+254.376,GET,statistiques,16.9,0
+254.411,GET,historique,18.7,0
+254.411,GET,statut (polling),11.6,0
+254.451,GET,historique,13.1,0
+254.566,GET,historique,14.2,0
+254.602,GET,statut (polling),9.2,0
+254.764,GET,statut (polling),8.8,0
+254.844,GET,historique,13.0,0
+254.882,GET,statut (polling),8.7,0
+254.982,GET,statut (polling),11.6,0
+254.986,GET,historique filtré,13.4,0
+255.149,GET,statut (polling),8.8,0
+255.183,GET,historique filtré,13.2,0
+255.229,GET,statut (polling),8.5,0
+255.326,GET,statistiques,14.9,0
+255.328,GET,statut (polling),9.7,0
+255.443,GET,statut (polling),11.3,0
+255.444,GET,historique,17.4,0
+255.622,GET,statut (polling),9.0,0
+255.674,GET,historique,13.1,0
+255.788,GET,historique,27.4,0
+255.793,GET,statut (polling),17.3,0
+255.977,GET,statut (polling),11.8,0
+255.98,GET,statistiques,15.8,0
+256.029,GET,statut (polling),9.0,0
+256.056,GET,enregistrement (GET),6.4,0
+256.092,GET,historique,18.8,0
+256.12,POST,envoi d'un rêve,64.5,0
+256.123,GET,détail d'un rêve,17.0,0
+256.186,GET,statistiques,18.4,0
+256.194,GET,historique,23.9,0
+256.195,GET,statut (polling),19.1,0
+256.242,GET,historique,15.9,0
+256.297,GET,statut (polling),5.4,0
+256.297,PIPELINE,pipeline : bout en bout,22169.6,0
+256.423,GET,statut (polling),11.6,0
+256.522,GET,statistiques,12.6,0
+256.619,GET,historique,19.0,0
+256.621,GET,statistiques,18.4,0
+256.623,GET,statut (polling),20.5,0
+256.623,PIPELINE,pipeline : bout en bout,22182.9,0
+256.742,GET,historique,13.4,0
+256.774,GET,statut (polling),9.2,0
+256.837,GET,statistiques,16.3,0
+256.892,GET,statut (polling),8.9,0
+256.916,GET,historique,17.8,0
+256.923,GET,historique,16.4,0
+256.998,GET,statut (polling),15.3,0
+257.047,GET,enregistrement (GET),7.2,0
+257.101,POST,envoi d'un rêve,54.5,0
+257.16,GET,statut (polling),9.1,0
+257.187,GET,historique,13.8,0
+257.24,GET,statut (polling),9.9,0
+257.259,GET,détail d'un rêve,13.0,0
+257.281,GET,historique filtré,9.7,0
+257.338,GET,statut (polling),8.9,0
+257.458,GET,statut (polling),13.9,0
+257.475,GET,historique,18.7,0
+257.493,GET,détail d'un rêve,13.0,0
+257.518,GET,historique,12.9,0
+257.55,GET,historique,13.3,0
+257.632,GET,statut (polling),9.0,0
+257.694,GET,détail d'un rêve,13.2,0
+257.729,GET,statistiques,12.0,0
+257.803,GET,statut (polling),9.5,0
+257.987,GET,statut (polling),9.5,0
+258.043,GET,statut (polling),12.7,0
+258.045,GET,statistiques,17.2,0
+258.055,GET,détail d'un rêve,24.4,0
+258.13,GET,statut (polling),8.4,0
+258.173,GET,historique,14.3,0
+258.204,GET,statut (polling),8.2,0
+258.248,GET,détail d'un rêve,13.6,0
+258.311,GET,enregistrement (GET),7.2,0
+258.357,GET,statistiques,17.1,0
+258.371,POST,envoi d'un rêve,60.1,0
+258.432,GET,statut (polling),8.6,0
+258.471,GET,historique,16.8,0
+258.487,GET,historique,21.9,0
+258.671,GET,enregistrement (GET),7.7,0
+258.724,POST,envoi d'un rêve,53.3,0
+258.785,GET,statut (polling),9.2,0
+258.823,GET,statistiques,18.1,0
+258.826,GET,historique,18.6,0
+258.902,GET,statut (polling),9.0,0
+259.004,GET,statut (polling),5.1,0
+259.004,PIPELINE,pipeline : bout en bout,24197.9,0
+259.054,GET,détail d'un rêve,13.9,0
+259.111,GET,statut (polling),9.5,0
+259.17,GET,statut (polling),9.7,0
+259.191,GET,historique,12.9,0
+259.25,GET,statut (polling),10.1,0
+259.262,GET,historique,14.1,0
+259.347,GET,statut (polling),8.9,0
+259.467,GET,statut (polling),9.0,0
+259.569,GET,statistiques,12.8,0
+259.641,GET,statut (polling),8.8,0
+259.751,GET,historique filtré,11.8,0
+259.813,GET,statut (polling),9.1,0
+259.849,GET,statistiques,19.2,0
+259.852,GET,historique,19.6,0
+259.931,GET,historique,28.6,0
+259.939,GET,historique,36.0,0
+259.946,GET,statistiques,25.1,0
+259.974,GET,détail d'un rêve,18.0,0
+259.975,GET,statistiques,17.7,0
+259.997,GET,statut (polling),9.6,0
+260.005,GET,historique filtré,10.8,0
+260.052,GET,statut (polling),7.9,0
+260.14,GET,statut (polling),8.9,0
+260.163,GET,détail d'un rêve,13.6,0
+260.214,GET,statut (polling),9.4,0
+260.246,GET,historique,14.3,0
+260.331,GET,historique,14.3,0
+260.381,GET,statut (polling),9.4,0
+260.44,GET,enregistrement (GET),9.4,0
+260.445,GET,statut (polling),12.3,0
+260.462,GET,détail d'un rêve,20.5,0
+260.518,POST,envoi d'un rêve,78.0,0
+260.536,GET,détail d'un rêve,20.2,0
+260.608,GET,historique filtré,11.6,0
+260.653,GET,enregistrement (GET),8.2,0
+260.71,POST,envoi d'un rêve,56.3,0
+260.735,GET,statut (polling),9.6,0
+260.794,GET,statut (polling),9.5,0
+260.914,GET,statut (polling),11.5,0
+260.923,GET,historique,14.6,0
+261.026,GET,historique,13.9,0
+261.121,GET,statut (polling),8.8,0
+261.18,GET,statut (polling),8.9,0
+261.257,GET,statut (polling),5.6,0
+261.257,PIPELINE,pipeline : bout en bout,26190.5,0
+261.295,GET,historique filtré,11.4,0
+261.326,GET,historique filtré,11.1,0
+261.356,GET,statut (polling),7.8,0
+261.478,GET,statut (polling),10.5,0
+261.551,GET,historique filtré,16.7,0
+261.651,GET,statut (polling),8.9,0
+261.822,GET,statut (polling),9.1,0
+261.959,GET,enregistrement (GET),7.0,0
+262.008,GET,statut (polling),10.2,0
+262.018,POST,envoi d'un rêve,59.4,0
+262.023,GET,statistiques,15.0,0
+262.059,GET,statut (polling),6.5,0
+262.059,PIPELINE,pipeline : bout en bout,26203.8,0
+262.15,GET,statut (polling),9.2,0
+262.224,GET,statut (polling),9.4,0
+262.379,GET,détail d'un rêve,15.5,0
+262.389,GET,statut (polling),8.0,0
+262.454,GET,statut (polling),8.9,0
+262.483,GET,détail d'un rêve,14.2,0
+262.493,GET,historique,14.0,0
+262.526,GET,statut (polling),7.8,0
+262.72,GET,statut (polling),9.3,0
+262.743,GET,statistiques,16.4,0
+262.745,GET,statut (polling),10.1,0
+262.805,GET,statut (polling),9.5,0
+262.858,GET,statistiques,13.2,0
+262.924,GET,statut (polling),9.0,0
+262.971,GET,historique,14.0,0
+263.03,GET,historique,16.8,0
+263.036,GET,statistiques,16.4,0
+263.097,GET,enregistrement (GET),7.6,0
+263.132,GET,statut (polling),10.9,0
+263.156,POST,envoi d'un rêve,58.5,0
+263.19,GET,statut (polling),8.7,0
+263.335,GET,historique filtré,11.8,0
+263.365,GET,statut (polling),9.1,0
+263.485,GET,statut (polling),5.6,0
+263.485,PIPELINE,pipeline : bout en bout,26198.9,0
+263.551,GET,historique,13.5,0
+263.61,GET,historique,15.7,0
+263.661,GET,statut (polling),9.3,0
+263.779,GET,statistiques,12.8,0
+263.832,GET,statut (polling),9.4,0
+263.887,GET,statistiques,13.0,0
+263.912,GET,historique filtré,9.7,0
+263.962,GET,statistiques,17.2,0
+264.024,GET,historique,22.6,0
+264.027,GET,statut (polling),17.6,0
+264.041,GET,détail d'un rêve,30.1,0
+264.044,GET,statut (polling),24.6,0
+264.053,GET,statistiques,19.8,0
+264.068,GET,historique filtré,11.2,0
+264.16,GET,statut (polling),9.6,0
+264.203,GET,détail d'un rêve,12.9,0
+264.229,GET,statut (polling),4.4,0
+264.229,PIPELINE,pipeline : bout en bout,20193.1,0
+264.247,GET,historique,12.4,0
+264.34,GET,statistiques,13.8,0
+264.399,GET,statut (polling),9.5,0
+264.464,GET,statut (polling),9.3,0
+264.497,GET,historique,12.8,0
+264.535,GET,statut (polling),7.9,0
+264.577,GET,historique filtré,9.3,0
+264.621,GET,historique,21.2,0
+264.635,GET,enregistrement (GET),9.3,0
+264.696,GET,statistiques,26.2,0
+264.715,POST,envoi d'un rêve,80.1,0
+264.729,GET,statut (polling),8.2,0
+264.754,GET,statut (polling),8.0,0
+264.815,GET,statut (polling),9.5,0
+264.856,GET,historique,14.0,0
+264.933,GET,statut (polling),8.7,0
+265.142,GET,statut (polling),8.9,0
+265.166,GET,statut (polling),9.5,0
+265.199,GET,statut (polling),8.1,0
+265.349,GET,détail d'un rêve,13.3,0
+265.373,GET,statut (polling),7.6,0
+265.603,GET,enregistrement (GET),7.3,0
+265.663,GET,historique,38.3,0
+265.685,GET,statistiques,54.4,0
+265.687,POST,envoi d'un rêve,84.4,0
+265.694,GET,statut (polling),32.1,0
+265.791,GET,historique filtré,11.2,0
+265.811,GET,statistiques,12.7,0
+265.842,GET,statut (polling),9.1,0
+265.953,GET,historique,13.9,0
+266.037,GET,statut (polling),9.1,0
+266.054,GET,statut (polling),10.4,0
+266.169,GET,statut (polling),8.9,0
+266.212,GET,historique,14.3,0
+266.298,GET,enregistrement (GET),7.5,0
+266.352,POST,envoi d'un rêve,54.1,0
+266.408,GET,statut (polling),9.0,0
+266.448,GET,historique,14.0,0
+266.469,GET,statut (polling),4.8,0
+266.469,PIPELINE,pipeline : bout en bout,20160.0,0
+266.526,GET,historique,14.2,0
+266.544,GET,statut (polling),8.4,0
+266.694,GET,statistiques,15.7,0
+266.708,GET,historique filtré,15.1,0
+266.727,GET,statut (polling),11.1,0
+266.745,GET,statut (polling),15.3,0
+266.748,GET,historique,19.2,0
+266.765,GET,statut (polling),10.2,0
+266.775,GET,détail d'un rêve,14.0,0
+266.821,GET,statut (polling),5.4,0
+266.821,PIPELINE,pipeline : bout en bout,20149.9,0
+266.943,GET,statut (polling),9.4,0
+267.056,GET,historique,13.9,0
+267.155,GET,statut (polling),12.0,0
+267.179,GET,statut (polling),11.8,0
+267.209,GET,statut (polling),9.0,0
+267.338,GET,statistiques,12.9,0
+267.383,GET,statut (polling),9.1,0
+267.497,GET,statistiques,12.8,0
+267.511,GET,historique,12.0,0
+267.591,GET,historique,15.7,0
+267.697,GET,statut (polling),9.8,0
+267.703,GET,statut (polling),9.6,0
+267.79,GET,historique,17.6,0
+267.854,GET,statut (polling),10.3,0
+267.926,GET,statistiques,13.1,0
+268.047,GET,statut (polling),9.5,0
+268.065,GET,statut (polling),10.2,0
+268.111,GET,enregistrement (GET),15.9,0
+268.113,GET,historique,29.1,0
+268.182,POST,envoi d'un rêve,70.9,0
+268.183,GET,statut (polling),13.1,0
+268.235,GET,historique filtré,11.9,0
+268.253,GET,historique filtré,11.5,0
+268.26,GET,historique filtré,10.8,0
+268.327,GET,statistiques,11.9,0
+268.361,GET,statut (polling),9.1,0
+268.387,GET,détail d'un rêve,12.7,0
+268.418,GET,statut (polling),9.3,0
+268.458,GET,statistiques,12.8,0
+268.505,GET,historique,13.6,0
+268.554,GET,statut (polling),8.7,0
+268.74,GET,statut (polling),12.0,0
+268.759,GET,statut (polling),12.3,0
+268.778,GET,statut (polling),12.6,0
+268.813,GET,historique,13.7,0
+268.953,GET,statut (polling),9.4,0
+269.053,GET,historique,14.0,0
+269.166,GET,statut (polling),10.4,0
+269.177,GET,enregistrement (GET),6.8,0
+269.191,GET,statut (polling),11.7,0
+269.221,GET,statut (polling),11.2,0
+269.238,POST,envoi d'un rêve,60.7,0
+269.391,GET,statut (polling),6.7,0
+269.391,PIPELINE,pipeline : bout en bout,22158.5,0
+269.403,GET,détail d'un rêve,15.1,0
+269.454,GET,historique,14.0,0
+269.496,GET,enregistrement (GET),7.3,0
+269.55,POST,envoi d'un rêve,54.3,0
+269.58,GET,détail d'un rêve,13.4,0
+269.669,GET,historique,14.2,0
+269.708,GET,statut (polling),9.8,0
+269.714,GET,statut (polling),9.9,0
+269.762,GET,détail d'un rêve,17.1,0
+269.861,GET,statut (polling),5.8,0
+269.861,PIPELINE,pipeline : bout en bout,22173.1,0
+270.057,GET,statut (polling),9.2,0
+270.076,GET,détail d'un rêve,17.4,0
+270.077,GET,statut (polling),10.8,0
+270.104,GET,historique,17.7,0
+270.104,GET,historique filtré,14.3,0
+270.195,GET,statut (polling),11.2,0
+270.197,GET,statut (polling),13.2,0
+270.227,GET,enregistrement (GET),8.1,0
+270.282,POST,envoi d'un rêve,54.4,0
+270.371,GET,statut (polling),9.2,0
+270.427,GET,statut (polling),8.8,0
+270.563,GET,statut (polling),9.0,0
+270.613,GET,statistiques,42.9,0
