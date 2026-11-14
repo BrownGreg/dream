@@ -58,7 +58,7 @@ EISVOGEL = pandoc body.md --metadata-file=../../templates/eisvogel/commun.yaml \
 eisvogel: ## Dossiers du bloc 1 en rendu Eisvogel (pandoc + xelatex), en parallèle des versions Typst
 	cd docs/preprod/livrables/_dossier_cadrage && $(EISVOGEL) \
 		--metadata-file=../_dossier_cadrage_eisvogel/metadata.yaml -o ../dossier_cadrage_eisvogel.pdf
-	rsvg-convert -f pdf -o docs/preprod/livrables/_specifications_architecture/sequence_reve.pdf docs/preprod/diagrams/sequence_reve.svg
+	cp docs/preprod/diagrams/excalidraw/sequence_reve.png docs/preprod/diagrams/excalidraw/c4_container.png docs/preprod/livrables/_specifications_architecture/
 	cd docs/preprod/livrables/_specifications_architecture && $(EISVOGEL) \
 		--metadata-file=../_specifications_architecture_eisvogel/metadata.yaml -o ../specifications_architecture_eisvogel.pdf
-	rm -f docs/preprod/livrables/_specifications_architecture/sequence_reve.pdf
+	rm -f docs/preprod/livrables/_specifications_architecture/sequence_reve.png docs/preprod/livrables/_specifications_architecture/c4_container.png
