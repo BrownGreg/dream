@@ -55,7 +55,7 @@
     #grid(columns: (auto, 1fr), gutter: 0.5em,
       [*Auteur*], [Grégory Hery],
       [*École*], [HETIC],
-      [*Date de rendu*], [à compléter],
+      [*Date de rendu*], [15/11/2026],
       [*Dépôt*], [#link("https://github.com/BrownGreg/dream")[github.com/BrownGreg/dream]],
     )
     #v(1fr)

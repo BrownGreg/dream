@@ -1,6 +1,6 @@
 # Raccourcis du projet. `make help` liste les cibles.
 .DEFAULT_GOAL := help
-.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem
+.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem cadrage-eisvogel
 
 help: ## Affiche cette aide
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-8s\033[0m %s\n", $$1, $$2}'
@@ -51,3 +51,10 @@ rapport: ## Rapport PDF (pandoc + typst + plantuml) : docs/rapport/rapport_hery.
 postmortem: ## Post-mortem PDF (matière factuelle + parties à rédiger) : docs/postmortem/postmortem_gregory.pdf
 	pandoc docs/postmortem/postmortem.md -f markdown -t typst -o docs/postmortem/body.typ
 	typst compile --root . docs/postmortem/main.typ docs/postmortem/postmortem_gregory.pdf
+
+cadrage-eisvogel: ## Dossier de cadrage, rendu Eisvogel (pandoc + xelatex), en parallèle de la version Typst
+	cd docs/preprod/livrables/_dossier_cadrage && pandoc body.md \
+		--metadata-file=../_dossier_cadrage_eisvogel/metadata.yaml \
+		--template=../../templates/eisvogel/eisvogel.latex \
+		--pdf-engine=xelatex --number-sections=false \
+		-o ../dossier_cadrage_eisvogel.pdf

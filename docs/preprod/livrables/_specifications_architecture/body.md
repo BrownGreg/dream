@@ -1,8 +1,8 @@
 # 1. Architecture : diagrammes C4
 
-![C4 niveau 1 — contexte](/home/browngreg/dream/docs/diagrams/c4_context.svg)
+![C4 niveau 1 — contexte](../../diagrams/c4_context.svg)
 
-![C4 niveau 2 — conteneurs de l'architecture cible de production](/home/browngreg/dream/docs/diagrams/c4_container.svg)
+![C4 niveau 2 — conteneurs de l'architecture cible de production](../../diagrams/c4_container.svg)
 
 ## Maquette ≠ cible
 | | Maquette (pré-production) | Cible (production) |
@@ -34,7 +34,7 @@ Un rêve enchaîne trois appels externes dont les p95 visés totalisent 27 s (28
 
 # 2. Modèle de données
 
-![Modèle relationnel (PostgreSQL 16)](/home/browngreg/dream/docs/diagrams/erd.svg)
+![Modèle relationnel (PostgreSQL 16)](../../diagrams/erd.svg)
 
 ## Dictionnaire d'attributs
 Conventions communes : `id` UUID v4 généré côté serveur (sauf `api_calls` et `audit_log` : `bigint` séquentiel) ; `created_at timestamptz NOT NULL DEFAULT now()` ; clés étrangères `ON DELETE CASCADE`, sauf `api_calls.dream_id` (`SET NULL`, pour conserver les coûts sans le contenu). Sensibilité : **S** = catégorie particulière potentielle (art. 9) · **P** = donnée personnelle · **T** = technique.
@@ -80,7 +80,7 @@ Conventions communes : `id` UUID v4 généré côté serveur (sauf `api_calls` e
   = 3. Séquence clé : traitement complet d'un rêve
   #grid(columns: (1fr, 6.4cm), gutter: 0.5cm,
     figure(
-      image("/home/browngreg/dream/docs/diagrams/sequence_reve.svg", width: 100%, height: 15.2cm, fit: "contain"),
+      image("/docs/preprod/diagrams/sequence_reve.svg", width: 100%, height: 15.2cm, fit: "contain"),
       caption: [Diagramme de séquence UML — traitement d'un rêve, branches d'erreur incluses],
     ),
     [
