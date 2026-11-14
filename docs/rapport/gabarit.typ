@@ -4,7 +4,7 @@
 #let horizontalrule = line(length: 100%, stroke: 0.5pt + luma(180))
 
 #let dossier(title: "", body) = {
-  set document(title: title, author: "Gregory Hery")
+  set document(title: title, author: "Grégory Hery")
   set text(lang: "fr", font: "Liberation Sans", size: 10.5pt)
   set par(justify: true, leading: 0.55em, spacing: 0.8em)
   set page(
@@ -53,7 +53,7 @@
     #text(size: 26pt, weight: "bold", fill: rgb("#4B3F72"))[#title]
     #v(1.2cm)
     #grid(columns: (auto, 1fr), gutter: 0.5em,
-      [*Auteur*], [Gregory Hery],
+      [*Auteur*], [Grégory Hery],
       [*École*], [HETIC],
       [*Date de rendu*], [à compléter],
       [*Dépôt*], [#link("https://github.com/BrownGreg/dream")[github.com/BrownGreg/dream]],

@@ -180,19 +180,19 @@ attente → découverte → archivage → relecture hebdomadaire). La courbe
 montre l'émotion ressentie (−2 à +2) \; les bandeaux listent les
 frictions et les opportunités retenues dans le backlog.
 
-#figure(image("/home/browngreg/dream/docs/diagrams/journey_lea.svg", alt: "Journey map — Léa"),
+#figure(image("/docs/preprod/diagrams/journey_lea.svg", alt: "Journey map — Léa"),
   caption: [
     Journey map --- Léa
   ]
 )
 
-#figure(image("/home/browngreg/dream/docs/diagrams/journey_karim.svg", alt: "Journey map — Karim"),
+#figure(image("/docs/preprod/diagrams/journey_karim.svg", alt: "Journey map — Karim"),
   caption: [
     Journey map --- Karim
   ]
 )
 
-#figure(image("/home/browngreg/dream/docs/diagrams/journey_ines.svg", alt: "Journey map — Inès"),
+#figure(image("/docs/preprod/diagrams/journey_ines.svg", alt: "Journey map — Inès"),
   caption: [
     Journey map --- Inès
   ]
@@ -200,14 +200,14 @@ frictions et les opportunités retenues dans le backlog.
 
 == Flow, wireframes et charte minimaliste
 <flow-wireframes-et-charte-minimaliste>
-#figure(image("/home/browngreg/dream/docs/diagrams/flow.svg", alt: "Flow diagram — parcours écran du MVP ; chaque sortie d’erreur propose une action"),
+#figure(image("/docs/preprod/diagrams/flow.svg", alt: "Flow diagram — parcours écran du MVP ; chaque sortie d’erreur propose une action"),
   caption: [
     Flow diagram --- parcours écran du MVP \; chaque sortie d'erreur
     propose une action
   ]
 )
 
-#figure(image("/home/browngreg/dream/docs/diagrams/wireframes.svg", alt: "Wireframes basse fidélité (mobile) — accueil et consentement, récit et résultat, historique"),
+#figure(image("/docs/preprod/diagrams/wireframes.svg", alt: "Wireframes basse fidélité (mobile) — accueil et consentement, récit et résultat, historique"),
   caption: [
     Wireframes basse fidélité (mobile) --- accueil et consentement,
     récit et résultat, historique
@@ -311,7 +311,7 @@ Matrice de Kano (source : annexe `kano.md` \; B basique · P performance
   , kind: table
   )
 
-#figure(image("/home/browngreg/dream/docs/diagrams/story_map.svg", alt: "User Story Map — activités, tâches et tranches de release"),
+#figure(image("/docs/preprod/diagrams/story_map.svg", alt: "User Story Map — activités, tâches et tranches de release"),
   caption: [
     User Story Map --- activités, tâches et tranches de release
   ]
@@ -850,7 +850,7 @@ conforme à `dream.schema.json` (portabilité, US-15).
 <roadmap-et-sprint-1>
 == Release plan
 <release-plan>
-#figure(image("/home/browngreg/dream/docs/diagrams/roadmap.svg", alt: "Release plan par sprint d’une semaine"),
+#figure(image("/docs/preprod/diagrams/roadmap.svg", alt: "Release plan par sprint d’une semaine"),
   caption: [
     Release plan par sprint d'une semaine
   ]
@@ -948,7 +948,7 @@ Registre de 11 risques (source `docs/backlog/risks.toml`), revu à chaque
 rétrospective : la probabilité et l'impact sont réévalués, un risque
 dont le déclencheur survient devient un ticket prioritaire.
 
-#figure(image("/home/browngreg/dream/docs/diagrams/risk_matrix.svg", alt: "Matrice probabilité × impact"),
+#figure(image("/docs/preprod/diagrams/risk_matrix.svg", alt: "Matrice probabilité × impact"),
   caption: [
     Matrice probabilité × impact
   ]
