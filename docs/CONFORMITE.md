@@ -15,7 +15,7 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 | Budget API ≤ 20 €, appliqué par le code | `ApiCall`, `dreams/services/budget.py`, coupe-circuit à 15 € avant chaque tentative (ADR-009) ; `test_coupe_circuit_bloque_sans_appeler_le_fournisseur` | ✅ code et tests · dépense réelle **à relever** en production |
 | Couverture ≥ 70 % des fonctionnalités critiques, par module en CI | `scripts/check_coverage.py` ; 12 fonctionnalités entre 97,3 % et 100 % (run `42700247218`) | ✅ |
 | PEP 8, docstrings Google, type hints | ruff (`E`, `W`, `D` convention google, `ANN`…), mypy `strict = true`, en CI | ✅ |
-| Branches et PR | `feat\|fix\|test\|docs/DREAM-<n>-…` ; 22 PR fusionnées, aucune avec un contrôle en échec | ✅ |
+| Branches et PR | `feat\|fix\|test\|docs/DREAM-<n>-…` ; 25 PR fusionnées au 2026-11-14, aucune avec un contrôle en échec ; protection de `main` : 4 contrôles requis, branche à jour obligatoire | ✅ |
 
 ## Livrables
 
@@ -58,14 +58,14 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 | Pipeline IA dans la requête HTTP | mise en file `on_commit`, `db_worker` ; séquence | ✅ |
 | Retry sur 4xx non transitoire | `test_4xx_non_passagere_jamais_rejouee` | ✅ |
 | Appels API réels en CI ou en charge | `AI_MODE=fake` ; VCR `record_mode: "none"` | ✅ |
-| Merge sur `main` sans CI verte | `gh pr view … statusCheckRollup` : aucun échec sur les 22 PR fusionnées | ✅ |
+| Merge sur `main` sans CI verte | `gh pr view … statusCheckRollup` : aucun échec sur les PR fusionnées ; fusion bloquée par la protection de `main` tant que les 4 contrôles requis ne sont pas verts | ✅ |
 
 ## Vérification finale
 
 | Étape | Résultat | Statut |
 |---|---|---|
 | 1. Ce tableau | — | ✅ |
-| 2. Clone propre → `scripts/install.sh` → démarrage → `pytest` | **échec trouvé** : `DATABASE_URL=` vide de `.env.example` cassait `migrate` (incident n° 12). Corrigé par la PR [#31](https://github.com/BrownGreg/dream/pull/31) ; clone de la branche corrigée : installation OK, 289 tests verts, `/health` 200 | ⚠️ conforme après fusion de #31 |
+| 2. Clone propre → `scripts/install.sh` → démarrage → `pytest` | **échec trouvé** : `DATABASE_URL=` vide de `.env.example` cassait `migrate` (incident n° 12). Corrigé par la PR [#31](https://github.com/BrownGreg/dream/pull/31), fusionnée ; clone de la branche corrigée : installation OK, 289 tests verts, `/health` 200 | ✅ |
 | 3. CI verte sur `main`, déploiement réussi, `/health` en production | CI verte ; déploiement non effectué | ⚠️ |
 | 4. Parcours complet en production (mobile, desktop, erreurs volontaires) | pas de production | ❌ à faire après création du service Render |
 | 5. `ApiCall` : coût ≤ budget, coupe-circuit testé | coupe-circuit testé ; aucun coût réel | ⚠️ |
