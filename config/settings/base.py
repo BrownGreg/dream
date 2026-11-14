@@ -72,7 +72,9 @@ TEMPLATES = [
     },
 ]
 
-DATABASES = {"default": env.db("DATABASE_URL", default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")}
+# `env.db` n'applique sa valeur par défaut que si la variable est absente : `DATABASE_URL=` (vide,
+# comme dans `.env.example` copié par `scripts/install.sh`) doit aussi donner SQLite.
+DATABASES = {"default": env.db_url_config(env("DATABASE_URL", default="") or f"sqlite:///{BASE_DIR / 'db.sqlite3'}")}
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("DATABASE_CONN_MAX_AGE", default=60)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

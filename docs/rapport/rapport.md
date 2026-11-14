@@ -166,7 +166,7 @@ Test `test_observability.py` : un récit de rêve passé dans une requête n'app
 
 # 7. Difficultés rencontrées et solutions
 
-Journal tenu au fil de l'eau : `docs/incidents.md` (11 entrées). Format : symptôme → diagnostic → correctif → test de non-régression → PR.
+Journal tenu au fil de l'eau : `docs/incidents.md` (12 entrées). Format : symptôme → diagnostic → correctif → test de non-régression → PR.
 
 | # | Ticket | Symptôme | Diagnostic | Correctif | Test de non-régression |
 |---|---|---|---|---|---|
@@ -181,8 +181,9 @@ Journal tenu au fil de l'eau : `docs/incidents.md` (11 entrées). Format : sympt
 | 9 | DREAM-19 | **Critique** : tout enregistrement micro Chrome/Firefox refusé | MediaRecorder écrit en flux, sans durée dans les métadonnées | décodage complet si la durée manque | `test_webm_de_mediarecorder_sans_duree_…` + parcours E2E |
 | 10 | DREAM-20 | file de 36 tâches mais « attente max 0 s » | `run_after` vaut la date **maximale**, pas « maintenant » | `DBTaskResult.objects.ready()` ; fixture fidèle | `test_health_degrade_si_le_worker_est_en_retard` |
 | 11 | DREAM-17 | « bout en bout p95 » = 1 054 800 001 ms | mesure `updated_at − created_at` | champ `finished_at` fixé une seule fois | `test_bout_en_bout_mesure_le_premier_traitement_seulement` |
+| 12 | DREAM-24 | clone propre : `install.sh` échoue à `migrate`, 121 tests rouges | `DATABASE_URL=` vide dans `.env.example` ; la valeur par défaut ne s'applique que si la variable est absente | une valeur vide retombe sur SQLite | `test_database_url_vide_donne_sqlite` |
 
-Trois incidents (5, 8, 9) ne se voyaient pas en développement : seuls la CI, le build de production ou un vrai navigateur les ont révélés. Deux (9, 10) venaient de tests qui reproduisaient une hypothèse fausse plutôt que le comportement réel ; leur correctif inclut une fixture fidèle à la réalité.
+Quatre incidents (5, 8, 9, 12) ne se voyaient pas en développement : seuls la CI, le build de production, un vrai navigateur ou un clone propre les ont révélés. Deux (9, 10) venaient de tests qui reproduisaient une hypothèse fausse plutôt que le comportement réel ; leur correctif inclut une fixture fidèle à la réalité.
 
 # 8. Organisation et répartition du travail
 
@@ -197,7 +198,7 @@ Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets
 | Jour 5 — observabilité, tests, charge, performance | DREAM-17 à 21 | 14 |
 | Jour 6 — documentation, rapport, code review | DREAM-22 à 24 | 7 |
 
-**Historique Git** (`main`) : 23 commits, dont 22 PR fusionnées (la PR #29 est en revue). Aucune n'a été fusionnée avec un contrôle de CI en échec (lint, types, tests PostgreSQL, couverture par fonctionnalité, E2E, image Docker). Les commits datent tous du 9 novembre 2026, de 15 h 54 à 22 h 12 ; ils sont fusionnés par *squash*, donc un commit par PR, horodaté à la fusion et non au début du travail. Ces horodatages ne mesurent donc pas le temps passé par lot.
+**Historique Git** (`main`) : 25 commits au 2026-11-14, dont 24 PR fusionnées (en revue : #30, #32). Aucune n'a été fusionnée avec un contrôle de CI en échec (lint, types, tests PostgreSQL, couverture par fonctionnalité, E2E, image Docker). Les commits datent tous du 9 novembre 2026, de 15 h 54 à 22 h 12 ; ils sont fusionnés par *squash*, donc un commit par PR, horodaté à la fusion et non au début du travail. Ces horodatages ne mesurent donc pas le temps passé par lot.
 
 | Lot | PR | Lignes ajoutées |
 |---|---|---|
