@@ -7,7 +7,7 @@ Projet individuel, bloc production. Les livrables de pré-production (cadrage, a
 | | |
 |---|---|
 | Code | https://github.com/BrownGreg/dream |
-| Suivi | Jira, projet **DREAM** (tickets DREAM-1 à DREAM-24, [`docs/backlog/`](docs/backlog/README.md)) |
+| Suivi | Jira, projet **DREAM**, epic DREAM-41 (les références DREAM-1 à 24 des branches correspondent aux clés Jira DREAM-42 à 65 : [`docs/backlog/`](docs/backlog/README.md)) |
 | Production | Render (Francfort) — URL donnée dans le rapport une fois le service créé |
 | Décisions | [`docs/decisions/`](docs/decisions/) (ADR-001 à ADR-010) |
 
