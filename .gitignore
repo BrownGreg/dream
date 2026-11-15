@@ -37,3 +37,5 @@ docs/preprod/maquette/app/.data/
 assets/css/tailwind.css
 .django_tailwind_cli/
 coverage.json
+.neon
+node_modules/
