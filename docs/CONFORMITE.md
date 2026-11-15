@@ -23,7 +23,7 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 |---|---|---|
 | Dépôt GitHub | <https://github.com/BrownGreg/dream>, README complet | ✅ |
 | `rapport_<groupe>.pdf` | `docs/rapport/rapport_hery.pdf` (`make rapport`) | ✅ production, coût réel et latences réelles renseignés (petit échantillon) |
-| `postmortem_<prenom>.pdf` | `docs/postmortem/postmortem_gregory.pdf` (`make postmortem`) : matière factuelle | ⚠️ parties subjectives **à rédiger par l'auteur** |
+| `postmortem_<prenom>.pdf` | `docs/postmortem/postmortem_gregory.pdf` (`make postmortem`) : matière factuelle (§1–5) et retour d'expérience (§6) | ✅ |
 | Code review live | [`docs/code-review/`](code-review/README.md) : 2 bugs, 1 story, 10 questions | ✅ |
 
 ## Grille d'évaluation
@@ -37,7 +37,7 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 | CI/CD, configuration par environnement, monitoring, journaux | `.github/workflows/ci.yml`, `config/settings/{base,dev,test,prod}.py`, `/health`, `/ops`, structlog, Sentry | ✅ |
 | Performance : temps de réponse, latence des API | `docs/tests/performance.md` | ✅ pages · ✅ latences réelles sous les SLO (petit échantillon de production) |
 | Documentation : README, rapport, schémas à jour | README, `docs/diagrams/` (ERD généré depuis le code) | ✅ |
-| Post-mortem | matière prête | ⚠️ à rédiger par l'auteur |
+| Post-mortem | §6 : auto-évaluation, ce qui a fonctionné ou non, usage des outils d'IA, leçons et améliorations | ✅ |
 | Code review live | dossier prêt | ✅ · répétition à faire par l'auteur |
 
 ## Règles de sécurité et de données

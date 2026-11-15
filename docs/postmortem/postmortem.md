@@ -1,4 +1,4 @@
-> **Mode d'emploi.** Ce document réunit la **matière factuelle** du post-mortem : chronologie, écarts entre le prévu et le réalisé, incidents, métriques, statistiques Git et Jira. Chaque chiffre vient d'un fichier du dépôt ou de GitHub, cité. Les parties **subjectives** (auto-évaluation, recul critique, leçons) sont à rédiger par l'auteur dans les encadrés « À rédiger », guidés par des questions. Rien n'y est pré-écrit.
+> **Mode d'emploi.** Les §1 à 5 réunissent la **matière factuelle** du post-mortem : chronologie, écarts entre le prévu et le réalisé, incidents, métriques, statistiques Git et Jira. Chaque chiffre vient d'un fichier du dépôt ou de GitHub, cité. Le §6 est mon retour d'expérience : il s'appuie uniquement sur ces faits.
 
 # 1. Chronologie
 
@@ -109,43 +109,55 @@ Un incident est classé **critique** : le n° 9. Sans lui, tout enregistrement a
 | Tickets de correctif dédiés | 4 PR `fix` (#26, #31, et en production #34, #36) ; les autres correctifs sont dans la PR de la fonctionnalité concernée |
 | Plus grosse PR (hors données) | #1, socle Django : 2 106 lignes ajoutées |
 
-# 6. À rédiger par l'auteur
-
-Les questions ci-dessous sont des pistes. Aucune réponse n'est proposée.
+# 6. Retour d'expérience
 
 ## 6.1 Auto-évaluation
 
-- Quelle part du périmètre prévu considères-tu réellement terminée, et selon quel critère ?
-- Où le résultat est-il au-dessus de ce que tu attendais ? En dessous ?
-- Comment répartirais-tu ton temps réel entre les lots du §2.2 ?
+Je considère le périmètre **Must** comme terminé, selon un critère simple : la fonctionnalité est testée en CI **et** elle a tourné en production avec les vrais fournisseurs. Toutes les stories Must du bloc 1 passent ce critère depuis le 15 novembre, y compris l'export et la suppression du compte, que le bloc 1 avait placés en R2. En revanche, je n'ai livré ni la lecture vocale (US-23), ni le rappel matinal, le style visuel ou la micro-vidéo (R3), ni la frise de l'historique prévue dans US-10 : je les ai sacrifiés pour tenir le socle.
 
-**À rédiger.**
+Le résultat est **au-dessus** de ce que j'attendais sur la qualité vérifiable : 297 tests, 99 % de couverture globale, entre 97,3 % et 100 % sur chacune des 12 fonctionnalités critiques, une CI qui bloque toute fusion, un test de charge jusqu'à 50 utilisateurs. Il est **en dessous** sur la confrontation au réel : la production n'est en ligne que depuis le dernier jour, et mes mesures réelles reposent sur 25 appels et 2 rêves. Je peux dire que les SLO sont tenus sur cet échantillon, pas qu'ils le sont en général.
+
+Pour le temps passé, je n'ai pas chronométré. Les horodatages Git ne m'aident pas : avec les fusions *squash*, ils datent la fusion, pas le travail. L'estimation de 42 h répartie au prorata des story points (§2.2) reste une reconstruction. Ce que je sais en revanche, c'est que la dernière journée, consacrée au déploiement, aux comptes fournisseurs et aux correctifs de production, a pesé bien plus que ce que le plan lui accordait : le déploiement n'était qu'une partie du ticket DREAM-2, estimé à 3 story points pour toute la CI/CD.
 
 ## 6.2 Ce qui a fonctionné
 
-- Quelles décisions du bloc 1 (ports et adapters, idempotence, budget dans le code, ADR) ont tenu en production ? Lesquelles t'ont fait gagner du temps ?
-- Quel outil ou quelle pratique referais-tu à l'identique ?
+La décision du bloc 1 qui m'a le plus servi, ce sont les **ports et adapters avec un mode `fake`**. Comme les adapters simulés passent par le même client résilient que les vrais, j'ai pu tester les retries, le journal des coûts, le coupe-circuit et tout le pipeline sans dépenser un centime. Le test de charge Locust a tourné sur le même principe. Sans ce choix, je n'aurais pas pu avancer tant que les comptes Mistral et BFL n'étaient pas actifs.
 
-**À rédiger.**
+Le **client résilient et le budget appliqué par le code** ont tenu face au réel. Le premier jour en production, Mistral a renvoyé neuf 429 et Hugging Face et BFL des 402. Chaque fois, l'application a fait ce qui était prévu : trois tentatives au plus, aucun coût journalisé à tort, un repli Mistral pour l'émotion et un message clair pour l'utilisateur. La dépense réelle est restée à 0,019 $.
+
+L'**idempotence avec reprise par étape** et la règle « jamais d'IA dans la requête HTTP » ont rendu l'application prévisible : la page répond tout de suite et le worker reprend là où il s'est arrêté. Le test de charge a d'ailleurs montré que le goulot était la file d'attente, pas le serveur web.
+
+Les **ADR** m'ont permis de changer d'architecture sans perdre le fil. Le bloc 1 visait FastAPI, Redis et S3 ; l'ADR-008 explique pourquoi la production est en Django avec une file en base, et l'ADR-009 pourquoi le budget passe à 20 € avec un coupe-circuit à 15 €. Quand je devrai justifier ces choix devant le jury, ils sont écrits et datés.
+
+Je referais à l'identique la **CI bloquante** avec un seuil de couverture par fonctionnalité critique, et le **journal des incidents tenu au fil de l'eau**. Ce journal, écrit au moment où les bugs arrivaient, est devenu tel quel la section « difficultés » du rapport et la matière du dossier de code review.
 
 ## 6.3 Ce qui n'a pas fonctionné
 
-- Pourquoi la mise en production et les mesures réelles (coût, latences) arrivent-elles en dernier ? Était-ce un choix ou une contrainte ?
-- L'incident critique n° 9 est passé à travers les tests unitaires : qu'est-ce que cela dit de la stratégie de tests de départ ?
-- Le planning en 6 jours et le rythme réel diffèrent : qu'en retiens-tu pour l'estimation ?
+La mise en production et les mesures réelles arrivent en dernier, et c'est **surtout un choix de ma part**, même s'il s'est appuyé sur une contrainte. Le mode `fake` me permettait d'avancer sans clés ; j'ai donc priorisé les fonctionnalités et les tests, et repoussé tout ce qui touchait aux comptes et à la plateforme. Le déploiement était pourtant prévu dès le jour 1. Le premier essai réel, le 14 novembre, a montré que le compte Mistral n'avait pas d'accès API et que BFL n'avait aucun crédit. Le 15, le premier jour en ligne, a révélé quatre incidents (n° 13 à 16) qu'aucun test ne pouvait voir : des guillemets dans `DATABASE_URL` sur Render, un test de fumée qui validait l'ancienne instance, l'organisation Mistral repassée sur le plan Free, et un quota qui comptait les échecs du fournisseur. J'ai sous-estimé tout ce qui n'est pas du code.
 
-**À rédiger.**
+L'incident critique n° 9 m'a appris que mes premiers tests vérifiaient **mes hypothèses** plutôt que le monde réel. Mes fichiers de test étaient des webm complets produits par ffmpeg, avec une durée dans les métadonnées. Un vrai MediaRecorder écrit en flux, sans durée. Tous les tests unitaires passaient, alors qu'aucun enregistrement micro sous Chrome ou Firefox n'aurait été accepté. Seul le parcours E2E avec un vrai navigateur l'a révélé. L'incident n° 10 relève de la même erreur : la fixture reproduisait la supposition fausse sur `run_after`.
+
+Sur l'estimation, l'écart est difficile à mesurer, et c'est justement le problème. Le bloc 1 prévoyait une vélocité hypothétique de 11 points par sprint et une capacité de 25 h ; le backlog de production compte 77 points. Le code a été fusionné le 9 novembre, la documentation ensuite, et la mise en production a demandé une journée entière de plus. Comme je n'ai suivi ni mon temps ni le backlog dans Jira au fil de l'eau, je ne peux pas comparer précisément le prévu et le réel. Le backlog de production n'a d'ailleurs été créé dans Jira que le 15 novembre, ce qui a produit un décalage entre les clés citées dans Git (DREAM-1 à 24) et les clés Jira (DREAM-42 à 65).
 
 ## 6.4 Usage des outils d'IA dans le développement
 
-- Comment as-tu utilisé un assistant de code, et comment as-tu vérifié ce qu'il produisait ?
-- Sur quelles parties maîtrises-tu le code au point de l'expliquer en code review ? Sur lesquelles moins ?
+J'ai développé ce projet avec un **assistant de code** (Claude Code), piloté par un prompt de départ et par un fichier de règles du projet (`CLAUDE.md`). Ce fichier fixait l'architecture, les conventions et des interdits explicites : pas d'IA dans la requête HTTP, pas de retry sur une erreur 4xx, pas d'appel réel en CI, pas de fusion sans CI verte. L'assistant écrivait le code, les tests et une grande partie de la documentation ; je fixais les objectifs, je relisais les diffs dans les PR et je prenais les décisions d'architecture et de fournisseurs.
 
-**À rédiger.**
+Pour vérifier, je me suis appuyé sur des contrôles qui ne dépendent pas de l'assistant : la CI bloquante (ruff, mypy strict, tests sur PostgreSQL, couverture par fonctionnalité, E2E navigateur, image Docker), puis le passage en production avec les vrais fournisseurs. Le projet montre aussi les limites de cette vérification : quand le même outil écrit le code et ses tests, ils peuvent partager la même hypothèse fausse. C'est ce qui s'est passé pour les incidents n° 9 et 10, et pour le script de benchmark du bloc 1, qui n'avait jamais tourné en réel et lisait mal les réponses compressées de Mistral. Les tests ne remplacent pas un essai dans les vraies conditions.
+
+Je maîtrise assez pour l'expliquer en code review ce qui porte les décisions du projet : l'architecture et ses ADR, le client résilient et le coupe-circuit, le pipeline idempotent, et les correctifs trouvés en production (quota, test de fumée). Je suis moins à l'aise sur ce qui relève de l'outillage : la chaîne de génération des documents (pandoc, Eisvogel, Typst), la configuration fine de Tailwind et de HTMX dans les gabarits, et le fonctionnement interne de `django-tasks-db`. Avant la soutenance, je dois relire ces parties pour ne pas présenter du code que je ne saurais pas défendre.
 
 ## 6.5 Leçons et améliorations
 
-- Trois choses que tu ferais autrement sur un prochain projet, et pourquoi.
-- Quelles améliorations du produit prioriserais-tu avec une semaine de plus ?
+Trois choses que je ferais autrement :
 
-**À rédiger.**
+1. **Mettre en production dès le premier jour**, même une page vide, avec les vraies clés et la vraie base. Quatre des seize incidents ne pouvaient apparaître qu'en production ; découverts le jour 1, ils auraient coûté une heure au lieu de remplir la dernière journée.
+2. **Tester les comptes fournisseurs avant d'écrire le code qui les appelle** : un appel d'un jeton suffit à voir un plan désactivé ou un compte sans crédit. J'aurais su dès le départ que Mistral était sur le plan Free et que Hugging Face et BFL n'avaient pas de crédit.
+3. **Tenir le suivi en même temps que le travail** : importer le backlog dans Jira avant de créer la première branche, et noter mon temps par ticket. J'aurais évité le décalage des clés et je pourrais aujourd'hui comparer le prévu et le réel au lieu d'estimer.
+
+Avec une semaine de plus, je prioriserais :
+
+- **un fournisseur de secours pour la transcription** : sans Mistral, aucun rêve n'aboutit (risque R-06, survenu le 15 novembre) ;
+- **assez de rêves réels pour un vrai p95**, et la décision de créditer Hugging Face ou de faire de Mistral le premier choix pour l'émotion, par un ADR ;
+- **plusieurs workers** si l'usage le demande : le test de charge montre qu'un seul worker ne tient pas 30 s au-delà de 5 utilisateurs simultanés ;
+- côté produit, **la frise de l'historique** prévue dans US-10, puis **la lecture vocale** (US-23), dont la latence Voxtral TTS est déjà mesurée (p95 de 3,99 s).
