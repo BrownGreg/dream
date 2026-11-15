@@ -105,7 +105,7 @@ Un incident est classé **critique** : le n° 9. Sans lui, tout enregistrement a
 | Commits sur `main` | 34 au 2026-11-15 (*squash*, un par PR) |
 | PR fusionnées | 33 au 2026-11-15, avant la PR de mise à jour du post-mortem |
 | PR Dependabot | 5 (#4 à #8), toutes fermées : 2 écartées (Django 6.1, Python 3.15 ; règle de la PR #15), 3 appliquées ensemble par la PR #38 |
-| Tickets Jira de production | 24 (12 stories, 12 tâches), 77 story points, + 3 bugs ; clés DREAM-42 à 65 (référence dépôt DREAM-1 à 24, voir `docs/backlog/README.md`) |
+| Tickets Jira de production | 24 (12 stories, 12 tâches), 77 story points, + 6 bugs (DREAM-40, 66 à 70) ; sprint « Production » de 31 tickets, tous terminés au 15/11/2026 ; clés DREAM-42 à 65 (référence dépôt DREAM-1 à 24, voir `docs/backlog/README.md`) |
 | Tickets de correctif dédiés | 4 PR `fix` (#26, #31, et en production #34, #36) ; les autres correctifs sont dans la PR de la fonctionnalité concernée |
 | Plus grosse PR (hors données) | #1, socle Django : 2 106 lignes ajoutées |
 

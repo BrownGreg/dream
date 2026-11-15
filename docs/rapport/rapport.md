@@ -203,7 +203,7 @@ Huit incidents (5, 8, 9, 12 à 16) ne se voyaient pas en développement : seuls 
 
 # 8. Organisation et répartition du travail
 
-Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets** Jira (12 stories, 12 tâches), **77 story points**, répartis sur 6 jours prévus, plus 3 bugs (DREAM-66, DREAM-67, DREAM-40). Dans Jira, la référence dépôt DREAM-n porte la clé DREAM-(n + 41) : le projet contenait déjà le backlog du bloc 1 (`docs/backlog/README.md`).
+Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets** Jira (12 stories, 12 tâches), **77 story points**, répartis sur 6 jours prévus, plus 6 bugs (DREAM-40, DREAM-66 à 70), soit 31 tickets dans le sprint « Production », tous terminés au 15/11/2026. Dans Jira, la référence dépôt DREAM-n porte la clé DREAM-(n + 41) : le projet contenait déjà le backlog du bloc 1 (`docs/backlog/README.md`).
 
 | Jour prévu (label Jira) | Tickets (réf. dépôt) | Clés Jira | Story points |
 |---|---|---|---|
