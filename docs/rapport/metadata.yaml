@@ -1,0 +1,4 @@
+# Rendu Eisvogel ; réglages communs : docs/templates/eisvogel/commun.yaml. Génération : make rapport
+title: "Rapport de production"
+subtitle: "Synthétiseur de rêves — Bloc 3"
+header-left: "Rapport de production"

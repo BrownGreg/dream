@@ -22,7 +22,7 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 | Livrable | Preuve | Statut |
 |---|---|---|
 | Dépôt GitHub | <https://github.com/BrownGreg/dream>, README complet | ✅ |
-| `rapport_<groupe>.pdf` | `docs/rapport/rapport_hery.pdf` (`make rapport`) | ⚠️ URL de production, coût réel et latences réelles **À COMPLÉTER** |
+| `rapport_<groupe>.pdf` | `docs/rapport/rapport_hery.pdf` (`make rapport`) | ⚠️ production non déployée ; coût réel 0 € ; latences réelles non mesurées (accès API Mistral inactif, BFL sans crédit) |
 | `postmortem_<prenom>.pdf` | `docs/postmortem/postmortem_gregory.pdf` (`make postmortem`) : matière factuelle | ⚠️ parties subjectives **à rédiger par l'auteur** |
 | Code review live | [`docs/code-review/`](code-review/README.md) : 2 bugs, 1 story, 10 questions | ✅ |
 

@@ -1,4 +1,4 @@
-> **Accès.** Code : <https://github.com/BrownGreg/dream> (branches, PR et CI publiques) · Suivi : Jira, projet **DREAM**, tickets DREAM-1 à DREAM-24 (export dans `docs/backlog/jira_production.csv`) · Production : **À COMPLÉTER — URL Render** · Toutes les valeurs de ce rapport sont tirées d'un fichier de mesure du dépôt, cité à chaque fois. Ce qui n'a pas pu être mesuré est marqué **NON MESURÉ** ou **À COMPLÉTER**, et n'est pas estimé à la place.
+> **Accès.** Code : <https://github.com/BrownGreg/dream> (branches, PR et CI publiques) · Suivi : Jira, projet **DREAM**, tickets DREAM-1 à DREAM-24 (export dans `docs/backlog/jira_production.csv`) · Production : **non déployée** au 14/11/2026 (service Render non créé, voir §9) · Toutes les valeurs de ce rapport sont tirées d'un fichier de mesure du dépôt, cité à chaque fois. Ce qui n'a pas pu être mesuré est marqué **NON MESURÉ**, avec sa cause, et n'est pas estimé à la place.
 
 # 1. Le produit livré
 
@@ -8,9 +8,9 @@ L'utilisateur dicte un rêve (micro du navigateur ou fichier audio). Un worker, 
 |---|---|---|
 | Inscription, connexion, réinitialisation, consentements séparés (traitement, image) | DREAM-1, DREAM-14 | Livré, testé |
 | Enregistrement micro et import audio validés (format, durée, taille) | DREAM-6, DREAM-19 | Livré, parcours E2E micro simulé |
-| Transcription Voxtral | DREAM-7 | Livré en mode `fake` ; appel réel **NON MESURÉ** |
-| Émotion : Hugging Face → Mistral → lexique français | DREAM-8 | Livré ; appel réel **NON MESURÉ** |
-| Prompt visuel Mistral Small et image FLUX.2 [klein] | DREAM-9 | Livré ; appel réel **NON MESURÉ** |
+| Transcription Voxtral | DREAM-7 | Livré en mode `fake` ; appel réel tenté le 14/11/2026 : refusé par Mistral (429, compte sans quota d'API), 3 tentatives puis échec propre, 0 $ facturé |
+| Émotion : Hugging Face → Mistral → lexique français | DREAM-8 | Livré ; token HF valide et modèle en service (vérifié le 14/11/2026) ; appel réel non atteint, la transcription échouant avant |
+| Prompt visuel Mistral Small et image FLUX.2 [klein] | DREAM-9 | Livré ; appel réel impossible au 14/11/2026 (Mistral sans quota, BFL à 0 crédit) |
 | Traitement en tâche de fond idempotent, reprise par étape, suivi HTMX | DREAM-10 | Livré |
 | Historique paginé, filtres date et humeur, statistiques | DREAM-11, DREAM-12 | Livré |
 | Détail : corriger le récit, régénérer l'image, supprimer | DREAM-13 | Livré |
@@ -38,15 +38,27 @@ L'architecture cible du bloc 1 (FastAPI, Streamlit puis Next.js, Arq sur Redis, 
 
 Maintenus : ports et adapters (adapter réel ou `fake` choisi par `AI_MODE`), idempotence du traitement, suppression de l'audio après transcription réussie, mention « générée par IA » sur chaque image, émotion inférée du texte et jamais de la voix (ADR-001).
 
-## 2.2 Conteneurs (C4)
-
-![Diagramme C4 des conteneurs, régénéré depuis le code livré (docs/diagrams/c4_container.puml)](../diagrams/c4_container.svg)
+```{=latex}
+\begin{landscape}\thispagestyle{empty}
+\subsection{2.2 Conteneurs (C4)}
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth,height=0.82\textheight,keepaspectratio]{c4_container.pdf}
+\caption{Diagramme C4 des conteneurs, régénéré depuis le code livré (\texttt{docs/diagrams/c4\_container.puml})}
+\end{figure}
+\end{landscape}
+```
 
 Un seul conteneur applicatif porte le serveur web (gunicorn) et le worker (`db_worker`), lancés par honcho : Render n'a pas de worker gratuit (ADR-008). PostgreSQL porte à la fois les données, la file de tâches et les fichiers. Les vues ne parlent jamais à un SDK fournisseur : elles passent par `dreams/services`.
 
-## 2.3 Traitement d'un rêve (séquence)
-
-![Séquence du traitement complet d'un rêve (docs/diagrams/sequence_reve.puml)](../diagrams/sequence_reve.svg)
+```{=latex}
+\begin{landscape}\thispagestyle{empty}
+\subsection{2.3 Traitement d'un rêve (séquence)}
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth,height=0.82\textheight,keepaspectratio]{sequence_reve.pdf}
+\caption{Séquence du traitement complet d'un rêve (\texttt{docs/diagrams/sequence\_reve.puml})}
+\end{figure}
+\end{landscape}
+```
 
 La requête d'envoi valide l'audio, crée le rêve et met la tâche en file **après le commit** (`on_commit`) : elle répond en 50 à 60 ms (p50, §5). Chaque étape enregistre son résultat avant la suivante ; une reprise après plantage repart de l'étape échouée sans rejouer un appel déjà payé. Le modèle de données est généré depuis les modèles Django (`scripts/export_erd.py` → `docs/diagrams/erd.svg`).
 
@@ -78,8 +90,8 @@ Le contrôle a lieu **avant chaque tentative**, retries compris. Budget atteint,
 
 | Indicateur | Valeur | Source |
 |---|---|---|
-| Coût réel consommé en production | **À COMPLÉTER** | somme de `ApiCall.cost_usd` (page `/ops`) |
-| Coût réel par rêve | **À COMPLÉTER** | `ApiCall` groupé par `dream_id` |
+| Coût réel consommé | **0 €** : aucun appel facturé. Les 3 tentatives réelles du 14/11/2026 (refusées, HTTP 429) sont journalisées à 0 $ | `ApiCall` (base locale) ; pas de production déployée |
+| Coût réel par rêve | **non calculable** : aucun rêve réel n'a abouti | `ApiCall` groupé par `dream_id` |
 | Coût estimé par rêve (1 min d'audio, émotion par HF) | ≈ 0,018 $ : STT 0,0035 + prompt 900 jetons 0,000135 + image 1,4 crédit 0,014 | constantes du code (`ESTIMATED_CREDITS`, `estimated_tokens`, `pricing.py`) — ESTIMÉ |
 | Projection mensuelle, bêta à 15 rêves/jour (ADR-007) | ≈ 8 $/mois (450 rêves × 0,018 $) — ESTIMÉ | même calcul ; à remplacer par le coût réel |
 | Rêves finançables avant coupe-circuit | ≈ 850 au coût estimé | 15 € ÷ 0,018 $ au taux 1,0 |
@@ -142,9 +154,9 @@ Détail : `docs/tests/performance.md`.
 |---|---|---|---|
 | Accusé de réception de l'envoi | p95 ≤ 1 s | 77 à 178 ms selon le palier | Tenu jusqu'à 50 utilisateurs |
 | Bout en bout | p95 ≤ 30 s | ≤ 30 s jusqu'à 5 utilisateurs (1 worker), jusqu'à 50 (3 workers) — latence simulée | **Partiel** |
-| Transcription | p95 ≤ 8 s | **NON MESURÉ** | À mesurer en production |
-| Analyse LLM | p95 ≤ 4 s | **NON MESURÉ** | À mesurer en production |
-| Image | p95 ≤ 15 s | **NON MESURÉ** | À mesurer en production |
+| Transcription | p95 ≤ 8 s | **NON MESURÉ** : accès API Mistral inactif (429) | À mesurer |
+| Analyse LLM | p95 ≤ 4 s | **NON MESURÉ** : accès API Mistral inactif (429) | À mesurer |
+| Image | p95 ≤ 15 s | **NON MESURÉ** : compte BFL à 0 crédit | À mesurer |
 | Fiabilité | ≤ 2 % de rêves `failed` | 0 / 224 en charge | Tenu en simulation |
 | Disponibilité | ≥ 99,5 % de réponses non-5xx | 0 erreur sur 5 012 requêtes en charge | Tenu en charge |
 
@@ -169,7 +181,7 @@ Test `test_observability.py` : un récit de rêve passé dans une requête n'app
 Journal tenu au fil de l'eau : `docs/incidents.md` (12 entrées). Format : symptôme → diagnostic → correctif → test de non-régression → PR.
 
 | # | Ticket | Symptôme | Diagnostic | Correctif | Test de non-régression |
-|---|---|---|---|---|---|
+|--|------------|--------------|--------------|------------|----------------|
 | 1 | DREAM-1 | `Lea@Example.org` et `lea@…` donnent deux comptes | `normalize_email` ne met en minuscules que le domaine | minuscules + refus d'un doublon `iexact` | `test_inscription_refuse_un_doublon_a_la_casse_pres` |
 | 2 | DREAM-1 | Axes journalise `username: "None"` ; blocage par IP seule | Axes lit `email`, le formulaire poste `username` | `AXES_USERNAME_FORM_FIELD = "username"` | `test_un_autre_compte_n_est_pas_bloque_…` |
 | 3 | DREAM-5 | à 15,00 € pile, un appel à coût nul passe encore | comparaison stricte `>` | blocage dès `dépensé ≥ plafond` | `test_depassement_atteint` |
@@ -198,7 +210,7 @@ Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets
 | Jour 5 — observabilité, tests, charge, performance | DREAM-17 à 21 | 14 |
 | Jour 6 — documentation, rapport, code review | DREAM-22 à 24 | 7 |
 
-**Historique Git** (`main`) : 25 commits au 2026-11-14, dont 24 PR fusionnées (en revue : #30, #32). Aucune n'a été fusionnée avec un contrôle de CI en échec (lint, types, tests PostgreSQL, couverture par fonctionnalité, E2E, image Docker). Les commits datent tous du 9 novembre 2026, de 15 h 54 à 22 h 12 ; ils sont fusionnés par *squash*, donc un commit par PR, horodaté à la fusion et non au début du travail. Ces horodatages ne mesurent donc pas le temps passé par lot.
+**Historique Git** (`main`) : 27 commits au 2026-11-14, dont 26 PR fusionnées (en revue : #33). Aucune n'a été fusionnée avec un contrôle de CI en échec (lint, types, tests PostgreSQL, couverture par fonctionnalité, E2E, image Docker). Les commits datent tous du 9 novembre 2026, de 15 h 54 à 22 h 12 ; ils sont fusionnés par *squash*, donc un commit par PR, horodaté à la fusion et non au début du travail. Ces horodatages ne mesurent donc pas le temps passé par lot.
 
 | Lot | PR | Lignes ajoutées |
 |---|---|---|
@@ -208,7 +220,17 @@ Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets
 | Observabilité, tests, E2E, charge, performance | #23 à #26, #28, #29 | 7 929 (dont 5 575 lignes de résultats de charge en CSV) |
 | Documentation | #27 | 316 |
 
-**Temps réellement passé par lot :** **À COMPLÉTER par l'auteur** (Jira ne contient que les estimations en story points).
+**Temps passé par lot (estimation)** : non chronométré. Estimation *a posteriori* de l'auteur : 6 jours × 7 h = 42 h, répartis au prorata des story points de chaque lot.
+
+| Lot | Story points | Temps estimé |
+|---|---|---|
+| Jour 1 — socle, CI/CD, ADR | 9 | 5 h |
+| Jour 2 — données, client résilient, audio, transcription | 16 | 8 h 30 |
+| Jour 3 — émotion, image, tâche de fond | 13 | 7 h |
+| Jour 4 — tableau de bord, détail, RGPD, son, accessibilité | 18 | 10 h |
+| Jour 5 — observabilité, tests, charge, performance | 14 | 7 h 30 |
+| Jour 6 — documentation, rapport, code review | 7 | 4 h |
+| **Total** | **77** | **42 h** |
 
 Dependabot a ouvert 5 PR de mise à jour (#4 à #8) : aucune n'est fusionnée, 2 sont fermées. La PR #15, qui fait ignorer à Dependabot Django 6.1 et Python au-delà de 3.12 pour rester sur les versions validées, est encore ouverte.
 
@@ -216,8 +238,8 @@ Dependabot a ouvert 5 PR de mise à jour (#4 à #8) : aucune n'est fusionnée, 2
 
 | Écart | Justification | Suite |
 |---|---|---|
-| Production Render non déployée au moment de la rédaction | création du service et des clés réservée à l'auteur | créer le service (`render.yaml`), ajouter `RENDER_DEPLOY_HOOK_URL` et `PROD_URL` ; la CI déploie puis vérifie `/health` |
-| Latences et coûts réels non mesurés | aucune clé d'API utilisée jusqu'ici (budget protégé, tests en `fake`) | quelques rêves réels sur le corpus synthétique, puis lecture de `/ops` et d'`ApiCall` |
+| Production Render non déployée au 14/11/2026 | service non créé : le job de déploiement de la CI est sauté faute de `RENDER_DEPLOY_HOOK_URL` | créer le service (`render.yaml`), ajouter `RENDER_DEPLOY_HOOK_URL` et `PROD_URL` ; la CI déploie puis vérifie `/health` |
+| Latences et coûts réels non mesurés | essai réel du 14/11/2026 : clés valides, mais compte Mistral limité à 0 requête/min (HTTP 429) et compte BFL à 0 crédit ; les tests, la CI et la charge tournent en `fake` par conception | quelques rêves réels sur le corpus synthétique, puis lecture de `/ops` et d'`ApiCall` |
 | Cassettes VCR non enregistrées (5 tests ignorés) | demandent les vraies clés | `AI_MODE=real pytest tests/integration/test_vcr_providers.py --record-mode=once` |
 | Bout en bout > 30 s au-delà de 5 utilisateurs avec 1 worker | offre gratuite Render : web et worker dans un seul conteneur | workers supplémentaires (payant) si la charge réelle le demande |
 | Réveil d'environ une minute après 15 min d'inactivité | offre gratuite Render | instance payante le jour de la soutenance, ou visite préalable |

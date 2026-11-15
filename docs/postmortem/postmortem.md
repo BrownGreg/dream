@@ -13,7 +13,7 @@
 | 2026-11-09, 21 h 39 – 22 h 03 | Observabilité (DREAM-17), stratégie de tests (DREAM-18), E2E et **correctif critique MediaRecorder** (DREAM-19), correctif de mesure (DREAM-17), charge Locust (DREAM-20) | PR #23 à #26, #28 |
 | 2026-11-09, 22 h 07 – 22 h 12 | README et schémas (DREAM-22) ; performance face aux SLO (DREAM-21, PR #29 ouverte) | PR #27, #29 |
 | 2026-11-11 | Rapport de production (DREAM-23), post-mortem (matière), dossier de code review (DREAM-24) ; la vérification en clone propre révèle l'incident n° 12 | PR #30, #31, #32 |
-| **À COMPLÉTER** | Création du service Render, premiers appels réels, mesure du coût et des latences | — |
+| 2026-11-14 | Premier essai en mode réel : clés Mistral, Hugging Face et BFL valides, mais Mistral refuse les appels (HTTP 429, quota de 0 requête/min) et BFL est à 0 crédit ; le rêve de test échoue proprement, 0 $ facturé. Service Render toujours non créé | `ApiCall` local |
 
 Les horodatages Git sont ceux des **fusions** (*squash*, un commit par PR), pas du début du travail : ils ne mesurent pas le temps passé.
 
@@ -37,8 +37,8 @@ Toutes les stories **Must** sont livrées, y compris US-15 et US-17 (export, sup
 | | Prévu | Réalisé |
 |---|---|---|
 | Durée du bloc production | 6 jours (labels `jour-1` à `jour-6`, 77 story points) | code fusionné le 9 novembre ; documentation le 11 novembre |
-| Vélocité de référence | 11 points par sprint d'une semaine (hypothèse du bloc 1) | 77 points en 24 tickets ; **temps réel : À COMPLÉTER** |
-| Mise en production | automatique depuis `main` (DREAM-2) | pipeline prêt ; service Render **non créé** au 2026-11-11 |
+| Vélocité de référence | 11 points par sprint d'une semaine (hypothèse du bloc 1) | 77 points en 24 tickets ; environ **42 h** (estimation *a posteriori* : 6 jours × 7 h, non chronométré) |
+| Mise en production | automatique depuis `main` (DREAM-2) | pipeline prêt ; service Render **non créé** au 14/11/2026 |
 
 ## 2.3 Architecture
 
@@ -52,13 +52,13 @@ Source : `docs/preprod/backlog/risks.toml`.
 |---|---|---|
 | R-01 Latence fournisseurs au-delà des SLO | 3 × 3 | **non mesurée** (aucun appel réel) |
 | R-02 Transcription médiocre | 3 × 3 | **non mesurée** |
-| R-03 DPA / opt-out BFL non obtenus | 3 × 4 | **À COMPLÉTER** par l'auteur |
+| R-03 DPA / opt-out BFL non obtenus | 3 × 4 | statut du DPA non documenté ; aucune donnée envoyée à BFL à ce jour (compte à 0 crédit, aucun appel) |
 | R-04 Requalification AI Act | 1 × 4 | émotion inférée du texte uniquement (ADR-001), testé |
 | R-05 Image choquante | 3 × 3 | refus de sécurité géré : une reformulation adoucie, sinon pas d'image |
 | R-06 Dépendance à Mistral | 2 × 4 | repli à 3 niveaux pour l'émotion seulement ; transcription et prompt restent sans fournisseur de secours |
-| R-07 Dépassement du budget | 2 × 3 | coupe-circuit à 15 € appliqué par le code et testé ; aucun appel réel effectué à ce jour ; **dépense en production À COMPLÉTER** |
+| R-07 Dépassement du budget | 2 × 3 | coupe-circuit à 15 € appliqué par le code et testé ; dépense réelle au 14/11/2026 : **0 €** (seules 3 tentatives refusées, journalisées à 0 $) |
 | R-08 Modèle déprécié | 3 × 2 | identifiants de modèles en variables d'environnement |
-| R-09 Retard du travail individuel | 3 × 3 | **À COMPLÉTER** par l'auteur |
+| R-09 Retard du travail individuel | 3 × 3 | survenu en partie : le déploiement (prévu jour 1) et les mesures réelles (prévues jour 5) ne sont pas faits à la date de rendu |
 | R-10 Fuite du contenu des rêves | 2 × 4 | chiffrement applicatif, journaux et Sentry nettoyés, testé (`test_observability.py`) |
 | R-11 Lecture médicale de l'humeur | 2 × 4 | pas d'interprétation (US-22 en Won't) |
 
@@ -89,14 +89,14 @@ Un incident est classé **critique** : le n° 9. Sans lui, tout enregistrement a
 | Exécutions de la CI | 111, dont 7 en échec | `gh run list` (workflow `ci`) |
 | Charge | 0 erreur sur 5 012 requêtes ; bout en bout p95 72,4 s à 50 utilisateurs avec 1 worker, 24,2 s avec 3 | `docs/tests/charge/` |
 | ADR | 10 (dont 3 d'évolution en production) | `docs/decisions/` |
-| Coût API réel | **À COMPLÉTER** | `/ops` en production |
+| Coût API réel | **0 €** au 14/11/2026 (aucun appel facturé) | `ApiCall` local |
 
 # 5. Statistiques Git et Jira
 
 | Indicateur | Valeur |
 |---|---|
-| Commits sur `main` | 25 au 2026-11-14 (*squash*, un par PR) |
-| PR fusionnées | 24 ; en revue : #30, #32 |
+| Commits sur `main` | 27 au 2026-11-14 (*squash*, un par PR) |
+| PR fusionnées | 26 ; en revue : #33 |
 | PR Dependabot | 5 (#4 à #8), aucune fusionnée, 2 fermées |
 | Tickets Jira de production | 24 (12 stories, 12 tâches), 77 story points |
 | Tickets de correctif dédiés | 2 PR `fix` (#26, #31) ; les autres correctifs sont dans la PR de la fonctionnalité concernée |

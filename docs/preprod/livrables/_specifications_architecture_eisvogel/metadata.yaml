@@ -1,0 +1,5 @@
+# Version Eisvogel du dossier de spécifications, en parallèle de la version Typst.
+# Contenu : ../_specifications_architecture/body.md (source unique) ; réglages : templates/eisvogel/commun.yaml
+title: "Spécifications & Architecture"
+subtitle: "Synthétiseur de rêves — Bloc 1"
+header-left: "Spécifications & Architecture"

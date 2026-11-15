@@ -19,6 +19,9 @@ from dreamsynth.services.mock import Failure
 from dreamsynth.services.ports import Services
 
 ROOT = Path(__file__).resolve().parents[1]
+# Documents du bloc 1 : `docs/` à côté de la maquette (dossier autonome) ou dossier parent
+# (dépôt de production, où la maquette vit dans `docs/preprod/maquette`).
+DOCS = ROOT / "docs" if (ROOT / "docs").is_dir() else ROOT.parent
 CORPUS_MP3 = ROOT / "benchmark" / "corpus" / "audio" / "01_heureux.mp3"
 ALL_CONSENTS = frozenset(ConsentScope)
 
@@ -79,7 +82,7 @@ def repo() -> DreamRepository:
 def _not_implemented() -> dict[str, str]:
     import tomllib
 
-    with (ROOT / "docs" / "backlog" / "stories.toml").open("rb") as fh:
+    with (DOCS / "backlog" / "stories.toml").open("rb") as fh:
         stories = tomllib.load(fh)["story"]
     return {s["id"]: f"release {s['release']}" for s in stories if not s.get("implemented", True)}
 
@@ -101,7 +104,7 @@ def pytest_configure(config: pytest.Config) -> None:
     """Déclare les étiquettes Gherkin (@US-xx, @MVP, @R2, @R3) comme marqueurs pytest."""
     import tomllib
 
-    with (ROOT / "docs" / "backlog" / "stories.toml").open("rb") as fh:
+    with (DOCS / "backlog" / "stories.toml").open("rb") as fh:
         stories = tomllib.load(fh)["story"]
     for tag in [s["id"] for s in stories] + ["MVP", "R2", "R3"]:
         config.addinivalue_line("markers", f"{tag}: étiquette Gherkin")

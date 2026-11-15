@@ -74,16 +74,16 @@ Personae construits à partir des entretiens simulés (annexe `interviews.md`). 
 
 Les trois parcours suivent les mêmes étapes (réveil → enregistrement → attente → découverte → archivage → relecture hebdomadaire). La courbe montre l'émotion ressentie (−2 à +2) ; les bandeaux listent les frictions et les opportunités retenues dans le backlog.
 
-![Journey map — Léa](/home/browngreg/dream/docs/diagrams/journey_lea.svg)
+![Journey map — Léa](../../diagrams/journey_lea.svg)
 
-![Journey map — Karim](/home/browngreg/dream/docs/diagrams/journey_karim.svg)
+![Journey map — Karim](../../diagrams/journey_karim.svg)
 
-![Journey map — Inès](/home/browngreg/dream/docs/diagrams/journey_ines.svg)
+![Journey map — Inès](../../diagrams/journey_ines.svg)
 
 ## Flow, wireframes et charte minimaliste
-![Flow diagram — parcours écran du MVP ; chaque sortie d'erreur propose une action](/home/browngreg/dream/docs/diagrams/flow.svg)
+![Flow diagram — parcours écran du MVP ; chaque sortie d'erreur propose une action](../../diagrams/flow.svg)
 
-![Wireframes basse fidélité (mobile) — accueil et consentement, récit et résultat, historique](/home/browngreg/dream/docs/diagrams/wireframes.svg)
+![Wireframes basse fidélité (mobile) — accueil et consentement, récit et résultat, historique](../../diagrams/wireframes.svg)
 
 | Élément | Règle de la charte |
 |-------------------------------|-----------------------------------------------------------------------------------------|
@@ -128,7 +128,7 @@ Matrice de Kano (source : annexe `kano.md` ; B basique · P performance · E ent
 | Partage public sur les réseaux | R | Rêves jugés « plus intimes que mes photos » (Léa, Q8). | US-21 | Won't |
 | Interprétation psychologique | R | Perçue comme non crédible (Léa, Q9) et risquée (prétention diagnostique). | US-22 | Won't |
 
-![User Story Map — activités, tâches et tranches de release](/home/browngreg/dream/docs/diagrams/story_map.svg)
+![User Story Map — activités, tâches et tranches de release](../../diagrams/story_map.svg)
 
 **Règles de priorisation**
 
@@ -335,6 +335,7 @@ Chaque API reçoit des données personnelles pour notre compte : chacune est **s
 
 
 - **Aucune prétention diagnostique ou thérapeutique** : ni interprétation, ni conseil, ni score de « santé » ; renvoi vers un professionnel dans l'aide.
+- **Pourquoi aucune interprétation : un choix vécu** : j'ai été suivi et j'ai déjà essayé de comprendre mes rêves au cours d'une séance. Le praticien avait un avis tranché sur la question, alors que, même entre professionnels du psychisme, l'interprétation des rêves divise. Il vaut mieux ne pas trop s'y attarder et se concentrer sur des faits réels : l'application s'en tient au récit, à l'image et à l'humeur, sans leur prêter de sens.
 - **Cauchemars** : image désactivable par rêve, ton visuel atténué par consigne (« évocateur et non explicite »), aucun affichage automatique en plein écran.
 - **Refus du filtre de sécurité** : le rêve est conservé sans image, avec un message neutre (US-07) — jamais de message culpabilisant.
 - **Biais des modèles d'image** : le prompt ne décrit pas l'apparence des personnes sauf si le récit le fait ; revue de 50 images en bêta (diversité, stéréotypes).
@@ -354,7 +355,7 @@ Autres mesures : TLS 1.2+ partout, chiffrement au repos (base et stockage objet)
 # 6. Roadmap et Sprint #1
 
 ## Release plan
-![Release plan par sprint d'une semaine](/home/browngreg/dream/docs/diagrams/roadmap.svg)
+![Release plan par sprint d'une semaine](../../diagrams/roadmap.svg)
 
 | Release | Sprints | Contenu (stories) | Critère de sortie |
 |------------------|------------------|------------------------------------------|------------------------------------------|
@@ -399,7 +400,7 @@ La durée en sprints est calculée à une **vélocité hypothétique de 11 point
 
 Registre de 11 risques (source `docs/backlog/risks.toml`), revu à chaque rétrospective : la probabilité et l'impact sont réévalués, un risque dont le déclencheur survient devient un ticket prioritaire.
 
-![Matrice probabilité × impact](/home/browngreg/dream/docs/diagrams/risk_matrix.svg)
+![Matrice probabilité × impact](../../diagrams/risk_matrix.svg)
 
 
 

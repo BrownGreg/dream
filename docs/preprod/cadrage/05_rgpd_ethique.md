@@ -54,6 +54,7 @@ Chaque API reçoit des données personnelles pour notre compte : chacune est **s
 ## 5.5 Éthique
 
 - **Aucune prétention diagnostique ou thérapeutique** : ni interprétation, ni conseil, ni score de « santé » ; renvoi vers un professionnel dans l'aide.
+- **Pourquoi aucune interprétation : un choix vécu** : j'ai été suivi et j'ai déjà essayé de comprendre mes rêves au cours d'une séance. Le praticien avait un avis tranché sur la question, alors que, même entre professionnels du psychisme, l'interprétation des rêves divise. Il vaut mieux ne pas trop s'y attarder et se concentrer sur des faits réels : l'application s'en tient au récit, à l'image et à l'humeur, sans leur prêter de sens.
 - **Cauchemars** : image désactivable par rêve, ton visuel atténué par consigne (« évocateur et non explicite »), aucun affichage automatique en plein écran.
 - **Refus du filtre de sécurité** : le rêve est conservé sans image, avec un message neutre (US-07) — jamais de message culpabilisant.
 - **Biais des modèles d'image** : le prompt ne décrit pas l'apparence des personnes sauf si le récit le fait ; revue de 50 images en bêta (diversité, stéréotypes).

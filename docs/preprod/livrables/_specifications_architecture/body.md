@@ -1,8 +1,16 @@
 # 1. Architecture : diagrammes C4
 
-![C4 niveau 1 — contexte](/home/browngreg/dream/docs/diagrams/c4_context.svg)
+![C4 niveau 1 — contexte](../../diagrams/excalidraw/c4_context.png)
 
-![C4 niveau 2 — conteneurs de l'architecture cible de production](/home/browngreg/dream/docs/diagrams/c4_container.svg)
+```{=latex}
+% Rendu Eisvogel : schéma très large, page à l'italienne dédiée.
+\begin{landscape}\thispagestyle{empty}
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth,height=0.9\textheight,keepaspectratio]{c4_container.png}
+\caption{C4 niveau 2 — conteneurs de l'architecture cible de production}
+\end{figure}
+\end{landscape}
+```
 
 ## Maquette ≠ cible
 | | Maquette (pré-production) | Cible (production) |
@@ -34,7 +42,7 @@ Un rêve enchaîne trois appels externes dont les p95 visés totalisent 27 s (28
 
 # 2. Modèle de données
 
-![Modèle relationnel (PostgreSQL 16)](/home/browngreg/dream/docs/diagrams/erd.svg)
+![Modèle relationnel (PostgreSQL 16)](../../diagrams/erd.svg)
 
 ## Dictionnaire d'attributs
 Conventions communes : `id` UUID v4 généré côté serveur (sauf `api_calls` et `audit_log` : `bigint` séquentiel) ; `created_at timestamptz NOT NULL DEFAULT now()` ; clés étrangères `ON DELETE CASCADE`, sauf `api_calls.dream_id` (`SET NULL`, pour conserver les coûts sans le contenu). Sensibilité : **S** = catégorie particulière potentielle (art. 9) · **P** = donnée personnelle · **T** = technique.
@@ -80,7 +88,7 @@ Conventions communes : `id` UUID v4 généré côté serveur (sauf `api_calls` e
   = 3. Séquence clé : traitement complet d'un rêve
   #grid(columns: (1fr, 6.4cm), gutter: 0.5cm,
     figure(
-      image("/home/browngreg/dream/docs/diagrams/sequence_reve.svg", width: 100%, height: 15.2cm, fit: "contain"),
+      image("/docs/preprod/diagrams/sequence_reve.svg", width: 100%, height: 15.2cm, fit: "contain"),
       caption: [Diagramme de séquence UML — traitement d'un rêve, branches d'erreur incluses],
     ),
     [
@@ -99,6 +107,27 @@ Conventions communes : `id` UUID v4 généré côté serveur (sauf `api_calls` e
     ],
   )
 ]
+```
+
+```{=latex}
+% Équivalent LaTeX (rendu Eisvogel) du bloc Typst ci-dessus ; chaque moteur ignore le bloc de l'autre.
+\clearpage
+\section{3. Séquence clé : traitement complet d'un rêve}
+\begin{center}
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]{sequence_reve.png}\\[2pt]
+{\small\itshape Diagramme de séquence UML — traitement d'un rêve, branches d'erreur incluses}
+\end{center}
+\clearpage
+\subsection{Points de conception}
+\begin{itemize}\setlength\itemsep{2pt}
+\item \textbf{Validation avant tout stockage} (3–6) : fichier invalide, consentement absent ou quota atteint ne déclenchent aucun appel payant.
+\item \textbf{Audio éphémère} (21) : supprimé dès la transcription enregistrée ; en cas d'échec définitif, conservé 24 h au plus pour « Relancer », puis purgé.
+\item \textbf{Retries comptés} (16) : 2 nouvelles tentatives après 0,5 s puis 1 s (backoff exponentiel), sur timeout, \texttt{429} et \texttt{5xx} ; une ligne \texttt{api\_calls} par tentative.
+\item \textbf{Sortie LLM contrôlée} (24) : validée contre \texttt{DreamAnalysis}, un second essai, puis échec explicite.
+\item \textbf{Image ∥ ambiance} (bloc \texttt{par}) : sautée si l'utilisateur l'a refusée, sans consentement « image » ou budget épuisé (ADR-007).
+\item \textbf{Rejet du filtre de sécurité} (28–29) : le rêve aboutit sans image, motif \texttt{safety}, sans nouvelle tentative avec un prompt modifié.
+\item \textbf{Copie immédiate} (31) : l'URL fournisseur expire en 10 min et n'est jamais exposée au navigateur.
+\end{itemize}
 ```
 
 # 4. API : choix argumenté et contrats internes

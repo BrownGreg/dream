@@ -10,4 +10,4 @@ Préparation de la code review live de 15 minutes. Trois tickets réellement ré
 
 Et [10 questions probables du jury](questions.md), avec des réponses courtes et le fichier à ouvrir pour chaque preuve.
 
-Autres incidents documentés : [`docs/incidents.md`](../incidents.md) (11 entrées).
+Autres incidents documentés : [`docs/incidents.md`](../incidents.md) (12 entrées).
