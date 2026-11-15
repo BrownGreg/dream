@@ -135,12 +135,17 @@ jobs:
             exit 0
           fi
           curl -fsS -X POST "${RENDER_DEPLOY_HOOK_URL}&ref=${GITHUB_SHA}" -o /dev/null
-      - name: Test de fumée en production
-        if: env.PROD_URL != ''
+      - name: Test de fumée en production (commit testé déployé et sain)
+        if: env.PROD_URL != '' && env.RENDER_DEPLOY_HOOK_URL != ''
         run: |
-          # Build Docker + démarrage + réveil de l'instance gratuite : jusqu'à ~10 min.
-          for i in $(seq 1 60); do
-            if curl -fsS "$PROD_URL/health" | grep -q '"status": "ok"'; then echo "Production OK"; exit 0; fi
+          # Build Docker + démarrage + réveil de l'instance gratuite : jusqu'à ~15 min.
+          # L'ancienne instance reste en ligne pendant le build : on attend que /health annonce le commit testé.
+          for i in $(seq 1 90); do
+            body=$(curl -fsS "$PROD_URL/health" || true)
+            release=$(echo "$body" | jq -r '.release // empty' 2>/dev/null || true)
+            status=$(echo "$body" | jq -r '.status // empty' 2>/dev/null || true)
+            if [ "$release" = "$GITHUB_SHA" ] && [ "$status" = "ok" ]; then echo "Production OK sur $GITHUB_SHA"; exit 0; fi
+            echo "attente : release=${release:-?} status=${status:-?}"
             sleep 10
           done
-          echo "::error::/health ne répond pas en production"; exit 1
+          echo "::error::la production n'annonce pas le commit $GITHUB_SHA en bonne santé"; exit 1

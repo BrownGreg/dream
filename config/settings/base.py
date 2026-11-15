@@ -184,7 +184,10 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 
 # --- Observabilité (structlog, Sentry) : jamais de contenu de rêve
 LOGGING = logging_config(json_logs=env.bool("LOG_JSON", default=False), level=env("LOG_LEVEL", default="INFO"))
+# Commit déployé (fourni par Render) : version Sentry et champ ``release`` de /health,
+# que la CI compare au commit qu'elle vient de tester.
+RELEASE = env("RENDER_GIT_COMMIT", default="")
 SENTRY_DSN = env("SENTRY_DSN", default="")
-init_sentry(SENTRY_DSN, env("SENTRY_ENVIRONMENT", default="dev"), env("RENDER_GIT_COMMIT", default=""))
+init_sentry(SENTRY_DSN, env("SENTRY_ENVIRONMENT", default="dev"), RELEASE)
 # Worker considéré en retard si une tâche attend depuis plus longtemps que ce délai (secondes).
 WORKER_STALE_AFTER_S = env.int("WORKER_STALE_AFTER_S", default=120)
