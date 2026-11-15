@@ -1,6 +1,7 @@
 # Conformité au sujet — vérification ligne à ligne
 
 Sujet : `docs/source/sujet.pdf` (4 pages). Vérification du 2026-11-06, mise à jour le 2026-11-15 (Jira importé, dépôt GitHub, campagne de mesures réelles). DC = `build/dossier_cadrage.pdf` (15/15 p.), SP = `build/specifications_architecture.pdf` (10/10 p.).
+Les pages citées (« DC p. », « SP p. ») sont celles de la version Typst ; le rendu utilise les versions Eisvogel (15 et 10 pages), dont la correspondance page par page est dans le LISEZ-MOI du dossier de rendu.
 Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expliqué).
 
 ## 2. Objectifs

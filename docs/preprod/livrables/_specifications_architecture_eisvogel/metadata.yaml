@@ -3,3 +3,38 @@
 title: "Spécifications & Architecture"
 subtitle: "Synthétiseur de rêves — Bloc 1"
 header-left: "Spécifications & Architecture"
+# Mise en page compacte : le sujet limite le dossier de cadrage à 15 pages et les spécifications à 10.
+fontsize: 10pt
+geometry:
+  - top=1.6cm
+  - bottom=1.8cm
+  - left=1.7cm
+  - right=1.7cm
+toc-own-page: false
+toc-depth: 1
+linestretch: 1.0
+header-includes:
+  - |
+    ```{=latex}
+    \makeatletter\@ifundefined{c@none}{\newcounter{none}}{}\makeatother
+    \definecolor{liens}{HTML}{1E3A8A}
+    \usepackage{newunicodechar}
+    \newunicodechar{ᴱ}{\textsuperscript{E}}
+    \newunicodechar{ᵉ}{\textsuperscript{e}}
+    \newunicodechar{ʳ}{\textsuperscript{r}}
+    \usepackage{pdflscape}
+    \AtBeginDocument{\renewcommand{\_}{\textunderscore\allowbreak}}
+    \usepackage{etoolbox}
+    \AtBeginEnvironment{longtable}{\footnotesize}
+    \setlength{\parskip}{3pt}
+    ```
+titlepage: false
+# Bloc de titre compact (pas de page de titre : chaque page compte dans la limite du sujet).
+include-before: |
+  ```{=latex}
+  \begin{center}
+  {\Large\bfseries\color[HTML]{1E3A8A} Spécifications \& Architecture\par}
+  \vspace{2pt}{\normalsize Synthétiseur de rêves — Bloc 1 \textperiodcentered{} Grégory Hery \textperiodcentered{} 15/11/2026\par}
+  \end{center}
+  \vspace{-4pt}\noindent\textcolor[HTML]{1E3A8A}{\rule{\linewidth}{0.8pt}}
+  ```
