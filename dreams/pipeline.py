@@ -45,7 +45,11 @@ class StepFailedError(Exception):
 def _set_status(dream: Dream, status: str, error_code: str = "") -> None:
     dream.status = status
     dream.error_code = error_code
-    dream.save(update_fields=["status", "error_code", "updated_at"])
+    fields = ["status", "error_code", "updated_at"]
+    if status in Dream.TERMINAL_STATUSES and dream.finished_at is None:
+        dream.finished_at = timezone.now()
+        fields.append("finished_at")
+    dream.save(update_fields=fields)
 
 
 def purge_audio(dream: Dream) -> None:

@@ -1,0 +1,9 @@
+# Faux positifs vérifiés le 2026-11-11 (docs/CONFORMITE.md) :
+# - charge.yml : clé de chiffrement propre au test de charge en CI (décode en « charge-uniquement-cle-de-32-octets »)
+# - locustfile.py : mot de passe des comptes synthétiques du test de charge
+# - catalog.toml : identifiant de fournisseur du benchmark (key = "deepgram_nova3")
+8e737325807d5334a3fbd970adfa28e8f875f72d:.github/workflows/charge.yml:generic-api-key:39
+8e737325807d5334a3fbd970adfa28e8f875f72d:tests/load/locustfile.py:generic-api-key:22
+5e14919c5e026ed40db693cb228e193a408e7d17:tests/load/locustfile.py:generic-api-key:21
+5e14919c5e026ed40db693cb228e193a408e7d17:.github/workflows/charge.yml:generic-api-key:41
+d25bc11a47e96ed353bfb22cbbed02b46a327b76:docs/preprod/maquette/benchmark/catalog.toml:generic-api-key:108

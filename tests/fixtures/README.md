@@ -11,3 +11,5 @@ Générés par ffmpeg (sons sinusoïdaux synthétiques), jamais de vraie voix :
 | `vide.wav` | 0 octet | — |
 
 L'enregistrement trop long est généré à la volée dans les tests (pas de gros fichier commité).
+| `reve.wav` | 6 s de voix **de synthèse** (corpus du bloc 1, `03_neutre.mp3`), PCM 16 bits mono 16 kHz : micro simulé de Chromium pour le parcours E2E | `ffmpeg -i docs/preprod/maquette/benchmark/corpus/audio/03_neutre.mp3 -t 6 -ac 1 -ar 16000 -sample_fmt s16 reve.wav` |
+| `reve_mediarecorder.webm` | 3 s opus écrit **en flux** (comme MediaRecorder) : pas de durée dans le conteneur (incident #9) | `ffmpeg -f lavfi -i "sine=frequency=330:duration=3" -c:a libopus -b:a 16k -f webm pipe:1 > reve_mediarecorder.webm` |

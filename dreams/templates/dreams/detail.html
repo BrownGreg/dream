@@ -15,7 +15,7 @@
 {% else %}
   <div class="grid gap-6 md:grid-cols-2">
     <figure class="overflow-hidden rounded-2xl border border-night-800 bg-night-900">
-      {% if image %}
+      {% if image and image.file %}
         <img src="{{ image.file.url }}" alt="Image onirique générée à partir de votre rêve{% if emotion %}, ambiance {{ emotion.get_emotion_display|lower }}{% endif %}" width="1024" height="1024" class="aspect-square w-full object-cover">
         <figcaption class="px-4 py-2 text-xs text-slate-300">Image générée par IA</figcaption>
       {% else %}
@@ -31,19 +31,68 @@
           <p class="inline-flex items-center gap-2 rounded-full border border-night-800 px-4 py-2 text-lg" style="color: {{ emotion_color }}">
             <span aria-hidden="true">{{ emotion_icon }}</span> {{ emotion.get_emotion_display }}
           </p>
-          {% if emotion.confidence is not None %}
+          {% if emotion.source == "user" %}
+            <p class="mt-2 text-sm text-slate-400">Choisie par vous.</p>
+          {% elif emotion.confidence is not None %}
             <p class="mt-2 text-sm text-slate-400">Confiance : {% widthratio emotion.confidence 1 100 %} %{% if emotion.provider == "local" %} (estimation par lexique){% endif %}</p>
           {% endif %}
+          {% if ambiance %}
+            <div class="mt-4">
+              <p class="mb-1 text-sm text-slate-300" id="ambiance-label">Ambiance sonore : {{ ambiance.description }}</p>
+              <audio controls loop preload="none" src="{{ ambiance.url }}" aria-labelledby="ambiance-label" class="w-full"></audio>
+              <p class="mt-1 text-xs text-slate-400">Boucle composée pour chaque émotion, non générée par IA. Lecture uniquement si vous l'activez.</p>
+            </div>
+          {% endif %}
+          <details class="mt-3">
+            <summary class="cursor-pointer text-sm text-slate-300 underline">Ce n'est pas la bonne émotion ?</summary>
+            <form method="post" action="{% url 'dreams:edit_emotion' dream.id %}" class="mt-3">
+              {% csrf_token %}
+              <fieldset>
+                <legend class="sr-only">Choisir l'émotion de ce rêve</legend>
+                <div class="flex flex-wrap gap-2">
+                  {% for value, label, icon in emotion_choices %}
+                    <label class="flex cursor-pointer items-center gap-2 rounded-full border border-night-800 px-3 py-2 text-sm has-[:checked]:border-dream-300 has-[:checked]:bg-night-800">
+                      <input type="radio" name="emotion" value="{{ value }}" class="accent-dream-400" {% if value == emotion.emotion %}checked{% endif %}>
+                      <span aria-hidden="true">{{ icon }}</span> {{ label }}
+                    </label>
+                  {% endfor %}
+                </div>
+              </fieldset>
+              <button type="submit" class="mt-3 rounded-lg bg-dream-300 px-4 py-2 text-sm font-semibold text-night-950">Enregistrer l'émotion</button>
+            </form>
+          </details>
         </section>
       {% endif %}
       {% if transcription %}
         <section aria-labelledby="recit-titre">
           <h2 id="recit-titre" class="mb-2 text-sm font-medium uppercase tracking-wide text-slate-400">Votre récit</h2>
           <p class="whitespace-pre-line leading-relaxed text-slate-100">{{ transcription.text }}</p>
-          <p class="mt-2 text-xs text-slate-400">L'enregistrement audio a été supprimé après la transcription.</p>
+          <p class="mt-2 text-xs text-slate-400">L'enregistrement audio a été supprimé après la transcription.{% if transcription.edited_by_user %} Récit corrigé par vous.{% endif %}</p>
+          <details class="mt-3">
+            <summary class="cursor-pointer text-sm text-slate-300 underline">Corriger le récit</summary>
+            <form method="post" action="{% url 'dreams:edit_transcription' dream.id %}" class="mt-3">
+              {% csrf_token %}
+              <label for="recit-texte" class="sr-only">Votre récit</label>
+              <textarea id="recit-texte" name="text" rows="8" maxlength="20000" required
+                class="block w-full rounded-lg border border-night-800 bg-night-950 px-3 py-2 text-base text-white">{{ transcription.text }}</textarea>
+              <button type="submit" class="mt-3 rounded-lg bg-dream-300 px-4 py-2 text-sm font-semibold text-night-950">Enregistrer le récit</button>
+            </form>
+          </details>
         </section>
       {% endif %}
     </div>
   </div>
+{% endif %}
+
+{% if dream.is_finished %}
+  <section class="mt-8 flex flex-wrap gap-3 border-t border-night-800 pt-6" aria-label="Actions sur ce rêve">
+    {% if can_regenerate %}
+      <form method="post" action="{% url 'dreams:regenerate' dream.id %}">
+        {% csrf_token %}
+        <button type="submit" class="rounded-lg border border-dream-300 px-4 py-2 text-dream-300 hover:bg-night-800">{% if image %}Générer une autre image{% else %}Réessayer l'image{% endif %}</button>
+      </form>
+    {% endif %}
+    <a href="{% url 'dreams:delete' dream.id %}" class="rounded-lg border border-rose-400/50 px-4 py-2 text-rose-200 hover:bg-rose-950/40">Supprimer ce rêve</a>
+  </section>
 {% endif %}
 {% endblock %}

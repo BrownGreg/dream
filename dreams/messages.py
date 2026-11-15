@@ -14,7 +14,7 @@ MESSAGES: dict[str, str] = {
     "budget_exceeded": "Le service a atteint sa limite de dépenses. Réessayez plus tard.",
     "quota_exceeded": "Vous avez atteint la limite de rêves pour aujourd'hui. Elle sera remise à zéro à minuit.",
     "image_disabled": "Vous avez choisi de ne pas générer d'image.",
-    "image_no_consent": "Aucune image n'est générée sans votre accord (modifiable dans votre compte).",
+    "image_no_consent": "Aucune image n'est générée sans votre accord (modifiable dans « Mon compte »).",
     "image_rejected": "Le générateur d'image a refusé ce rêve, même reformulé. Le reste de l'analyse est disponible.",
     "image_failed": "L'image n'a pas pu être créée. Le reste de l'analyse est disponible ; vous pourrez la régénérer.",
     "image_budget": "Les images sont suspendues : le budget du service est atteint. Le reste de l'analyse est disponible.",

@@ -8,6 +8,8 @@ from pathlib import Path
 
 import environ
 
+from config.observability import init_sentry, logging_config
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env()
@@ -19,6 +21,9 @@ ALLOWED_HOSTS: list[str] = env.list("DJANGO_ALLOWED_HOSTS", default=[])
 CSRF_TRUSTED_ORIGINS: list[str] = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
 
 INSTALLED_APPS = [
+    # accounts avant admin : nos gabarits registration/* (mot de passe oublié…) doivent
+    # l'emporter sur ceux de l'administration Django, qui portent les mêmes noms.
+    "accounts",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -30,12 +35,12 @@ INSTALLED_APPS = [
     "django_tailwind_cli",
     "django_tasks_db",
     "axes",
-    "accounts",
     "dreams",
     "dashboard",
 ]
 
 MIDDLEWARE = [
+    "config.middleware.RequestIdMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -67,7 +72,9 @@ TEMPLATES = [
     },
 ]
 
-DATABASES = {"default": env.db("DATABASE_URL", default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")}
+# `env.db` n'applique sa valeur par défaut que si la variable est absente : `DATABASE_URL=` (vide,
+# comme dans `.env.example` copié par `scripts/install.sh`) doit aussi donner SQLite.
+DATABASES = {"default": env.db_url_config(env("DATABASE_URL", default="") or f"sqlite:///{BASE_DIR / 'db.sqlite3'}")}
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("DATABASE_CONN_MAX_AGE", default=60)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -174,3 +181,10 @@ AUDIO_MIN_SECONDS = env.int("AUDIO_MIN_SECONDS", default=1)
 AUDIO_MAX_BYTES = env.int("AUDIO_MAX_BYTES", default=20 * 1024 * 1024)
 DATA_UPLOAD_MAX_MEMORY_SIZE = AUDIO_MAX_BYTES + 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+
+# --- Observabilité (structlog, Sentry) : jamais de contenu de rêve
+LOGGING = logging_config(json_logs=env.bool("LOG_JSON", default=False), level=env("LOG_LEVEL", default="INFO"))
+SENTRY_DSN = env("SENTRY_DSN", default="")
+init_sentry(SENTRY_DSN, env("SENTRY_ENVIRONMENT", default="dev"), env("RENDER_GIT_COMMIT", default=""))
+# Worker considéré en retard si une tâche attend depuis plus longtemps que ce délai (secondes).
+WORKER_STALE_AFTER_S = env.int("WORKER_STALE_AFTER_S", default=120)

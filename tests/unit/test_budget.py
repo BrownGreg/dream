@@ -69,6 +69,28 @@ def test_quota_quotidien(settings, user):
     assert exc.value.code == "quota_exceeded"
 
 
+@pytest.mark.parametrize("code", sorted(budget.SERVICE_FAILURE_CODES))
+def test_echec_du_service_ne_consomme_pas_le_quota(settings, user, code):
+    settings.AI_USER_DAILY_DREAMS = 1
+    DreamFactory(user=user, status=Dream.Status.FAILED, error_code=code)
+    budget.ensure_user_quota(user.id)
+
+
+def test_echec_imputable_a_l_enregistrement_consomme_le_quota(settings, user):
+    # Transcription facturée : le rêve compte, même sans parole reconnue.
+    settings.AI_USER_DAILY_DREAMS = 1
+    DreamFactory(user=user, status=Dream.Status.FAILED, error_code="transcription_empty")
+    with pytest.raises(QuotaExceededError):
+        budget.ensure_user_quota(user.id)
+
+
+def test_reve_en_cours_consomme_le_quota(settings, user):
+    settings.AI_USER_DAILY_DREAMS = 1
+    DreamFactory(user=user, status=Dream.Status.RECEIVED)
+    with pytest.raises(QuotaExceededError):
+        budget.ensure_user_quota(user.id)
+
+
 def test_quota_remis_a_zero_a_minuit_heure_de_paris(settings, user):
     settings.AI_USER_DAILY_DREAMS = 1
     dream = DreamFactory(user=user)

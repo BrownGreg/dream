@@ -1,0 +1,40 @@
+@startuml coupe_circuit
+' Généré à la main d'après dreams/services/http.py (resilient_call) et dreams/services/budget.py.
+' Rendu : plantuml -tsvg docs/diagrams/coupe_circuit.puml
+skinparam defaultFontName "Liberation Sans"
+skinparam defaultFontSize 12
+skinparam ActivityBackgroundColor #F4F1FA
+skinparam ActivityBorderColor #4B3F72
+skinparam ArrowColor #4B3F72
+
+title Appel fournisseur : coupe-circuit, retries et journal ApiCall
+
+start
+:Adapter (STT, émotion, prompt, image)
+appelle **resilient_call**;
+:Coût estimé = prix unitaire (pricing.py) × unités attendues;
+repeat :Tentative n (max AI_MAX_ATTEMPTS = 3);
+  if (Σ ApiCall.cost_usd × taux ≥ 15 €\nou dépassement avec cet appel ?) then (oui)
+    :ApiCall **blocked**\n(aucun appel réseau);
+    :BudgetExceededError;
+    :Dégradation : lexique local pour l'émotion,
+    image « indisponible » → rêve **partial**; <<#FFE8E0>>
+    stop
+  else (non)
+  endif
+  :Appel HTTP avec délai de l'adapter
+  (STT 60 s, LLM 20 s, HF 15 s, BFL 15 s + polling 45 s);
+  if (Réponse ?) then (succès)
+    :ApiCall **ok** : unités facturées lues
+    dans la réponse, coût réel;
+    :Résultat;
+    stop
+  else (erreur)
+    :ApiCall **error / timeout / rejected**
+    (un délai dépassé est compté facturé);
+  endif
+repeat while (Erreur passagère (408, 429, 5xx, délai)\net tentatives restantes ?) is (oui : attente 1 s × 2^n,\n≥ Retry-After, ≤ 30 s)
+-> non (4xx, refus de sécurité,\ntentatives épuisées);
+:ProviderError remontée au pipeline;
+stop
+@enduml

@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
-from pathlib import Path
 
 import jsonschema
 import pytest
@@ -14,9 +13,9 @@ from pydantic import ValidationError
 from dreamsynth.domain.emotion import Emotion
 from dreamsynth.domain.models import AssetKind, Dream, DreamExport, GeneratedAsset
 from dreamsynth.errors import MESSAGES, ErrorCode
+from tests.conftest import DOCS, ROOT
 
-ROOT = Path(__file__).resolve().parents[2]
-SCHEMA = ROOT / "docs" / "schemas" / "dream.schema.json"
+SCHEMA = DOCS / "schemas" / "dream.schema.json"
 
 
 def test_every_emotion_has_icon_and_color() -> None:

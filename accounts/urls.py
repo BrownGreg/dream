@@ -9,6 +9,10 @@ app_name = "accounts"
 
 urlpatterns = [
     path("inscription/", views.signup, name="signup"),
+    path("mon-compte/", views.account, name="account"),
+    path("mon-compte/consentement-image/", views.update_image_consent, name="image_consent"),
+    path("mon-compte/export/", views.export, name="export"),
+    path("mon-compte/supprimer/", views.delete_account, name="delete"),
     path("connexion/", views.EmailLoginView.as_view(), name="login"),
     path("deconnexion/", auth_views.LogoutView.as_view(), name="logout"),
     path(

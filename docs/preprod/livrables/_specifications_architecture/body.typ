@@ -1,12 +1,12 @@
 = 1. Architecture : diagrammes C4
 <architecture-diagrammes-c4>
-#figure(image("/home/browngreg/dream/docs/diagrams/c4_context.svg", alt: "C4 niveau 1 — contexte"),
+#figure(image("/docs/preprod/diagrams/c4_context.svg", alt: "C4 niveau 1 — contexte"),
   caption: [
     C4 niveau 1 --- contexte
   ]
 )
 
-#figure(image("/home/browngreg/dream/docs/diagrams/c4_container.svg", alt: "C4 niveau 2 — conteneurs de l’architecture cible de production"),
+#figure(image("/docs/preprod/diagrams/c4_container.svg", alt: "C4 niveau 2 — conteneurs de l’architecture cible de production"),
   caption: [
     C4 niveau 2 --- conteneurs de l'architecture cible de production
   ]
@@ -85,7 +85,7 @@ interroge l'état du rêve.
 
 = 2. Modèle de données
 <modèle-de-données>
-#figure(image("/home/browngreg/dream/docs/diagrams/erd.svg", alt: "Modèle relationnel (PostgreSQL 16)"),
+#figure(image("/docs/preprod/diagrams/erd.svg", alt: "Modèle relationnel (PostgreSQL 16)"),
   caption: [
     Modèle relationnel (PostgreSQL 16)
   ]
@@ -193,7 +193,7 @@ la constante `true`.
   = 3. Séquence clé : traitement complet d'un rêve
   #grid(columns: (1fr, 6.4cm), gutter: 0.5cm,
     figure(
-      image("/home/browngreg/dream/docs/diagrams/sequence_reve.svg", width: 100%, height: 15.2cm, fit: "contain"),
+      image("/docs/preprod/diagrams/sequence_reve.svg", width: 100%, height: 15.2cm, fit: "contain"),
       caption: [Diagramme de séquence UML — traitement d'un rêve, branches d'erreur incluses],
     ),
     [

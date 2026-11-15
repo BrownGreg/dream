@@ -17,7 +17,7 @@ def health(request: HttpRequest) -> JsonResponse:
         request: Requête HTTP entrante.
 
     Returns:
-        ``200`` avec ``{"status": "ok"}`` si la base répond, ``503`` sinon.
+        ``200`` avec ``ok`` (ou ``degraded`` si le worker est en retard), ``503`` si la base ne répond pas.
     """
     checks: dict[str, str] = {}
     try:
@@ -26,5 +26,13 @@ def health(request: HttpRequest) -> JsonResponse:
         checks["database"] = "ok"
     except Exception:  # noqa: BLE001 - toute panne de base doit donner 503, pas une page d'erreur
         checks["database"] = "error"
-    healthy = all(value == "ok" for value in checks.values())
-    return JsonResponse({"status": "ok" if healthy else "error", "checks": checks}, status=200 if healthy else 503)
+    if checks["database"] == "ok":
+        # Un worker en retard dégrade le service sans le rendre indisponible : 200, statut « degraded ».
+        from dashboard.ops import queue_state
+
+        queue = queue_state()
+        checks["worker"] = "ok" if queue.worker_ok else "stale"
+    if checks["database"] != "ok":
+        return JsonResponse({"status": "error", "checks": checks}, status=503)
+    status = "ok" if all(value == "ok" for value in checks.values()) else "degraded"
+    return JsonResponse({"status": status, "checks": checks}, status=200)

@@ -1,7 +1,47 @@
 {% extends "base.html" %}
 {% block title %}Mes rêves · Synthétiseur de rêves{% endblock %}
 {% block content %}
-<h1 class="mb-2 text-2xl font-semibold">Mes rêves</h1>
-<p class="mb-6 text-slate-300">Vous venez de vous réveiller ? Racontez votre rêve avant qu'il ne s'efface.</p>
-<a href="{% url 'dreams:record' %}" class="inline-block rounded-lg bg-dream-300 px-5 py-3 font-semibold text-night-950 hover:bg-dream-400">Raconter un rêve</a>
+<div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <h1 class="text-2xl font-semibold">Mes rêves</h1>
+    <p class="text-slate-300">Vous venez de vous réveiller ? Racontez votre rêve avant qu'il ne s'efface.</p>
+  </div>
+  <div class="flex gap-2">
+    <a href="{% url 'dashboard:stats' %}" class="rounded-lg border border-night-800 px-5 py-3 text-slate-200 hover:border-dream-300">Statistiques</a>
+    <a href="{% url 'dreams:record' %}" class="rounded-lg bg-dream-300 px-5 py-3 font-semibold text-night-950 hover:bg-dream-400">Raconter un rêve</a>
+  </div>
+</div>
+
+<details class="mb-6 rounded-2xl border border-night-800 bg-night-900 p-4" {% if filtered %}open{% endif %}>
+  <summary class="cursor-pointer font-medium">Filtrer{% if filtered %} <span class="text-dream-300">(actifs)</span>{% endif %}</summary>
+  <form method="get" action="{% url 'dashboard:home' %}" class="mt-4 space-y-4" role="search" aria-label="Filtrer mes rêves"
+    hx-get="{% url 'dashboard:home' %}" hx-target="#dream-list" hx-swap="outerHTML" hx-push-url="true"
+    hx-trigger="change, submit">
+    <div class="grid gap-4 sm:grid-cols-2">
+      {% for field in form %}{% if field.name != "humeur" %}
+        <div>
+          <label for="{{ field.id_for_label }}" class="mb-1 block text-sm font-medium">{{ field.label }}</label>
+          <input type="date" name="{{ field.html_name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}"
+            class="block w-full rounded-lg border border-night-800 bg-night-950 px-3 py-2 text-white [color-scheme:dark]">
+        </div>
+      {% endif %}{% endfor %}
+    </div>
+    <fieldset>
+      <legend class="mb-2 text-sm font-medium">Humeur</legend>
+      <div class="flex flex-wrap gap-2">
+        {% for choice in form.humeur %}
+          <label class="flex cursor-pointer items-center gap-2 rounded-full border border-night-800 px-3 py-2 text-sm has-[:checked]:border-dream-300 has-[:checked]:bg-night-800">
+            {{ choice.tag }} {{ choice.choice_label }}
+          </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+    <div class="flex gap-3">
+      <button type="submit" class="rounded-lg bg-dream-300 px-4 py-2 font-semibold text-night-950">Appliquer</button>
+      <a href="{% url 'dashboard:home' %}" class="rounded-lg border border-night-800 px-4 py-2 text-slate-200">Réinitialiser</a>
+    </div>
+  </form>
+</details>
+
+{% include "dashboard/_dream_list.html" %}
 {% endblock %}

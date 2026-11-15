@@ -1,0 +1,5 @@
+# Rendu Eisvogel ; réglages communs : docs/templates/eisvogel/commun.yaml. Génération : make code-review
+title: "Dossier de code review"
+subtitle: "Synthétiseur de rêves — Bloc 3"
+header-left: "Dossier de code review"
+saut-de-page-chapitres: true

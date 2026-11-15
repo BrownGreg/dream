@@ -1,0 +1,102 @@
+@startuml erd
+' Généré par scripts/export_erd.py depuis les modèles Django : ne pas modifier à la main.
+title Modèle de données de production (généré depuis le code)
+hide circle
+skinparam linetype ortho
+entity User {
+  * id : BigAuto
+  last_login : DateTime
+  is_staff : Boolean
+  is_active : Boolean
+  date_joined : DateTime
+  email : Email
+}
+entity Consent {
+  * id : BigAuto
+  user_id : FK → User
+  scope : Char
+  granted : Boolean
+  text_version : Char
+  created_at : DateTime
+}
+entity Dream {
+  * id : UUID
+  user_id : FK → User
+  status : Char
+  error_code : Char
+  title : EncryptedText <<chiffré>>
+  image_disabled : Boolean
+  audio : File
+  audio_mime : Char
+  audio_duration_s : Decimal
+  audio_size_bytes : PositiveInteger
+  audio_purged_at : DateTime
+  created_at : DateTime
+  updated_at : DateTime
+  finished_at : DateTime
+}
+entity Transcription {
+  * id : BigAuto
+  dream_id : FK → Dream
+  text : EncryptedText <<chiffré>>
+  provider : Char
+  model : Char
+  language : Char
+  edited_by_user : Boolean
+  created_at : DateTime
+  updated_at : DateTime
+}
+entity EmotionAnalysis {
+  * id : BigAuto
+  dream_id : FK → Dream
+  emotion : Char
+  confidence : Decimal
+  source : Char
+  provider : Char
+  is_current : Boolean
+  created_at : DateTime
+}
+entity GeneratedAsset {
+  * id : BigAuto
+  dream_id : FK → Dream
+  kind : Char
+  status : Char
+  attempt : PositiveSmallInteger
+  visual_prompt : EncryptedText <<chiffré>>
+  file : File
+  provider : Char
+  model : Char
+  rejection_reason : Char
+  ai_generated : Boolean
+  created_at : DateTime
+}
+entity ApiCall {
+  * id : BigAuto
+  dream_id : FK → Dream
+  user_pseudonym : Char
+  step : Char
+  provider : Char
+  model : Char
+  outcome : Char
+  http_status : PositiveSmallInteger
+  error_type : Char
+  attempt : PositiveSmallInteger
+  latency_ms : PositiveInteger
+  billed_units : Decimal
+  unit : Char
+  cost_usd : Decimal
+  created_at : DateTime
+}
+entity StoredFile {
+  * name : Char
+  content : Binary
+  size : PositiveInteger
+  created_at : DateTime
+}
+User ||--o{ Consent : user (CASCADE)
+User ||--o{ Dream : user (CASCADE)
+Dream ||--|| Transcription : dream (CASCADE)
+Dream ||--o{ EmotionAnalysis : dream (CASCADE)
+Dream ||--o{ GeneratedAsset : dream (CASCADE)
+Dream ||--o{ ApiCall : dream (SET_NULL)
+@enduml

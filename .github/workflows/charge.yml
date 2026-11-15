@@ -1,0 +1,101 @@
+# Test de charge Locust sur les adapters fake (aucun appel réel, aucun coût).
+# Lancement : Actions → « charge » → Run workflow (nombre de workers, latence simulée, durée des paliers).
+name: charge
+
+on:
+  workflow_dispatch:
+    inputs:
+      workers:
+        description: "Processus db_worker"
+        default: "1"
+      fake_latency_ms:
+        description: "Latence simulée par appel fournisseur (ms)"
+        default: "1000"
+      stage_s:
+        description: "Durée de chaque palier (s)"
+        default: "90"
+
+permissions:
+  contents: read
+
+jobs:
+  locust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: dream
+          POSTGRES_PASSWORD: dream
+          POSTGRES_DB: dream
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U dream" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      UV_FROZEN: "1"
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+      DJANGO_SECRET_KEY: charge-uniquement
+      FIELD_ENCRYPTION_KEYS: Y2hhcmdlLXVuaXF1ZW1lbnQtY2xlLWRlLTMyLW9jdGU=
+      DATABASE_URL: postgres://dream:dream@localhost:5432/dream
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1
+      DJANGO_SECURE_SSL_REDIRECT: "false"
+      DJANGO_SECURE_COOKIES: "false"
+      STORAGE_BACKEND: database
+      AI_MODE: fake
+      AI_FAKE_LATENCY_MS: ${{ inputs.fake_latency_ms || '1000' }}
+      AI_USER_DAILY_DREAMS: "100000"
+      AXES_FAILURE_LIMIT: "100000"
+      LOG_LEVEL: WARNING
+      WORKERS: ${{ inputs.workers || '1' }}
+      LOAD_STAGE_S: ${{ inputs.stage_s || '90' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Dépendances
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends ffmpeg
+          uv sync
+      - name: Préparer l'application et 60 comptes synthétiques
+        run: |
+          uv run python manage.py tailwind build
+          uv run python manage.py collectstatic --noinput -v0
+          uv run python manage.py migrate --noinput -v0
+          uv run python manage.py seed_load_users --count 60 --dreams 8 --force
+      - name: Démarrer gunicorn, les workers et l'échantillonneur de file
+        run: |
+          mkdir -p load-results
+          uv run gunicorn config.wsgi:application --bind 127.0.0.1:8000 --workers 2 --timeout 30 > load-results/gunicorn.log 2>&1 &
+          for i in $(seq 1 "$WORKERS"); do uv run python manage.py db_worker --interval 0.5 > "load-results/worker-$i.log" 2>&1 & done
+          uv run python scripts/sample_queue.py load-results/file.csv > load-results/sampler.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8000/health && break; sleep 1; done
+      - name: Locust 5 → 20 → 50 utilisateurs
+        run: uv run locust --config tests/load/locust.conf --host http://127.0.0.1:8000
+      - name: Laisser la file se vider (5 min max)
+        run: |
+          for i in $(seq 1 60); do
+            pending=$(uv run python -c "import django; django.setup(); from dashboard.ops import queue_state; s = queue_state(); print(s.ready + s.running)")
+            [ "$pending" = "0" ] && break
+            sleep 5
+          done
+      - name: Rapport
+        run: |
+          RUNNER="GitHub Actions ubuntu-latest ($(nproc) vCPU, $(free -g | awk '/Mem/{print $2}') Go)"
+          uv run python scripts/load_report.py load-results --stage-s "$LOAD_STAGE_S" --workers "$WORKERS" \
+            --fake-latency-ms "$AI_FAKE_LATENCY_MS" --runner "$RUNNER"
+          cat load-results/rapport.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Arrêter gunicorn, les workers et l'échantillonneur
+        if: always()
+        # Sans cela, ces processus gardent le verrou du cache uv et font échouer le nettoyage du job.
+        run: |
+          pkill -f "gunicorn config.wsgi" || true
+          pkill -f "manage.py db_worker" || true
+          pkill -f "scripts/sample_queue.py" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: charge-${{ env.WORKERS }}-workers
+          path: load-results/
