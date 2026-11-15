@@ -84,10 +84,11 @@ def main() -> None:
             f"{short(p.extra.get('training', ''), 34)} |"
         )
     wer_files = sorted((HERE / "results").glob("wer_*.csv"))
-    wer = {}
-    if wer_files:
-        with wer_files[-1].open(encoding="utf-8") as fh:
-            wer = {r["provider"]: r for r in csv.DictReader(fh)}
+    # Dernière mesure de WER de chaque fournisseur (une campagne live ne doit pas effacer la locale).
+    wer: dict[str, dict[str, str]] = {}
+    for wer_file in wer_files:
+        with wer_file.open(encoding="utf-8") as fh:
+            wer.update({r["provider"]: r for r in csv.DictReader(fh)})
     for key, m in live.items():
         extra = ""
         if key in wer:
@@ -101,9 +102,10 @@ def main() -> None:
         ]
     lines += [
         "",
-        f"ᴱ prix ESTIMÉ (non publié en clair, méthode dans le classeur) · NP : non publié "
-        f"(auto-hébergé, coût d'infrastructure) · *n. m.* = {NOT_MEASURED} : aucune latence "
-        "mesurée faute de clé, la colonne reste vide de chiffre.",
+        "ᴱ prix ESTIMÉ (non publié en clair, méthode dans le classeur) · NP : non publié "
+        "(auto-hébergé, coût d'infrastructure) · *n. m.* = NON MESURÉ : pas de clé pour ce "
+        "fournisseur, la colonne reste vide de chiffre. Latence : p95 de la dernière campagne "
+        "réelle (live ou locale) de chaque fournisseur.",
         "",
         "| Scénario | $/rêve | $/jour | $/mois | $/an | $/mois bêta | ≤ 0,05 $ (CS-03) |",
         "|---|---|---|---|---|---|---|",

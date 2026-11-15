@@ -455,10 +455,10 @@ hypothèses H1--H8 (annexe `benchmark.xlsx`, onglet Hypothèses).
       (s)], [Quota], [UE · DPA], [Entraînement],),
     table.hline(),
     [STT], [Mistral AI ---
-    voxtral-mini-transcribe-3], [0,0035], [n.~m.], [Non publié
+    voxtral-mini-transcribe-3], [0,0035], [1,44], [Non publié
     (d…], [oui · Oui], [Opt-out via Admin panel › Privacy…],
     [STT], [Mistral AI ---
-    voxtral-small-transcribe-3], [0,0040], [n.~m.], [Non publié
+    voxtral-small-transcribe-3], [0,0040], [1,49], [Non publié
     (d…], [oui · Oui], [Opt-out via Admin panel › Privacy],
     [STT], [OpenAI --- gpt-transcribe], [0,0045], [n.~m.], [Non trouvé
     (g…], [non · non trouvé], [Non par défaut],
@@ -473,7 +473,7 @@ hypothèses H1--H8 (annexe `benchmark.xlsx`, onglet Hypothèses).
     cœurs)], [NP], [3,81], [Limité par le…], [oui · Sans objet], [Non
     (aucun tiers)],
     [LLM], [Mistral AI --- Mistral Small 4
-    (mistral-small-2603)], [0,0003], [n.~m.], [Non publié (d…], [oui ·
+    (mistral-small-2603)], [0,0003], [1,56], [Non publié (d…], [oui ·
     Oui], [Opt-out via Admin panel › Privacy],
     [LLM], [OpenAI --- gpt-4o-mini], [0,0003], [n.~m.], [5 000 RPM ·
     2…], [non · non trouvé], [Non par défaut],
@@ -504,7 +504,7 @@ hypothèses H1--H8 (annexe `benchmark.xlsx`, onglet Hypothèses).
     (720p)], [0,5000], [n.~m.], [Palier 1 : 10…], [non · Oui
     (Proces…], [Non en offre payante],
     [TTS], [Mistral AI ---
-    voxtral-mini-tts-3-0], [0,0052], [n.~m.], [Non publié (d…], [oui ·
+    voxtral-mini-tts-3-0], [0,0052], [3,99], [Non publié (d…], [oui ·
     Oui], [Opt-out via Admin panel › Privacy],
     [TTS], [Microsoft Azure AI Speech --- Neural TTS (S1, West
     Europe)], [0,0060], [n.~m.], [30 transactio…], [oui · non
@@ -526,15 +526,17 @@ hypothèses H1--H8 (annexe `benchmark.xlsx`, onglet Hypothèses).
   , kind: table
   )
 
-#strong[Mesure réelle] (local) --- `faster_whisper_selfhosted` : 10
-appels, p50 3,39 s, p95 3,81 s, premier segment p50 2,25 s, WER 13,2 %
-(latency\_local\_20261106T104153Z.csv) \; fichier
-`summary_local_20261106T104153Z.csv`.
+#strong[Mesure réelle] (local) --- `faster_whisper_selfhosted` : 10 appels, p50 3,39 s, p95 3,81 s, premier segment p50 2,25 s, WER 13,2 % (latency\_local\_20261106T104153Z.csv) \; fichier `summary_local_20261106T104153Z.csv`.
 
-ᴱ prix ESTIMÉ (non publié en clair, méthode dans le classeur) · NP : non
-publié (auto-hébergé, coût d'infrastructure) · #emph[n.~m.] = NON MESURÉ
---- mock : aucune latence mesurée faute de clé, la colonne reste vide de
-chiffre.
+#strong[Mesure réelle] (live) --- `mistral_small_4` : 10 appels, p50 1,36 s, p95 1,56 s, premier segment p50 1,36 s \; fichier `summary_live_20261115T123855Z.csv`.
+
+#strong[Mesure réelle] (live) --- `mistral_voxtral_mini_3` : 10 appels, p50 0,87 s, p95 1,44 s, premier segment p50 0,87 s, WER 1,3 % (latency\_live\_20261115T123855Z.csv) \; fichier `summary_live_20261115T123855Z.csv`.
+
+#strong[Mesure réelle] (live) --- `mistral_voxtral_small_3` : 10 appels, p50 1,09 s, p95 1,49 s, premier segment p50 1,09 s, WER 0,8 % (latency\_live\_20261115T123855Z.csv) \; fichier `summary_live_20261115T123855Z.csv`.
+
+#strong[Mesure réelle] (live) --- `mistral_voxtral_tts_3` : 10 appels, p50 3,17 s, p95 3,99 s, premier segment p50 3,14 s \; fichier `summary_live_20261115T123855Z.csv`.
+
+ᴱ prix ESTIMÉ (non publié en clair, méthode dans le classeur) · NP : non publié (auto-hébergé, coût d'infrastructure) · #emph[n.~m.] = NON MESURÉ : pas de clé pour ce fournisseur, la colonne reste vide de chiffre. Latence : p95 de la dernière campagne réelle (live ou locale) de chaque fournisseur.
 
 #figure(
   align(center)[#table(
@@ -573,12 +575,13 @@ chiffre.
   une ambiance générée multiplie le coût par rêve par 2,7 (S4 vs S2) \;
   une micro-vidéo de 5 s par 11,5 (S6 vs S2). D'où l'ambiance par
   bibliothèque au MVP et la vidéo à la demande en R3 (ADR-005).
-+ #strong[Le scoring ne porte encore que sur 3 critères sur 5] (coût,
-  RGPD, intégration : 60 % des poids) : latence et WER ne sont mesurés
-  que pour faster-whisper (local), classé 3ᵉ des STT sans critère de
-  coût \; sa note de latence est maximale par construction, puisqu'il
-  est le seul mesuré. Voxtral Mini reste 1ᵉʳ \; les rangs seront
-  recalculés après la campagne `--live`.
++ #strong[Latence et WER sont mesurés pour trois STT] (campagne
+  `--live` du 15/11/2026 pour Voxtral Mini et Small, locale pour
+  faster-whisper) \; les autres fournisseurs restent notés sur 3 critères
+  sur 5 (coût, RGPD, intégration). Voxtral Mini a la meilleure latence
+  (p95 1,44 s), Voxtral Small le meilleur WER (0,8 % contre 1,3 %) \; avec
+  un WER bien sous le seuil de repli de 10 % (ADR-002), le choix de
+  Voxtral Mini est confirmé.
 + #strong[Le RGPD départage plus que le prix] : en STT, cinq offres sont
   à moins de 0,001 \$ d'écart \; seule Voxtral combine hébergement UE
   par défaut, DPA publié et opt-out d'entraînement documenté.
@@ -626,21 +629,24 @@ risque R-06, couvert par les replis ci-dessus.
     table.header([ID], [KPI], [Cible], [Mesuré en pré-production ?],),
     table.hline(),
     [K1], [Latence p95 bout-en-bout (fin d'envoi → image affichée)], [≤
-    30 s (CS-02)], [Non --- clé requise \; somme des p95 par étape dès
-    la campagne live],
+    30 s (CS-02)], [Partiel : transcription 1,44 s + analyse LLM 1,56 s
+    (p95, campagne live du 15/11/2026) \; image non mesurée (pas de clé
+    T2I)],
     [K2], [Coût API par rêve], [≤ 0,05 \$ (CS-03)], [Calculé : 0,0185 \$
     (S1, contient un prix ESTIMÉ)],
-    [K3], [WER sur le corpus FR], [≤ 10 %], [Partiel : 13,2 % pour
-    faster-whisper `small` local, sur voix de synthèse espeak \; Voxtral
-    : clé requise],
-    [K4], [Taux d'échec API après retries], [≤ 2 %], [Non --- clé
-    requise],
+    [K3], [WER sur le corpus FR], [≤ 10 %], [Oui : Voxtral Mini 1,3 %,
+    Voxtral Small 0,8 % (live, 15/11/2026) \; faster-whisper `small` local
+    13,2 % \; corpus de voix de synthèse espeak],
+    [K4], [Taux d'échec API après retries], [≤ 2 %], [Partiel : 0 échec
+    sur 40 appels Mistral, aucun retry (live, 15/11/2026) \; image non
+    mesurée],
     [K5], [Taux de rejet par le filtre de sécurité image], [≤ 5 %], [Non
     --- clé T2I requise],
     [K6], [Part des traitements effectués dans l'UE], [100 % au
     MVP], [Par construction du scénario S1],
-    [K7], [Sorties LLM conformes au schéma], [≥ 99 %], [Non --- clé
-    requise],
+    [K7], [Sorties LLM conformes au schéma], [≥ 99 %], [10 sur 10
+    (Mistral Small 4, live, 15/11/2026) : échantillon trop petit pour
+    conclure sur 99 %],
     [K8], [Émotions non corrigées par l'utilisateur], [≥ 80 %], [En bêta
     (R2)],
   )]

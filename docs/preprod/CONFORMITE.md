@@ -1,6 +1,6 @@
 # Conformité au sujet — vérification ligne à ligne
 
-Sujet : `docs/source/sujet.pdf` (4 pages). Vérification du 2026-11-06. DC = `build/dossier_cadrage.pdf` (15/15 p.), SP = `build/specifications_architecture.pdf` (10/10 p.).
+Sujet : `docs/source/sujet.pdf` (4 pages). Vérification du 2026-11-06, mise à jour le 2026-11-15 (Jira importé, dépôt GitHub, campagne de mesures réelles). DC = `build/dossier_cadrage.pdf` (15/15 p.), SP = `build/specifications_architecture.pdf` (10/10 p.).
 Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expliqué).
 
 ## 2. Objectifs
@@ -15,7 +15,7 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 | Exigence | Où | Statut |
 |---|---|---|
 | Travail individuel, Scrum, sprints d'1 semaine | DC p. 12 (capacité, cérémonies en solo) | ✅ |
-| GitHub Projects ou Jira | `docs/annexes/jira_import.csv` (5 épopées, 21 stories, 13 tâches) | ⚠️ fichier prêt, non importé : consigne « local uniquement » |
+| GitHub Projects ou Jira | importé dans Jira, projet **DREAM** : épopées DREAM-1 à 5, stories DREAM-6 à 26, tâches DREAM-27 à 39 (source : `annexes/jira_import.csv`) ; tâches DREAM-29 à 37, prévues pour l'architecture de la maquette, closes avec renvoi à l'ADR-008 de production | ✅ |
 
 ## 5.1 Dossier de cadrage (≤ 15 p.)
 | Exigence | Où | Statut |
@@ -26,7 +26,7 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 | 3. User Story Map + MoSCoW | DC p. 5–6 (carte, matrice Kano/MoSCoW, tableau des stories) | ✅ |
 | 4. ≥ 3 STT ; ≥ 3 T2I/vidéo ; ≥ 2 TTS | DC p. 7–8 : 7 STT, 6 image + 2 vidéo, 4 TTS | ✅ |
 | 4. Tableau comparatif coût ($) | DC p. 7–8 ; `benchmark.xlsx` | ✅ |
-| 4. … temps de réponse | Mesuré pour faster-whisper local (p95 3,81 s) ; autres « NON MESURÉ — mock » faute de clé | ⚠️ clé Mistral absente ; scripts `--live` prêts |
+| 4. … temps de réponse | Mesuré pour les 4 modèles Mistral (campagne `--live` du 2026-11-15, 10 appels chacun, 0 échec : p95 Voxtral Mini 1,44 s, Voxtral Small 1,49 s, Mistral Small 4 1,56 s, Voxtral TTS 3,99 s ; WER Voxtral 1,3 % et 0,8 %) et pour faster-whisper local (p95 3,81 s) ; autres fournisseurs « n. m. » faute de clé | ✅ fournisseurs retenus mesurés · ⚠️ concurrents non mesurés |
 | 4. … quota | Quotas officiels relevés pour 7 fournisseurs sur 9 ; Mistral non publié | ⚠️ |
 | 4. … RGPD | DC p. 7–8 (UE, DPA, entraînement) ; onglets catégorie du classeur | ✅ |
 | 5. RGPD & éthique IA, DPA nécessaire ? | DC p. 10–11 (oui, avec chaque fournisseur : registre §5.3) ; annexe `aipd.md` | ✅ |
@@ -81,9 +81,9 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 |---|---|---|
 | Python 3.12 | `.venv` 3.12.15, `requires-python` | ✅ |
 | Streamlit ≥ 1.35 | 1.66.1 (≥ 1.40 retenu pour `st.audio_input` stable, README) | ✅ |
-| Git | dépôt local | ⚠️ travail non commité (aucun commit demandé) |
+| Git | <https://github.com/BrownGreg/dream>, `docs/preprod/` (branche `main`) | ✅ |
 | draw.io ou PlantUML | PlantUML (C4, ERD, séquence, flow, wireframes) | ✅ |
 | PEP 8 + type hints | ruff 0 erreur ; mypy `--strict` 0 erreur | ✅ |
 | Docstrings Google style | règle ruff `D` (convention google) | ✅ |
 
-**Aucun ❌.** Les ⚠️ restants dépendent de l'auteur : clé API pour les mesures live, enregistrement de la vidéo, date de rendu sur les pages de garde, import Jira et commit.
+**Aucun ❌.** Faits depuis le 2026-11-06 : mesures live des fournisseurs retenus, date de rendu sur les pages de garde (15/11/2026), import Jira, dépôt GitHub. Reste à l'auteur : **l'enregistrement de la vidéo de démonstration**. Les autres ⚠️ sont des écarts assumés (quotas Mistral non publiés, wireframes PlantUML au lieu de Figma, concurrents non mesurés).

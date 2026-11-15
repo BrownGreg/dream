@@ -442,9 +442,11 @@ Composants C4 de chaque exigence et tests qui la couvrent : annexe
   , kind: table
   )
 
-Ces cibles sont des objectifs de conception : aucune latence fournisseur
-n'a encore été mesurée (`NON MESURÉ — mock`). La campagne
-`run_latency.py --live` les confirme ou impose de réviser ADR-006.
+Ces cibles sont des objectifs de conception. La campagne
+`run_latency.py --live` du 15/11/2026 (10 appels par modèle Mistral) les
+confirme : transcription p95 1,44 s (Voxtral Mini), analyse LLM p95
+1,56 s (Mistral Small 4) \; la latence de l'image n'est pas mesurée par ce
+benchmark (pas de clé T2I à l'époque).
 
 == Budget API (ADR-007)
 <budget-api-adr-007>
