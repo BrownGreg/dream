@@ -74,7 +74,7 @@ La CI ([`ci.yml`](.github/workflows/ci.yml)) bloque toute fusion sur `main` tant
 
 ## Déploiement
 
-[`render.yaml`](render.yaml) décrit le service (Docker, Francfort ; web et worker dans le même conteneur, faute de worker gratuit chez Render). Base : Neon (UE). Le déploiement n'est déclenché que par la CI, via le secret `RENDER_DEPLOY_HOOK_URL` ; `PROD_URL` permet le contrôle de `/health` après déploiement.
+[`render.yaml`](render.yaml) décrit le service (Docker, Francfort ; web et worker dans le même conteneur, faute de worker gratuit chez Render). Base : Neon (UE, PostgreSQL, Francfort), reliée par la CLI `neon` : [`neon.ts`](neon.ts) et `package.json` décrivent la configuration du projet Neon (aucun service Neon autre que PostgreSQL n'est utilisé ; l'application ne lit que `DATABASE_URL`). Le déploiement n'est déclenché que par la CI, via le secret `RENDER_DEPLOY_HOOK_URL` ; `PROD_URL` permet le contrôle de `/health` après déploiement.
 
 ## Données personnelles
 

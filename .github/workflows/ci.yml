@@ -22,8 +22,8 @@ jobs:
     name: Lint et types
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
           enable-cache: true
@@ -53,8 +53,8 @@ jobs:
     env:
       DATABASE_URL: postgres://dream:dream@localhost:5432/dream
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
           enable-cache: true
@@ -65,7 +65,7 @@ jobs:
         run: uv run pytest --cov --cov-report=term-missing --cov-report=json --cov-report=xml --cov-fail-under=70
       - name: Seuil de 70 % par fonctionnalité critique
         run: uv run python scripts/check_coverage.py coverage.json | tee -a "$GITHUB_STEP_SUMMARY"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: couverture
@@ -78,8 +78,8 @@ jobs:
     needs: [quality]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
           enable-cache: true
@@ -92,7 +92,7 @@ jobs:
         env:
           A11Y_REPORT: axe-report.json
         run: make e2e
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: accessibilite
@@ -103,7 +103,7 @@ jobs:
     needs: [quality, tests, e2e]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Construire et démarrer web + worker + PostgreSQL
         run: docker compose up --build -d --wait --wait-timeout 180
       - name: Test de fumée (/health, page de connexion, statiques)
@@ -135,12 +135,17 @@ jobs:
             exit 0
           fi
           curl -fsS -X POST "${RENDER_DEPLOY_HOOK_URL}&ref=${GITHUB_SHA}" -o /dev/null
-      - name: Test de fumée en production
-        if: env.PROD_URL != ''
+      - name: Test de fumée en production (commit testé déployé et sain)
+        if: env.PROD_URL != '' && env.RENDER_DEPLOY_HOOK_URL != ''
         run: |
-          # Build Docker + démarrage + réveil de l'instance gratuite : jusqu'à ~10 min.
-          for i in $(seq 1 60); do
-            if curl -fsS "$PROD_URL/health" | grep -q '"status": "ok"'; then echo "Production OK"; exit 0; fi
+          # Build Docker + démarrage + réveil de l'instance gratuite : jusqu'à ~15 min.
+          # L'ancienne instance reste en ligne pendant le build : on attend que /health annonce le commit testé.
+          for i in $(seq 1 90); do
+            body=$(curl -fsS "$PROD_URL/health" || true)
+            release=$(echo "$body" | jq -r '.release // empty' 2>/dev/null || true)
+            status=$(echo "$body" | jq -r '.status // empty' 2>/dev/null || true)
+            if [ "$release" = "$GITHUB_SHA" ] && [ "$status" = "ok" ]; then echo "Production OK sur $GITHUB_SHA"; exit 0; fi
+            echo "attente : release=${release:-?} status=${status:-?}"
             sleep 10
           done
-          echo "::error::/health ne répond pas en production"; exit 1
+          echo "::error::la production n'annonce pas le commit $GITHUB_SHA en bonne santé"; exit 1

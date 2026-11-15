@@ -1,5 +1,6 @@
 """Vues techniques transverses."""
 
+from django.conf import settings
 from django.db import connection
 from django.http import HttpRequest, JsonResponse
 from django.views.decorators.cache import never_cache
@@ -18,6 +19,7 @@ def health(request: HttpRequest) -> JsonResponse:
 
     Returns:
         ``200`` avec ``ok`` (ou ``degraded`` si le worker est en retard), ``503`` si la base ne répond pas.
+        Le champ ``release`` donne le commit déployé : la CI attend qu'il soit celui qu'elle vient de tester.
     """
     checks: dict[str, str] = {}
     try:
@@ -33,6 +35,6 @@ def health(request: HttpRequest) -> JsonResponse:
         queue = queue_state()
         checks["worker"] = "ok" if queue.worker_ok else "stale"
     if checks["database"] != "ok":
-        return JsonResponse({"status": "error", "checks": checks}, status=503)
+        return JsonResponse({"status": "error", "checks": checks, "release": settings.RELEASE}, status=503)
     status = "ok" if all(value == "ok" for value in checks.values()) else "degraded"
-    return JsonResponse({"status": status, "checks": checks}, status=200)
+    return JsonResponse({"status": status, "checks": checks, "release": settings.RELEASE}, status=200)
