@@ -185,11 +185,12 @@ def preproduction() -> tuple[Path, list[str]]:
     dest = OUT / "preproduction_hery"
     annexes = dest / "annexes"
     (annexes / "diagrammes").mkdir(parents=True)
+    # Rendu Pandoc + Eisvogel (skill pdf-generation), mise en page compacte pour tenir les
+    # limites du sujet ; schémas C4 et séquence en version Excalidraw.
     livrables = PREPROD / "livrables"
+    run(["make", "eisvogel"])
     for nom, num in (("dossier_cadrage", "01"), ("specifications_architecture", "02")):
-        pdf = livrables / f"{nom}.pdf"
-        run(["typst", "compile", "--root", ".", str(livrables / f"_{nom}" / "main.typ"), str(pdf)])
-        shutil.copy2(pdf, dest / f"{num}_{nom}.pdf")
+        shutil.copy2(livrables / f"{nom}_eisvogel.pdf", dest / f"{num}_{nom}.pdf")
     shutil.copy2(PREPROD / "annexes" / "benchmark.xlsx", dest / "03_benchmark.xlsx")
 
     lock_existait = (MAQUETTE / "uv.lock").exists()
@@ -336,7 +337,7 @@ def production() -> tuple[Path, list[str]]:
 
 def main() -> int:
     """Point d'entrée : reconstruit les deux dossiers et leurs archives."""
-    for tool in ("pandoc", "xelatex", "typst", "pdfinfo", "ffprobe", "plantuml", "rsvg-convert", "uv"):
+    for tool in ("pandoc", "xelatex", "pdfinfo", "ffprobe", "plantuml", "rsvg-convert", "uv"):
         if shutil.which(tool) is None:
             sys.exit(f"Outil manquant : {tool}")
     if OUT.exists():

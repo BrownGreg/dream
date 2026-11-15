@@ -74,11 +74,11 @@ Personae construits à partir des entretiens simulés (annexe `interviews.md`). 
 
 Les trois parcours suivent les mêmes étapes (réveil → enregistrement → attente → découverte → archivage → relecture hebdomadaire). La courbe montre l'émotion ressentie (−2 à +2) ; les bandeaux listent les frictions et les opportunités retenues dans le backlog.
 
-![Journey map — Léa](../../diagrams/journey_lea.svg)
+![Journey map — Léa](../../diagrams/journey_lea.svg){width=88%}
 
-![Journey map — Karim](../../diagrams/journey_karim.svg)
+![Journey map — Karim](../../diagrams/journey_karim.svg){width=88%}
 
-![Journey map — Inès](../../diagrams/journey_ines.svg)
+![Journey map — Inès](../../diagrams/journey_ines.svg){width=88%}
 
 ## Flow, wireframes et charte minimaliste
 ![Flow diagram — parcours écran du MVP ; chaque sortie d'erreur propose une action](../../diagrams/flow.svg)
@@ -363,7 +363,7 @@ Autres mesures : TLS 1.2+ partout, chiffrement au repos (base et stockage objet)
 # 6. Roadmap et Sprint #1
 
 ## Release plan
-![Release plan par sprint d'une semaine](../../diagrams/roadmap.svg)
+![Release plan par sprint d'une semaine](../../diagrams/roadmap.svg){width=85%}
 
 | Release | Sprints | Contenu (stories) | Critère de sortie |
 |------------------|------------------|------------------------------------------|------------------------------------------|
@@ -408,7 +408,7 @@ La durée en sprints est calculée à une **vélocité hypothétique de 11 point
 
 Registre de 11 risques (source `docs/backlog/risks.toml`), revu à chaque rétrospective : la probabilité et l'impact sont réévalués, un risque dont le déclencheur survient devient un ticket prioritaire.
 
-![Matrice probabilité × impact](../../diagrams/risk_matrix.svg)
+![Matrice probabilité × impact](../../diagrams/risk_matrix.svg){width=55%}
 
 
 

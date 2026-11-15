@@ -37,11 +37,11 @@ Le code n'est pas joint à ce dossier : il est dans le dépôt GitHub ci-dessus.
 
 | Exigence | Section (page) |
 |---|---|
-| 1. Vision produit : elevator pitch, critères de succès | §1 (p. 2) |
-| 2. Personae (≥ 2) et journey map illustrée | §2 (p. 2–4) : 3 personae, 1 anti-persona, 3 journey maps |
-| 3. User Story Map et priorisation MoSCoW | §3 (p. 5–6) |
-| 4. Benchmark : ≥ 3 STT, ≥ 3 texte-image ou vidéo, ≥ 2 TTS ; coût, temps de réponse, quota, RGPD | §4 (p. 7–9) : 7 STT, 6 image + 2 vidéo, 4 TTS ; latences Mistral mesurées en réel le 15/11/2026 |
-| 5. RGPD et éthique IA, DPA | §5 (p. 10–11) ; annexe `aipd.pdf` |
+| 1. Vision produit : elevator pitch, critères de succès | §1 (p. 1) |
+| 2. Personae (≥ 2) et journey map illustrée | §2 (p. 2–3) : 3 personae, 1 anti-persona, 3 journey maps |
+| 3. User Story Map et priorisation MoSCoW | §3 (p. 4–5) |
+| 4. Benchmark : ≥ 3 STT, ≥ 3 texte-image ou vidéo, ≥ 2 TTS ; coût, temps de réponse, quota, RGPD | §4 (p. 6–8) : 7 STT, 6 image + 2 vidéo, 4 TTS ; latences Mistral mesurées en réel le 15/11/2026 |
+| 5. RGPD et éthique IA, DPA | §5 (p. 9–11) ; annexe `aipd.pdf` |
 | 6. Roadmap, release plan, backlog du Sprint 1 | §6 (p. 12) |
 | 7. Plan de risques (≥ 8, matrice, mesures) | §7 (p. 13) : 11 risques |
 | 8. Plan qualité : métriques, revue de code, seuil de couverture | §8 (p. 14–15) |
@@ -50,12 +50,12 @@ Le code n'est pas joint à ce dossier : il est dans le dépôt GitHub ci-dessus.
 
 | Exigence | Section (page) |
 |---|---|
-| 1. C4 Context et Container | §1 (p. 2–3) |
+| 1. C4 Context et Container | §1 (p. 1–3) |
 | 2. ERD et dictionnaire d'attributs | §2 (p. 4–5) ; annexe `dream.schema.json` |
 | 3. Séquence UML du traitement d'un rêve | §3 (p. 6) |
 | 4. API interne : choix argumenté | §4 (p. 7) |
 | 5. Exigences, performance, SLO, budget API | §5 (p. 8–9) |
-| 6. Justification technologique : bibliothèques, CI/CD, monitoring | §6 (p. 9–10) |
+| 6. Justification technologique : bibliothèques, CI/CD, monitoring | §6 (p. 10) |
 
 ## 5.3 Maquette Streamlit (dépôt, `docs/preprod/maquette/`)
 

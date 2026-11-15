@@ -4,7 +4,7 @@ Livrables du bloc 1, figés au 2026-11-06. Ils servent de base à la production 
 
 | Dossier | Contenu |
 |---|---|
-| `livrables/` | `dossier_cadrage.pdf` (15 p.), `specifications_architecture.pdf` (10 p.) et leurs sources Typst ; `dossier_cadrage_eisvogel.pdf` (31 p.) et `specifications_architecture_eisvogel.pdf` (18 p.) : même contenu, rendu Pandoc + Eisvogel (`make eisvogel`, requiert `texlive-xetex` et `librsvg2-bin`) |
+| `livrables/` | `dossier_cadrage_eisvogel.pdf` (15 p.) et `specifications_architecture_eisvogel.pdf` (10 p.) : **versions rendues**, Pandoc + Eisvogel en mise en page compacte, schémas C4 et séquence Excalidraw (`make eisvogel`, requiert `texlive-xetex` et `librsvg2-bin`) ; `dossier_cadrage.pdf` (15 p.) et `specifications_architecture.pdf` (10 p.) : même contenu, version Typst d'origine, et leurs sources |
 | `cadrage/`, `specs/` | Sources Markdown des deux dossiers |
 | `decisions/` | ADR-001 à ADR-007 tels qu'acceptés en pré-production |
 | `diagrams/` | C4, ERD, séquence, parcours, wireframes (PlantUML + SVG) |
