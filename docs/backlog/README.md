@@ -6,7 +6,7 @@
 
 Le CSV supposait un projet Jira vide, où l'import aurait attribué les clés DREAM-1 à DREAM-24. Or le projet **DREAM** contenait déjà le backlog de pré-production (epics DREAM-1 à 5, stories DREAM-6 à 26, tâches de la maquette DREAM-27 à 39). Les tickets de production y ont été créés le 15/11/2026 sous d'autres clés, sans renommer les branches déjà fusionnées : **une référence `DREAM-n` dans Git désigne la ligne n du CSV, pas la clé Jira `DREAM-n`**. Chaque ticket Jira rappelle sa « référence dépôt » dans sa description.
 
-Suivi : <https://gregoryyazidi.atlassian.net/jira/software/projects/DREAM/boards/2>, sprint « Production » (09/11/2026 → 15/11/2026), epic **DREAM-41**.
+Suivi : <https://gregoryyazidi.atlassian.net/jira/software/projects/DREAM/boards/2>, sprint « Production » (09/11/2026 → 15/11/2026, 31 tickets, tous terminés au 15/11/2026), epic **DREAM-41** (terminée). Les tickets créés le 15/11/2026 sont rédigés en anglais, comme le backlog du bloc 1.
 
 | Référence dépôt | Clé Jira | Ticket |
 |---|---|---|
@@ -42,5 +42,8 @@ Bugs, rattachés à l'epic DREAM-41 :
 | DREAM-66 | Enregistrement micro refusé sous Chrome et Firefox (incident n° 9) | DREAM-19, corrige DREAM-6 |
 | DREAM-67 | Installation neuve en échec : `DATABASE_URL` vide (incident n° 12, PR #31) | DREAM-24, corrige DREAM-1 |
 | DREAM-40 | Les rêves en échec côté fournisseur consomment le quota quotidien (PR #34) | DREAM-5 |
+| DREAM-68 | Premier déploiement Render en échec : `DATABASE_URL` collée avec ses guillemets (incident n° 13) | DREAM-2 |
+| DREAM-69 | Le test de fumée en production validait l'ancienne instance (incident n° 14, PR #36) | DREAM-2 |
+| DREAM-70 | Toute transcription refusée en production : Mistral 429, plan Free (incident n° 15) ; a révélé DREAM-40 | DREAM-7 |
 
 Les tâches de la maquette prévues pour l'ancienne architecture (DREAM-29 à 37 : FastAPI, Arq, Redis, S3) sont closes avec un commentaire d'abandon renvoyant à l'[ADR-008](../decisions/ADR-008-evolution-architecture-production.md) ; Jira n'offrant pas de statut « Abandonné », elles apparaissent « Terminé ».
