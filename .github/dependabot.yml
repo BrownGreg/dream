@@ -5,9 +5,17 @@ updates:
     schedule: {interval: weekly}
     groups:
       dev: {dependency-type: development}
+    ignore:
+      # django-tasks-db (ADR-008) n'annonce que Django 6.0 : pas de 6.1 tant qu'il ne la déclare pas.
+      - dependency-name: django
+        update-types: ["version-update:semver-minor", "version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule: {interval: weekly}
   - package-ecosystem: docker
     directory: /
     schedule: {interval: weekly}
+    ignore:
+      # Python 3.12 imposé par le projet : seuls les correctifs de l'image sont suivis.
+      - dependency-name: python
+        update-types: ["version-update:semver-minor", "version-update:semver-major"]
