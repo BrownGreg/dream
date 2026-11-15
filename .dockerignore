@@ -19,3 +19,5 @@ context
 CLAUDE.md
 AGENTS.md
 tests/e2e/artifacts
+node_modules
+.neon
