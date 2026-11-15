@@ -14,6 +14,10 @@
 | 2026-11-09, 22 h 07 – 22 h 12 | README et schémas (DREAM-22) ; performance face aux SLO (DREAM-21, PR #29 ouverte) | PR #27, #29 |
 | 2026-11-11 | Rapport de production (DREAM-23), post-mortem (matière), dossier de code review (DREAM-24) ; la vérification en clone propre révèle l'incident n° 12 | PR #30, #31, #32 |
 | 2026-11-14 | Premier essai en mode réel : clés Mistral, Hugging Face et BFL valides, mais Mistral refuse les appels (HTTP 429, quota de 0 requête/min) et BFL est à 0 crédit ; le rêve de test échoue proprement, 0 $ facturé. Service Render toujours non créé | `ApiCall` local |
+| 2026-11-15, matin | Base Neon (UE) créée ; premier déploiement Render en échec (`DATABASE_URL` collée avec ses guillemets, incident n° 13), puis en ligne ; CI branchée sur le deploy hook. Le test de fumée valide l'ancienne instance (incident n° 14, PR #36) | Render, GitHub Actions |
+| 2026-11-15, 10 h 42 – 11 h 08 | Premiers rêves réels : 9 refus 429 de Mistral, organisation repassée sur le plan Free (incident n° 15) ; plan API activé, transcription réussie ; le quota bloque l'utilisateur à cause des échecs (incident n° 16, PR #34) | `docs/tests/production/apicall_2026-11-15.json` |
+| 2026-11-15, 11 h 42 – 11 h 48 | Image refusée (BFL 402, compte non crédité), puis générée après achat de crédits : premier rêve complet en production, 14,6 s, 0,0158 $ | même fichier |
+| 2026-11-15 | Backlog de production créé dans Jira (clés DREAM-42 à 65, epic DREAM-41, bugs DREAM-40, 66, 67 ; PR #35) | `docs/backlog/README.md` |
 
 Les horodatages Git sont ceux des **fusions** (*squash*, un commit par PR), pas du début du travail : ils ne mesurent pas le temps passé.
 
@@ -38,7 +42,7 @@ Toutes les stories **Must** sont livrées, y compris US-15 et US-17 (export, sup
 |---|---|---|
 | Durée du bloc production | 6 jours (labels `jour-1` à `jour-6`, 77 story points) | code fusionné le 9 novembre ; documentation le 11 novembre |
 | Vélocité de référence | 11 points par sprint d'une semaine (hypothèse du bloc 1) | 77 points en 24 tickets ; environ **42 h** (estimation *a posteriori* : 6 jours × 7 h, non chronométré) |
-| Mise en production | automatique depuis `main` (DREAM-2) | pipeline prêt ; service Render **non créé** au 14/11/2026 |
+| Mise en production | automatique depuis `main` (DREAM-2), jour 1 | en ligne le **15/11/2026**, dernier jour ; déploiement automatique depuis `main` vérifié |
 
 ## 2.3 Architecture
 
@@ -50,28 +54,30 @@ Source : `docs/preprod/backlog/risks.toml`.
 
 | Risque | P × I prévu | Constat factuel |
 |---|---|---|
-| R-01 Latence fournisseurs au-delà des SLO | 3 × 3 | **non mesurée** (aucun appel réel) |
-| R-02 Transcription médiocre | 3 × 3 | **non mesurée** |
-| R-03 DPA / opt-out BFL non obtenus | 3 × 4 | statut du DPA non documenté ; aucune donnée envoyée à BFL à ce jour (compte à 0 crédit, aucun appel) |
+| R-01 Latence fournisseurs au-delà des SLO | 3 × 3 | **ne s'est pas produit** sur le petit échantillon de production : transcription ≤ 0,91 s, LLM ≤ 1,96 s, image 8,7 s, rêve complet 14,6 s (`docs/tests/production/apicall_2026-11-15.json`) |
+| R-02 Transcription médiocre | 3 × 3 | taux d'erreur (WER) **non mesuré** ; 3 transcriptions réelles réussies, une transcription vide sur un enregistrement quasi muet |
+| R-03 DPA / opt-out BFL non obtenus | 3 × 4 | statut du DPA non documenté dans le dépôt ; depuis le 15/11/2026, BFL reçoit le prompt reformulé (sans nom), une image générée à ce jour |
 | R-04 Requalification AI Act | 1 × 4 | émotion inférée du texte uniquement (ADR-001), testé |
 | R-05 Image choquante | 3 × 3 | refus de sécurité géré : une reformulation adoucie, sinon pas d'image |
-| R-06 Dépendance à Mistral | 2 × 4 | repli à 3 niveaux pour l'émotion seulement ; transcription et prompt restent sans fournisseur de secours |
-| R-07 Dépassement du budget | 2 × 3 | coupe-circuit à 15 € appliqué par le code et testé ; dépense réelle au 14/11/2026 : **0 €** (seules 3 tentatives refusées, journalisées à 0 $) |
+| R-06 Dépendance à Mistral | 2 × 4 | **s'est produit** (incident n° 15) : sans accès Mistral, aucun rêve n'aboutit, faute de secours pour la transcription. Inversement, Hugging Face étant sans crédit (402), l'émotion passe toujours par Mistral |
+| R-07 Dépassement du budget | 2 × 3 | coupe-circuit à 15 € appliqué par le code et testé ; dépense réelle au 15/11/2026 : **0,019 $** (`docs/tests/production/apicall_2026-11-15.json`) |
 | R-08 Modèle déprécié | 3 × 2 | identifiants de modèles en variables d'environnement |
-| R-09 Retard du travail individuel | 3 × 3 | survenu en partie : le déploiement (prévu jour 1) et les mesures réelles (prévues jour 5) ne sont pas faits à la date de rendu |
+| R-09 Retard du travail individuel | 3 × 3 | survenu en partie : le déploiement (prévu jour 1) et les mesures réelles (prévues jour 5) ne sont faits que le 15/11/2026, jour du rendu, sur un petit échantillon |
 | R-10 Fuite du contenu des rêves | 2 × 4 | chiffrement applicatif, journaux et Sentry nettoyés, testé (`test_observability.py`) |
 | R-11 Lecture médicale de l'humeur | 2 × 4 | pas d'interprétation (US-22 en Won't) |
 
 # 3. Incidents
 
-12 incidents journalisés dans `docs/incidents.md`, détaillés dans le rapport (§7).
+16 incidents journalisés dans `docs/incidents.md`, détaillés dans le rapport (§7).
 
 | Catégorie | Incidents | Révélé par |
 |---|---|---|
 | Comportement implicite d'une bibliothèque | 1 (`normalize_email`), 2 (Axes), 7 (ordre des gabarits), 10 (`run_after`) | relecture des journaux, audit d'accessibilité, test de charge |
 | Format de fichier réel ≠ fichier de test | 4 (WAV sur flux), 9 (webm MediaRecorder sans durée) | essai manuel, parcours E2E navigateur |
 | Environnement de CI / build / installation neuve ≠ poste local | 5 (ffmpeg absent), 8 (`collectstatic` de production), 12 (`DATABASE_URL` vide) | CI, clone propre |
-| Logique métier | 3 (égalité au plafond), 11 (mesure bout en bout) | tests, capture de `/ops` |
+| Logique métier | 3 (égalité au plafond), 11 (mesure bout en bout), 16 (quota consommé par les échecs du service) | tests, capture de `/ops`, production |
+| Configuration de plateforme ou de compte fournisseur | 13 (`DATABASE_URL` avec guillemets sur Render), 15 (plan Free Mistral : 0 requête/min) | premier déploiement, premiers rêves réels |
+| Test de déploiement trompeur | 14 (le test de fumée interrogeait l'ancienne instance) | relecture du temps de réponse du job |
 | Outillage de test | 6 (simulation trop large, boucle infinie) | isolement test par test |
 
 Un incident est classé **critique** : le n° 9. Sans lui, tout enregistrement au micro sous Chrome et Firefox aurait été refusé. Il a été découvert par le premier test E2E au micro simulé, après la fusion de la fonctionnalité (DREAM-6), et corrigé dans DREAM-19.
@@ -83,23 +89,24 @@ Un incident est classé **critique** : le n° 9. Sans lui, tout enregistrement a
 | Lignes Python applicatives (hors migrations) | 5 034 | `git ls-files` + `wc -l` |
 | Lignes de tests | 3 365 | idem |
 | Gabarits HTML | 647 lignes | idem |
-| Tests | 286 réussis, 5 ignorés + 3 E2E | CI run `42700247218` |
+| Tests | 297 réussis, 5 ignorés + 3 E2E | CI run `43707491282` (`main`, 15/11/2026) |
 | Couverture globale | 99 % (lignes et branches) | artefact `couverture` |
 | Couverture minimale par fonctionnalité critique | 97,3 % (pipeline et reprise) | `scripts/check_coverage.py` |
-| Exécutions de la CI | 111, dont 7 en échec | `gh run list` (workflow `ci`) |
+| Exécutions de la CI | 157 au 15/11/2026 : 126 réussies, 8 en échec, 23 annulées | `gh run list` (workflow `ci`) |
 | Charge | 0 erreur sur 5 012 requêtes ; bout en bout p95 72,4 s à 50 utilisateurs avec 1 worker, 24,2 s avec 3 | `docs/tests/charge/` |
 | ADR | 10 (dont 3 d'évolution en production) | `docs/decisions/` |
-| Coût API réel | **0 €** au 14/11/2026 (aucun appel facturé) | `ApiCall` local |
+| Coût API réel | **0,019 $** au 15/11/2026 (25 appels) ; rêve complet : 0,0158 $ | `docs/tests/production/apicall_2026-11-15.json` |
+| Latences réelles | transcription 0,86–0,91 s ; émotion 0,44–0,48 s ; prompt 1,28–1,96 s ; image 8,7 s ; bout en bout 4,1 s sans image, 14,6 s avec | même fichier |
 
 # 5. Statistiques Git et Jira
 
 | Indicateur | Valeur |
 |---|---|
-| Commits sur `main` | 27 au 2026-11-14 (*squash*, un par PR) |
-| PR fusionnées | 26 ; en revue : #33 |
-| PR Dependabot | 5 (#4 à #8), aucune fusionnée, 2 fermées |
+| Commits sur `main` | 34 au 2026-11-15 (*squash*, un par PR) |
+| PR fusionnées | 33 au 2026-11-15, avant la PR de mise à jour du post-mortem |
+| PR Dependabot | 5 (#4 à #8), toutes fermées : 2 écartées (Django 6.1, Python 3.15 ; règle de la PR #15), 3 appliquées ensemble par la PR #38 |
 | Tickets Jira de production | 24 (12 stories, 12 tâches), 77 story points, + 3 bugs ; clés DREAM-42 à 65 (référence dépôt DREAM-1 à 24, voir `docs/backlog/README.md`) |
-| Tickets de correctif dédiés | 2 PR `fix` (#26, #31) ; les autres correctifs sont dans la PR de la fonctionnalité concernée |
+| Tickets de correctif dédiés | 4 PR `fix` (#26, #31, et en production #34, #36) ; les autres correctifs sont dans la PR de la fonctionnalité concernée |
 | Plus grosse PR (hors données) | #1, socle Django : 2 106 lignes ajoutées |
 
 # 6. À rédiger par l'auteur
