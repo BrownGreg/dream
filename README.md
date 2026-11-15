@@ -13,7 +13,9 @@ Projet individuel, bloc production. Les livrables de pré-production (cadrage, a
 
 ## Architecture
 
-![C4 conteneurs](docs/diagrams/c4_container.svg)
+![Architecture de production : C4 conteneurs, parcours d'un rêve numéroté de 1 à 7](docs/diagrams/c4_container_excalidraw.excalidraw.png)
+
+Schéma dessiné sur Excalidraw (scène intégrée au PNG, rouvrable dans excalidraw.com pour le modifier). Version détaillée, générée depuis une source versionnée et reprise dans le rapport : [`c4_container.svg`](docs/diagrams/c4_container.svg) ([source PlantUML](docs/diagrams/c4_container.puml)).
 
 Un monolithe **Django 6.0** (gabarits + HTMX + Tailwind) et un **worker** `django.tasks` (backend base de données) partagent une base **PostgreSQL** qui porte aussi la file de tâches et les fichiers. Le pipeline (transcription → émotion → prompt → image) ne s'exécute jamais dans une requête HTTP ; le navigateur suit l'avancement par polling HTMX toutes les 2 s. Détails : [ADR-008](docs/decisions/ADR-008-evolution-architecture-production.md) (architecture), [ADR-009](docs/decisions/ADR-009-budget-production.md) (budget), [ADR-010](docs/decisions/ADR-010-stockage-fichiers-en-base.md) (stockage), [séquence](docs/diagrams/sequence_reve.svg), [modèle de données](docs/diagrams/erd.svg) généré depuis le code.
 
