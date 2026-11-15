@@ -1,4 +1,4 @@
-> **Accès.** Code : <https://github.com/BrownGreg/dream> (branches, PR et CI publiques) · Suivi : Jira, projet **DREAM**, tickets DREAM-1 à DREAM-24 (export dans `docs/backlog/jira_production.csv`) · Production : **non déployée** au 14/11/2026 (service Render non créé, voir §9) · Toutes les valeurs de ce rapport sont tirées d'un fichier de mesure du dépôt, cité à chaque fois. Ce qui n'a pas pu être mesuré est marqué **NON MESURÉ**, avec sa cause, et n'est pas estimé à la place.
+> **Accès.** Code : <https://github.com/BrownGreg/dream> (branches, PR et CI publiques) · Suivi : Jira, projet **DREAM**, epic DREAM-41 ; les références DREAM-1 à 24 des branches et PR correspondent aux clés Jira DREAM-42 à 65 (table dans `docs/backlog/README.md`, export dans `docs/backlog/jira_production.csv`) · Production : **non déployée** au 14/11/2026 (service Render non créé, voir §9) · Toutes les valeurs de ce rapport sont tirées d'un fichier de mesure du dépôt, cité à chaque fois. Ce qui n'a pas pu être mesuré est marqué **NON MESURÉ**, avec sa cause, et n'est pas estimé à la place.
 
 # 1. Le produit livré
 
@@ -199,16 +199,16 @@ Quatre incidents (5, 8, 9, 12) ne se voyaient pas en développement : seuls la C
 
 # 8. Organisation et répartition du travail
 
-Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets** Jira (12 stories, 12 tâches), **77 story points**, répartis sur 6 jours prévus.
+Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets** Jira (12 stories, 12 tâches), **77 story points**, répartis sur 6 jours prévus, plus 3 bugs (DREAM-66, DREAM-67, DREAM-40). Dans Jira, la référence dépôt DREAM-n porte la clé DREAM-(n + 41) : le projet contenait déjà le backlog du bloc 1 (`docs/backlog/README.md`).
 
-| Jour prévu (label Jira) | Tickets | Story points |
-|---|---|---|
-| Jour 1 — socle, CI/CD, ADR | DREAM-1 à 3 | 9 |
-| Jour 2 — données, client résilient, audio, transcription | DREAM-4 à 7 | 16 |
-| Jour 3 — émotion, image, tâche de fond | DREAM-8 à 10 | 13 |
-| Jour 4 — tableau de bord, détail, RGPD, son, accessibilité | DREAM-11 à 16 | 18 |
-| Jour 5 — observabilité, tests, charge, performance | DREAM-17 à 21 | 14 |
-| Jour 6 — documentation, rapport, code review | DREAM-22 à 24 | 7 |
+| Jour prévu (label Jira) | Tickets (réf. dépôt) | Clés Jira | Story points |
+|---|---|---|---|
+| Jour 1 — socle, CI/CD, ADR | DREAM-1 à 3 | DREAM-42 à 44 | 9 |
+| Jour 2 — données, client résilient, audio, transcription | DREAM-4 à 7 | DREAM-45 à 48 | 16 |
+| Jour 3 — émotion, image, tâche de fond | DREAM-8 à 10 | DREAM-49 à 51 | 13 |
+| Jour 4 — tableau de bord, détail, RGPD, son, accessibilité | DREAM-11 à 16 | DREAM-52 à 57 | 18 |
+| Jour 5 — observabilité, tests, charge, performance | DREAM-17 à 21 | DREAM-58 à 62 | 14 |
+| Jour 6 — documentation, rapport, code review | DREAM-22 à 24 | DREAM-63 à 65 | 7 |
 
 **Historique Git** (`main`) : 27 commits au 2026-11-14, dont 26 PR fusionnées (en revue : #33). Aucune n'a été fusionnée avec un contrôle de CI en échec (lint, types, tests PostgreSQL, couverture par fonctionnalité, E2E, image Docker). Les commits datent tous du 9 novembre 2026, de 15 h 54 à 22 h 12 ; ils sont fusionnés par *squash*, donc un commit par PR, horodaté à la fusion et non au début du travail. Ces horodatages ne mesurent donc pas le temps passé par lot.
 
