@@ -1,0 +1,300 @@
+{% load static tailwind_cli %}<!doctype html>
+{# Landing page des visiteurs non connectés (identité : docs/identite/). Tailwind compilé, aucune ressource externe. #}
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synthétiseur de rêves — racontez votre rêve, regardez-le prendre forme</title>
+  <meta name="description" content="Au réveil, racontez votre rêve à voix haute : DreamSynth le transcrit et le transforme en image et en ambiance sonore, rangées dans votre journal.">
+  <meta name="theme-color" content="#0B1020">
+  <link rel="icon" href="{% static 'dreamsynth/favicon.ico' %}" sizes="any">
+  <link rel="icon" href="{% static 'dreamsynth/favicon-32.svg' %}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{% static 'dreamsynth/icone-app-512.png' %}">
+  {% tailwind_css %}
+</head>
+<body class="bg-night-950 font-sans text-ink antialiased">
+  <a href="#contenu" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-dream focus:px-4 focus:py-3 focus:font-semibold focus:text-night-950">Aller au contenu</a>
+
+  <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false"><defs><filter id="ds-wc" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="7"/><feGaussianBlur stdDeviation="1.1"/></filter><filter id="ds-soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs></svg>
+
+  <!-- a) En-tête -->
+  <header class="border-b border-night-800">
+    <nav aria-label="Principale" class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-8">
+      <a href="{% url 'dashboard:home' %}" class="inline-flex min-h-12 items-center gap-1.5 rounded-xl text-[17px] font-semibold tracking-[-0.01em] text-ink focus-ring">
+        <svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" focusable="false"><path d="M35.69 11.04A22 22 0 1 0 47.59 43.77A17.5 17.5 0 1 1 35.69 11.04Z" fill="#C4B5FD"/><g stroke="#C4B5FD" stroke-width="4.6" stroke-linecap="round"><line x1="31" y1="26" x2="31" y2="36"/><line x1="38.5" y1="20" x2="38.5" y2="42"/><line x1="46" y1="24" x2="46" y2="38"/><line x1="53" y1="29" x2="53" y2="33"/></g></svg>
+        <span class="hidden sm:inline">Synthétiseur de rêves</span>
+        <span class="sm:hidden">DreamSynth</span>
+      </a>
+      <div class="flex items-center gap-1">
+        <a href="{% url 'accounts:login' %}" class="inline-flex min-h-12 items-center rounded-xl px-3 text-[15px] font-medium text-ink hover:bg-night-800 focus-ring">Se connecter</a>
+        <a href="{% url 'accounts:signup' %}" class="hidden min-h-12 items-center rounded-xl bg-dream px-[18px] sm:inline-flex text-[15px] font-semibold text-night-950 hover:bg-dream-hover focus-ring">Commencer</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <!-- b) Hero -->
+    <section aria-labelledby="hero-title" class="relative overflow-hidden">
+      <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" class="pointer-events-none absolute inset-0 h-full w-full"><g fill="#CBD5E1"><circle cx="80" cy="70" r="1.2" opacity=".5"/><circle cx="210" cy="160" r="1" opacity=".35"/><circle cx="340" cy="48" r="1.4" opacity=".45"/><circle cx="520" cy="110" r="1" opacity=".3"/><circle cx="640" cy="40" r="1.2" opacity=".4"/><circle cx="760" cy="150" r="1" opacity=".3"/><circle cx="880" cy="60" r="1.5" opacity=".5"/><circle cx="1010" cy="130" r="1" opacity=".35"/><circle cx="1120" cy="50" r="1.2" opacity=".45"/><circle cx="150" cy="420" r="1" opacity=".25"/><circle cx="1080" cy="380" r="1.1" opacity=".3"/><circle cx="960" cy="520" r="1" opacity=".25"/></g></svg>
+      <div class="relative mx-auto flex max-w-6xl flex-wrap items-center gap-10 px-4 pb-14 pt-12 sm:px-8 lg:gap-16 lg:pb-24 lg:pt-24">
+        <div class="flex min-w-0 flex-[1_1_380px] flex-col gap-5 bg-night-950">
+          <p class="text-sm font-medium text-dream">Votre journal de rêves, à voix haute</p>
+          <h1 id="hero-title" class="text-4xl font-semibold leading-[1.08] tracking-[-0.025em] sm:text-5xl lg:text-6xl">Racontez votre rêve, regardez-le prendre forme.</h1>
+          <p class="max-w-xl text-[17px] text-ink-soft sm:text-[19px]">Au réveil, quelques secondes de voix suffisent : votre récit devient une image et une ambiance sonore, rangées dans votre journal.</p>
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-3 pt-1.5">
+            <a href="{% url 'accounts:signup' %}" class="inline-flex min-h-14 items-center gap-2.5 rounded-[14px] bg-dream px-[26px] text-[17px] font-semibold text-night-950 hover:bg-dream-hover focus-ring">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>
+              Raconter mon premier rêve
+            </a>
+            <span class="text-sm text-ink-muted">Gratuit · une main, quelques secondes</span>
+          </div>
+        </div>
+
+        <div aria-hidden="true" class="flex min-w-0 flex-[1_1_320px] flex-col items-center gap-4">
+          <div class="dream-blur aspect-[4/3] w-full max-w-[400px] motion-safe:animate-float">
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" focusable="false" class="block h-full w-full"><defs><linearGradient id="hs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E2452"/><stop offset=".62" stop-color="#5D4E93"/><stop offset="1" stop-color="#D3B3D8"/></linearGradient><linearGradient id="hw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3C3F7C"/><stop offset="1" stop-color="#191E46"/></linearGradient></defs><rect width="400" height="300" fill="url(#hs)"/><circle cx="290" cy="86" r="52" fill="#F1EBFF" opacity=".3" filter="url(#ds-soft)"/><circle cx="290" cy="86" r="24" fill="#F5F1FF" opacity=".92" filter="url(#ds-wc)"/><path d="M0 188 Q100 178 200 186 T400 182 V300 H0Z" fill="url(#hw)" filter="url(#ds-wc)"/><path d="M280 194 h22 M272 208 h36 M282 222 h18" stroke="#E9DDFF" stroke-opacity=".45" stroke-width="4" stroke-linecap="round" filter="url(#ds-wc)"/><path d="M0 204 C40 168 92 156 140 164 C162 168 176 182 188 196 V300 H0Z" fill="#141938" filter="url(#ds-wc)"/><path d="M70 160 l22 -18 l22 18 v20 h-44z" fill="#0E1333"/><rect x="86" y="165" width="11" height="9" rx="1.5" fill="#FCD9A0"/><circle cx="91" cy="169" r="14" fill="#FCD9A0" opacity=".28" filter="url(#ds-soft)"/><ellipse cx="220" cy="194" rx="220" ry="13" fill="#EDE7FF" opacity=".16" filter="url(#ds-soft)"/></svg>
+          </div>
+          <div class="flex h-6 items-end gap-4">
+            <span class="h-1.5 w-1.5 rounded-full bg-dream opacity-60 motion-safe:animate-rise"></span>
+            <span class="h-1 w-1 rounded-full bg-dream opacity-60 motion-safe:animate-rise [animation-delay:1.4s]"></span>
+            <span class="h-[5px] w-[5px] rounded-full bg-dream opacity-60 motion-safe:animate-rise [animation-delay:2.6s]"></span>
+          </div>
+          <div class="inline-flex items-center gap-2.5 rounded-full border border-night-800 bg-night-900 px-3.5 py-2 text-[13px] text-ink-soft">
+            <svg viewBox="0 0 40 16" class="h-4 w-10"><g stroke="#C4B5FD" stroke-width="2" stroke-linecap="round"><line x1="2" y1="6" x2="2" y2="10"/><line x1="8" y1="3" x2="8" y2="13"/><line x1="14" y1="5" x2="14" y2="11"/><line x1="20" y1="2" x2="20" y2="14"/><line x1="26" y1="6" x2="26" y2="10"/><line x1="32" y1="4" x2="32" y2="12"/><line x1="38" y1="7" x2="38" y2="9"/></g></svg>
+            Ambiance sonore · ressac lointain
+          </div>
+          <div class="relative mt-2 h-28 w-28">
+            <span class="absolute inset-0 rounded-full border-2 border-dream motion-safe:animate-pulse-ring"></span>
+            <span class="absolute -inset-3.5 rounded-full bg-dream/10"></span>
+            <span class="absolute inset-0 flex items-center justify-center rounded-full bg-dream">
+              <svg viewBox="0 0 24 24" class="h-11 w-11" fill="none" stroke="#0B1020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- c) Comment ça marche -->
+    <section aria-labelledby="how-title" class="border-y border-night-800 bg-night-900">
+      <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 sm:px-8 lg:py-28">
+        <div class="flex max-w-xl flex-col gap-3">
+          <h2 id="how-title" class="text-[28px] font-semibold leading-tight tracking-[-0.02em] sm:text-4xl">Comment ça marche</h2>
+          <p class="text-[17px] text-ink-soft">Trois gestes, avant que le rêve ne s'efface.</p>
+        </div>
+        <ol class="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]">
+          <li class="flex flex-col gap-3.5 rounded-2xl border border-night-800 bg-night-950 p-7">
+            <div class="flex items-center justify-between">
+              <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-night-800 text-dream"><svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></span>
+              <span class="text-sm font-semibold text-ink-muted" aria-hidden="true">1</span>
+            </div>
+            <h3 class="text-xl font-semibold">Je raconte</h3>
+            <p class="text-ink-soft">J'appuie sur le micro et je raconte mon rêve, jusqu'à 3 minutes. Même à moitié endormi.</p>
+          </li>
+          <li class="flex flex-col gap-3.5 rounded-2xl border border-night-800 bg-night-950 p-7">
+            <div class="flex items-center justify-between">
+              <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-night-800 text-dream"><svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 11h11M4 16h7"/><path d="M18 13l1.1 2.4 2.4 1.1-2.4 1.1L18 20l-1.1-2.4-2.4-1.1 2.4-1.1z"/></svg></span>
+              <span class="text-sm font-semibold text-ink-muted" aria-hidden="true">2</span>
+            </div>
+            <h3 class="text-xl font-semibold">L'application transcrit</h3>
+            <p class="text-ink-soft">Mon récit devient texte. L'émotion dominante est reconnue à partir des mots, et seulement d'eux.</p>
+          </li>
+          <li class="flex flex-col gap-3.5 rounded-2xl border border-night-800 bg-night-950 p-7">
+            <div class="flex items-center justify-between">
+              <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-night-800 text-dream"><svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="13" height="12" rx="2"/><path d="M2.5 13l3.5-3.5 3.5 3.5 2-2 4 4"/><path d="M19 8v9M22 10.5v4"/></svg></span>
+              <span class="text-sm font-semibold text-ink-muted" aria-hidden="true">3</span>
+            </div>
+            <h3 class="text-xl font-semibold">Je découvre</h3>
+            <p class="text-ink-soft">Une image onirique et une ambiance sonore assorties rejoignent mon journal.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- d) Votre journal de rêves -->
+    <section aria-labelledby="journal-title">
+      <div class="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-16 sm:px-8 lg:py-28">
+        <div class="flex max-w-xl flex-col gap-3">
+          <h2 id="journal-title" class="text-[28px] font-semibold leading-tight tracking-[-0.02em] sm:text-4xl">Votre journal de rêves</h2>
+          <p class="text-[17px] text-ink-soft">Chaque rêve garde sa date, son image, son ambiance et son humeur. Filtrez par date ou par humeur, et voyez les tendances se dessiner.</p>
+        </div>
+
+        <figure class="flex flex-col gap-5">
+          <div aria-hidden="true" class="flex flex-wrap gap-2 text-sm">
+            <span class="inline-flex min-h-9 items-center rounded-full bg-dream px-3.5 font-semibold text-night-950">Toutes les humeurs</span>
+            <span class="inline-flex min-h-9 items-center rounded-full border border-night-700 px-3.5 text-ink-soft">Novembre 2026</span>
+            <span class="inline-flex min-h-9 items-center rounded-full border border-night-700 px-3.5 text-ink-soft">Serein</span>
+            <span class="inline-flex min-h-9 items-center rounded-full border border-night-700 px-3.5 text-ink-soft">Étrange</span>
+          </div>
+
+          <ul class="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(260px,1fr))]">
+            <li class="flex flex-col overflow-hidden rounded-2xl border border-night-800 bg-night-900">
+              <div class="relative aspect-[16/10]">
+                <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" class="block h-full w-full"><defs><linearGradient id="c1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#232A5C"/><stop offset="1" stop-color="#9C8CC9"/></linearGradient></defs><rect width="320" height="200" fill="url(#c1)"/><circle cx="236" cy="56" r="30" fill="#EDE7FF" opacity=".25" filter="url(#ds-soft)"/><circle cx="236" cy="56" r="15" fill="#F4F0FF" opacity=".9" filter="url(#ds-wc)"/><path d="M0 128 Q90 120 170 126 T320 122 V200 H0Z" fill="#2B3268" filter="url(#ds-wc)"/><path d="M0 138 C40 112 86 104 124 110 C140 113 150 124 158 134 V200 H0Z" fill="#161B3E" filter="url(#ds-wc)"/><path d="M60 108 l16 -13 l16 13 v14 h-32z" fill="#10153A"/><rect x="71" y="111" width="8" height="7" rx="1" fill="#FCD9A0"/><circle cx="75" cy="114" r="10" fill="#FCD9A0" opacity=".25" filter="url(#ds-soft)"/><ellipse cx="190" cy="132" rx="170" ry="9" fill="#EDE7FF" opacity=".16" filter="url(#ds-soft)"/></svg>
+                <span class="absolute left-2.5 top-2.5 rounded-md bg-night-950 px-2 py-0.5 text-[11px] font-medium text-ink-soft">Générée par IA</span>
+              </div>
+              <div class="flex flex-col gap-2.5 px-[18px] pb-[18px] pt-4">
+                <p class="text-[13px] text-ink-muted"><time datetime="2026-11-14">sam. 14 nov.</time></p>
+                <p class="text-base font-medium leading-snug">Une maison au bord de la mer, la famille réunie.</p>
+                <span class="inline-flex items-center gap-1.5 self-start rounded-full bg-mood-serene/[.12] px-2.5 py-[3px] text-[13px] font-medium text-mood-serene"><svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10c3-3 6 3 9 0s6 3 9 0"/><path d="M3 15c3-3 6 3 9 0s6 3 9 0"/></svg>Serein</span>
+              </div>
+            </li>
+            <li class="flex flex-col overflow-hidden rounded-2xl border border-night-800 bg-night-900">
+              <div class="relative aspect-[16/10]">
+                <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" class="block h-full w-full"><defs><linearGradient id="c2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FA3D9"/><stop offset="1" stop-color="#F6D2A6"/></linearGradient></defs><rect width="320" height="200" fill="url(#c2)"/><circle cx="90" cy="70" r="48" fill="#FFE9B0" opacity=".4" filter="url(#ds-soft)"/><circle cx="90" cy="70" r="24" fill="#FFF3CF" opacity=".95" filter="url(#ds-wc)"/><path d="M210 80 q8 -6 16 0 q8 -6 16 0" stroke="#5A4E7A" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".6"/><path d="M0 140 Q80 126 160 134 T320 128 V200 H0Z" fill="#C9A55C" filter="url(#ds-wc)"/><path d="M0 162 Q100 150 200 158 T320 152 V200 H0Z" fill="#9C8247" filter="url(#ds-wc)"/><g fill="#F6CF5A" filter="url(#ds-wc)"><circle cx="40" cy="150" r="6"/><circle cx="80" cy="145" r="5"/><circle cx="130" cy="152" r="6"/><circle cx="185" cy="146" r="5"/><circle cx="240" cy="150" r="6"/><circle cx="290" cy="144" r="5"/></g></svg>
+                <span class="absolute left-2.5 top-2.5 rounded-md bg-night-950 px-2 py-0.5 text-[11px] font-medium text-ink-soft">Générée par IA</span>
+              </div>
+              <div class="flex flex-col gap-2.5 px-[18px] pb-[18px] pt-4">
+                <p class="text-[13px] text-ink-muted"><time datetime="2026-11-12">jeu. 12 nov.</time></p>
+                <p class="text-base font-medium leading-snug">Je volais au-dessus d'un champ de tournesols.</p>
+                <span class="inline-flex items-center gap-1.5 self-start rounded-full bg-mood-happy/[.12] px-2.5 py-[3px] text-[13px] font-medium text-mood-happy"><svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg>Heureux</span>
+              </div>
+            </li>
+            <li class="flex flex-col overflow-hidden rounded-2xl border border-night-800 bg-night-900">
+              <div class="relative aspect-[16/10]">
+                <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" class="block h-full w-full"><defs><linearGradient id="c3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A3566"/><stop offset="1" stop-color="#D69A7A"/></linearGradient></defs><rect width="320" height="200" fill="url(#c3)"/><circle cx="250" cy="60" r="36" fill="#FFD9B8" opacity=".3" filter="url(#ds-soft)"/><circle cx="70" cy="60" r="16" fill="none" stroke="#F6E2D3" stroke-opacity=".7" stroke-width="2.5" filter="url(#ds-wc)"/><path d="M70 60V50M70 60l7 4" stroke="#F6E2D3" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/><path d="M0 200 L130 120 H190 L320 200Z" fill="#2A2B4F" filter="url(#ds-wc)"/><path d="M150 120 L110 200M170 120 L210 200" stroke="#E7B79C" stroke-opacity=".45" stroke-width="2"/><rect x="146" y="104" width="28" height="16" rx="4" fill="#1B1D3D"/><rect x="151" y="108" width="7" height="5" rx="1" fill="#FFD9A0"/><rect x="162" y="108" width="7" height="5" rx="1" fill="#FFD9A0"/><ellipse cx="160" cy="122" rx="160" ry="8" fill="#FBE3D3" opacity=".18" filter="url(#ds-soft)"/></svg>
+                <span class="absolute left-2.5 top-2.5 rounded-md bg-night-950 px-2 py-0.5 text-[11px] font-medium text-ink-soft">Générée par IA</span>
+              </div>
+              <div class="flex flex-col gap-2.5 px-[18px] pb-[18px] pt-4">
+                <p class="text-[13px] text-ink-muted"><time datetime="2026-11-10">mar. 10 nov.</time></p>
+                <p class="text-base font-medium leading-snug">Une gare immense, et mon train qui partait sans moi.</p>
+                <span class="inline-flex items-center gap-1.5 self-start rounded-full bg-mood-stressful/[.12] px-2.5 py-[3px] text-[13px] font-medium text-mood-stressful"><svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-5 3 10 3-8 2 3h4"/></svg>Stressant</span>
+              </div>
+            </li>
+            <li class="flex flex-col overflow-hidden rounded-2xl border border-night-800 bg-night-900">
+              <div class="relative aspect-[16/10]">
+                <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" class="block h-full w-full"><defs><linearGradient id="c4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2154"/><stop offset="1" stop-color="#8A68B5"/></linearGradient></defs><rect width="320" height="200" fill="url(#c4)"/><circle cx="160" cy="96" r="80" fill="#F0ABFC" opacity=".18" filter="url(#ds-soft)"/><g filter="url(#ds-wc)"><rect x="70" y="60" width="34" height="24" rx="3" fill="#F3E8FF" transform="rotate(-14 87 72)"/><rect x="150" y="40" width="40" height="28" rx="3" fill="#E9D5FF" transform="rotate(9 170 54)"/><rect x="222" y="90" width="30" height="22" rx="3" fill="#FBCFE8" transform="rotate(-6 237 101)"/><rect x="118" y="110" width="36" height="25" rx="3" fill="#DDD6FE" transform="rotate(16 136 122)"/></g><g fill="#F5F0FF" opacity=".7"><circle cx="40" cy="40" r="1.6"/><circle cx="280" cy="50" r="1.4"/><circle cx="250" cy="150" r="1.4"/></g><path d="M16 170H304M16 186H304" stroke="#1D1740" stroke-width="6" opacity=".7"/></svg>
+                <span class="absolute left-2.5 top-2.5 rounded-md bg-night-950 px-2 py-0.5 text-[11px] font-medium text-ink-soft">Générée par IA</span>
+              </div>
+              <div class="flex flex-col gap-2.5 px-[18px] pb-[18px] pt-4">
+                <p class="text-[13px] text-ink-muted"><time datetime="2026-11-07">sam. 7 nov.</time></p>
+                <p class="text-base font-medium leading-snug">Une bibliothèque où les livres flottaient.</p>
+                <span class="inline-flex items-center gap-1.5 self-start rounded-full bg-mood-strange/[.12] px-2.5 py-[3px] text-[13px] font-medium text-mood-strange"><svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/></svg>Étrange</span>
+              </div>
+            </li>
+            <li class="flex flex-col overflow-hidden rounded-2xl border border-night-800 bg-night-900">
+              <div class="relative aspect-[16/10]">
+                <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" class="block h-full w-full"><defs><linearGradient id="c5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1F2A4A"/><stop offset="1" stop-color="#5D7099"/></linearGradient></defs><rect width="320" height="200" fill="url(#c5)"/><g stroke="#C7D2FE" stroke-opacity=".35" stroke-width="1.5" stroke-linecap="round"><path d="M30 10l-8 22M80 30l-8 22M130 5l-8 22M180 35l-8 22M230 12l-8 22M280 28l-8 22M55 70l-8 22M155 75l-8 22M255 66l-8 22"/></g><g fill="#151D38" filter="url(#ds-wc)"><rect x="10" y="120" width="40" height="80"/><rect x="56" y="100" width="34" height="100"/><rect x="96" y="130" width="46" height="70"/><rect x="150" y="108" width="30" height="92"/><rect x="186" y="126" width="52" height="74"/><rect x="244" y="96" width="36" height="104"/><rect x="286" y="132" width="34" height="68"/></g><g fill="#FCD9A0" opacity=".8"><rect x="66" y="112" width="5" height="6"/><rect x="76" y="128" width="5" height="6"/><rect x="160" y="122" width="5" height="6"/><rect x="200" y="140" width="5" height="6"/><rect x="254" y="110" width="5" height="6"/><rect x="264" y="130" width="5" height="6"/><rect x="24" y="136" width="5" height="6"/></g><ellipse cx="160" cy="178" rx="180" ry="12" fill="#C7D2FE" opacity=".12" filter="url(#ds-soft)"/></svg>
+                <span class="absolute left-2.5 top-2.5 rounded-md bg-night-950 px-2 py-0.5 text-[11px] font-medium text-ink-soft">Générée par IA</span>
+              </div>
+              <div class="flex flex-col gap-2.5 px-[18px] pb-[18px] pt-4">
+                <p class="text-[13px] text-ink-muted"><time datetime="2026-11-04">mer. 4 nov.</time></p>
+                <p class="text-base font-medium leading-snug">La pluie sur la ville de mon enfance.</p>
+                <span class="inline-flex items-center gap-1.5 self-start rounded-full bg-mood-melancholic/[.12] px-2.5 py-[3px] text-[13px] font-medium text-mood-melancholic"><svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 15a4 4 0 0 1 .6-8 5 5 0 0 1 9.6 1.5A3.5 3.5 0 0 1 17 15z"/><path d="M9 18l-1 2M13 18l-1 2M17 18l-1 2"/></svg>Mélancolique</span>
+              </div>
+            </li>
+            <li class="flex flex-col overflow-hidden rounded-2xl border border-night-800 bg-night-900">
+              <div class="relative aspect-[16/10]">
+                <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" class="block h-full w-full"><defs><linearGradient id="c6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B4358"/><stop offset="1" stop-color="#9AA3B5"/></linearGradient></defs><rect width="320" height="200" fill="url(#c6)"/><rect x="200" y="38" width="70" height="70" rx="4" fill="#E2E8F0" opacity=".55" filter="url(#ds-wc)"/><path d="M235 38V108M200 73H270" stroke="#7B8499" stroke-width="3"/><path d="M200 108 L150 190 H260 L270 108Z" fill="#E2E8F0" opacity=".14" filter="url(#ds-soft)"/><path d="M0 140H320V200H0Z" fill="#545C72" filter="url(#ds-wc)"/><g filter="url(#ds-wc)"><rect x="50" y="112" width="44" height="34" rx="2" fill="#C9B79C"/><rect x="86" y="124" width="36" height="24" rx="2" fill="#B8A588"/><rect x="62" y="90" width="30" height="24" rx="2" fill="#D6C6AB"/></g></svg>
+                <span class="absolute left-2.5 top-2.5 rounded-md bg-night-950 px-2 py-0.5 text-[11px] font-medium text-ink-soft">Générée par IA</span>
+              </div>
+              <div class="flex flex-col gap-2.5 px-[18px] pb-[18px] pt-4">
+                <p class="text-[13px] text-ink-muted"><time datetime="2026-11-01">dim. 1er nov.</time></p>
+                <p class="text-base font-medium leading-snug">Je rangeais des cartons dans un appartement vide.</p>
+                <span class="inline-flex items-center gap-1.5 self-start rounded-full bg-mood-neutral/[.12] px-2.5 py-[3px] text-[13px] font-medium text-mood-neutral"><svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M8.5 12h7"/></svg>Neutre</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-x-12 gap-y-7 rounded-2xl border border-night-800 bg-night-900 p-5 sm:p-8">
+            <div class="flex flex-[1_1_220px] flex-col gap-3">
+              <h3 class="text-lg font-semibold">Tendances</h3>
+              <p class="text-[15px] text-ink-soft">Humeurs des huit dernières semaines. Ici, <strong class="font-semibold text-mood-serene">Serein</strong> revient le plus souvent.</p>
+              <ul class="mt-1 grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-ink-soft">
+                <li class="flex items-center gap-2"><span class="h-3 w-3 rounded-[3px] bg-mood-happy"></span>Heureux</li>
+                <li class="flex items-center gap-2"><span class="h-3 w-3 rounded-[3px] bg-mood-serene"></span>Serein</li>
+                <li class="flex items-center gap-2"><span class="h-3 w-3 rounded-[3px] bg-mood-neutral"></span>Neutre</li>
+                <li class="flex items-center gap-2"><span class="h-3 w-3 rounded-[3px] bg-mood-strange"></span>Étrange</li>
+                <li class="flex items-center gap-2"><span class="h-3 w-3 rounded-[3px] bg-mood-melancholic"></span>Mélancolique</li>
+                <li class="flex items-center gap-2"><span class="h-3 w-3 rounded-[3px] bg-mood-stressful"></span>Stressant</li>
+              </ul>
+            </div>
+            <div role="img" aria-label="Graphique d'exemple : nombre de rêves par semaine, répartis par humeur, sur huit semaines. Serein est l'humeur la plus fréquente." class="flex min-w-0 flex-[2_1_300px] flex-col gap-2">
+              <div aria-hidden="true" class="flex h-36 items-end gap-2 border-b border-night-700 px-1 sm:gap-5">
+                <div class="flex flex-1 flex-col-reverse gap-0.5"><div class="rounded-[3px] bg-mood-happy" style="height:16px"></div><div class="rounded-[3px] bg-mood-serene" style="height:16px"></div><div class="rounded-[3px] bg-mood-neutral" style="height:16px"></div><div class="rounded-[3px] bg-mood-melancholic" style="height:16px"></div><div class="rounded-[3px] bg-mood-stressful" style="height:16px"></div></div>
+                <div class="flex flex-1 flex-col-reverse gap-0.5"><div class="rounded-[3px] bg-mood-happy" style="height:16px"></div><div class="rounded-[3px] bg-mood-serene" style="height:34px"></div><div class="rounded-[3px] bg-mood-strange" style="height:16px"></div><div class="rounded-[3px] bg-mood-stressful" style="height:16px"></div></div>
+                <div class="flex flex-1 flex-col-reverse gap-0.5"><div class="rounded-[3px] bg-mood-serene" style="height:34px"></div><div class="rounded-[3px] bg-mood-neutral" style="height:16px"></div><div class="rounded-[3px] bg-mood-strange" style="height:16px"></div><div class="rounded-[3px] bg-mood-melancholic" style="height:16px"></div></div>
+                <div class="flex flex-1 flex-col-reverse gap-0.5"><div class="rounded-[3px] bg-mood-happy" style="height:16px"></div><div class="rounded-[3px] bg-mood-serene" style="height:16px"></div><div class="rounded-[3px] bg-mood-neutral" style="height:16px"></div><div class="rounded-[3px] bg-mood-melancholic" style="height:16px"></div><div class="rounded-[3px] bg-mood-stressful" style="height:34px"></div></div>
+                <div class="flex flex-1 flex-col-reverse gap-0.5"><div class="rounded-[3px] bg-mood-happy" style="height:34px"></div><div class="rounded-[3px] bg-mood-serene" style="height:34px"></div><div class="rounded-[3px] bg-mood-strange" style="height:16px"></div></div>
+                <div class="flex flex-1 flex-col-reverse gap-0.5"><div class="rounded-[3px] bg-mood-happy" style="height:16px"></div><div class="rounded-[3px] bg-mood-serene" style="height:52px"></div><div class="rounded-[3px] bg-mood-neutral" style="height:16px"></div><div class="rounded-[3px] bg-mood-melancholic" style="height:16px"></div></div>
+                <div class="flex flex-1 flex-col-reverse gap-0.5"><div class="rounded-[3px] bg-mood-happy" style="height:16px"></div><div class="rounded-[3px] bg-mood-serene" style="height:34px"></div><div class="rounded-[3px] bg-mood-neutral" style="height:16px"></div><div class="rounded-[3px] bg-mood-strange" style="height:16px"></div><div class="rounded-[3px] bg-mood-stressful" style="height:16px"></div></div>
+                <div class="flex flex-1 flex-col-reverse gap-0.5"><div class="rounded-[3px] bg-mood-happy" style="height:34px"></div><div class="rounded-[3px] bg-mood-serene" style="height:52px"></div><div class="rounded-[3px] bg-mood-strange" style="height:16px"></div></div>
+              </div>
+              <div aria-hidden="true" class="flex gap-2 px-1 text-center text-[11px] text-ink-muted sm:gap-5">
+                <span class="flex-1">22/09</span>
+                <span class="flex-1">29/09</span>
+                <span class="flex-1">06/10</span>
+                <span class="flex-1">13/10</span>
+                <span class="flex-1">20/10</span>
+                <span class="flex-1">27/10</span>
+                <span class="flex-1">03/11</span>
+                <span class="flex-1">10/11</span>
+              </div>
+            </div>
+          </div>
+          <figcaption class="text-[13px] text-ink-muted">Aperçu stylisé : rêves, images et données d'exemple.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- e) Vos rêves restent à vous -->
+    <section aria-labelledby="privacy-title" class="border-y border-night-800 bg-night-900">
+      <div class="mx-auto flex max-w-6xl flex-col gap-9 px-4 py-16 sm:px-8 lg:py-28">
+        <div class="flex max-w-xl flex-col gap-3">
+          <h2 id="privacy-title" class="text-[28px] font-semibold leading-tight tracking-[-0.02em] sm:text-4xl">Vos rêves restent à vous</h2>
+          <p class="text-[17px] text-ink-soft">Un journal intime doit le rester.</p>
+        </div>
+        <ul class="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(230px,1fr))]">
+          <li class="flex flex-col gap-3 rounded-2xl border border-night-800 bg-night-950 p-6">
+            <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="#C4B5FD" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <h3 class="text-[17px] font-semibold">Récits chiffrés</h3>
+            <p class="text-[15px] text-ink-soft">Vos textes sont stockés chiffrés.</p>
+          </li>
+          <li class="flex flex-col gap-3 rounded-2xl border border-night-800 bg-night-950 p-6">
+            <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="#C4B5FD" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 10v4M9 7v10M13 9v6M17 6v12"/><path d="M3 3l18 18"/></svg>
+            <h3 class="text-[17px] font-semibold">Audio supprimé</h3>
+            <p class="text-[15px] text-ink-soft">L'enregistrement est effacé dès que la transcription est faite.</p>
+          </li>
+          <li class="flex flex-col gap-3 rounded-2xl border border-night-800 bg-night-950 p-6">
+            <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="#C4B5FD" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+            <h3 class="text-[17px] font-semibold">Hébergées en Europe</h3>
+            <p class="text-[15px] text-ink-soft">Vos rêves sont stockés en Europe ; la transcription et l'image sont confiées à des services européens.</p>
+          </li>
+          <li class="flex flex-col gap-3 rounded-2xl border border-night-800 bg-night-950 p-6">
+            <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="#C4B5FD" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
+            <h3 class="text-[17px] font-semibold">Export et suppression</h3>
+            <p class="text-[15px] text-ink-soft">Exportez votre journal ou supprimez votre compte à tout moment, depuis « Mon compte ».</p>
+          </li>
+        </ul>
+        <div class="flex flex-col gap-1.5 text-[15px]">
+          <p class="text-ink-soft">Chaque image porte la mention « générée par IA ».</p>
+          <p class="text-ink-muted">DreamSynth n'interprète pas vos rêves et ne donne aucun conseil psychologique ou médical. L'émotion est déduite du texte uniquement, jamais de votre voix.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- f) Appel final -->
+    <section aria-labelledby="cta-title">
+      <div class="mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 py-20 text-center sm:px-8 lg:py-32">
+        <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" focusable="false"><path d="M35.69 11.04A22 22 0 1 0 47.59 43.77A17.5 17.5 0 1 1 35.69 11.04Z" fill="#C4B5FD"/><g stroke="#C4B5FD" stroke-width="4.6" stroke-linecap="round"><line x1="31" y1="26" x2="31" y2="36"/><line x1="38.5" y1="20" x2="38.5" y2="42"/><line x1="46" y1="24" x2="46" y2="38"/><line x1="53" y1="29" x2="53" y2="33"/></g></svg>
+        <h2 id="cta-title" class="max-w-3xl text-3xl font-semibold leading-[1.12] tracking-[-0.02em] sm:text-5xl">Racontez votre rêve, regardez-le prendre forme.</h2>
+        <p class="text-[17px] text-ink-soft">Demain matin, avant qu'il s'efface.</p>
+        <a href="{% url 'accounts:signup' %}" class="mt-1.5 inline-flex min-h-14 items-center rounded-[14px] bg-dream px-7 text-[17px] font-semibold text-night-950 hover:bg-dream-hover focus-ring">Commencer gratuitement</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- g) Pied de page -->
+  <footer class="border-t border-night-800">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 pb-9 pt-7 text-sm text-ink-muted sm:px-8">
+      <div class="flex items-center gap-2">
+        <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" focusable="false"><path d="M35.69 11.04A22 22 0 1 0 47.59 43.77A17.5 17.5 0 1 1 35.69 11.04Z" fill="#94A3B8"/><g stroke="#94A3B8" stroke-width="4.6" stroke-linecap="round"><line x1="31" y1="26" x2="31" y2="36"/><line x1="38.5" y1="20" x2="38.5" y2="42"/><line x1="46" y1="24" x2="46" y2="38"/><line x1="53" y1="29" x2="53" y2="33"/></g></svg>
+        <span>Projet de formation — Grégory Hery</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-1">
+        <a href="https://github.com/BrownGreg/dream" class="inline-flex min-h-12 items-center rounded-lg text-dream underline underline-offset-4 hover:text-dream-hover focus-ring">Code source sur GitHub</a>
+        <span>Images générées par IA</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

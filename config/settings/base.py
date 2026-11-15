@@ -93,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "dashboard:home"
-LOGOUT_REDIRECT_URL = "accounts:login"
+LOGOUT_REDIRECT_URL = "dashboard:home"  # landing page pour un visiteur
 
 # Force brute : 5 échecs pour un couple (identifiant, IP) → blocage 15 min.
 AXES_FAILURE_LIMIT = env.int("AXES_FAILURE_LIMIT", default=5)

@@ -60,7 +60,7 @@ def test_pages_cles_sans_violation_wcag(page, live_server, login):
     asset.file.save("image.svg", ContentFile(b'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"/>'))
     running = DreamFactory(user=user, status=Dream.Status.ANALYZING)
 
-    anonymous = ["/comptes/connexion/", "/comptes/inscription/", "/comptes/mot-de-passe/oubli/"]
+    anonymous = ["/", "/comptes/connexion/", "/comptes/inscription/", "/comptes/mot-de-passe/oubli/"]
     private = [
         "/",
         "/statistiques/?periode=365",

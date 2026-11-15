@@ -72,8 +72,34 @@ def test_utilisateur_connecte_est_redirige_depuis_l_inscription(client, user):
     assert client.get(SIGNUP)["Location"] == HOME
 
 
-def test_tableau_de_bord_exige_une_connexion(client):
+def test_accueil_anonyme_affiche_la_landing_page(client):
     response = client.get(HOME)
+    assert response.status_code == 200
+    assert next(t.name for t in response.templates) == "landing.html"
+    assert "Racontez votre rêve, regardez-le prendre forme." in response.content.decode()
+
+
+def test_landing_page_renvoie_vers_inscription_et_connexion(client):
+    html = client.get(HOME).content.decode()
+    assert f'href="{SIGNUP}"' in html
+    assert f'href="{LOGIN}"' in html
+
+
+def test_landing_page_sans_ressource_externe(client):
+    # Ni CDN ni police distante : l'IP des visiteurs ne part pas vers un tiers.
+    html = client.get(HOME).content.decode()
+    for externe in ("cdn.tailwindcss.com", "fonts.googleapis.com", "fonts.gstatic.com"):
+        assert externe not in html
+
+
+def test_landing_page_mentionne_l_ia_et_l_absence_d_interpretation(client):
+    html = client.get(HOME).content.decode()
+    assert "générée par IA" in html
+    assert "n'interprète pas vos rêves" in html
+
+
+def test_pages_privees_exigent_une_connexion(client):
+    response = client.get(reverse("dashboard:stats"))
     assert response.status_code == 302
     assert response["Location"].startswith(LOGIN)
 
@@ -88,7 +114,8 @@ def test_deconnexion_en_post(client, user):
     client.force_login(user)
     response = client.post(reverse("accounts:logout"))
     assert response.status_code == 302
-    assert client.get(HOME).status_code == 302
+    assert response["Location"] == HOME
+    assert next(t.name for t in client.get(HOME).templates) == "landing.html"
 
 
 def test_blocage_apres_cinq_echecs_meme_avec_le_bon_mot_de_passe(client, user, password):

@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <title>{% block title %}Synthétiseur de rêves{% endblock %}</title>
+  <meta name="theme-color" content="#0B1020">
+  <link rel="icon" href="{% static 'dreamsynth/favicon.ico' %}" sizes="any">
+  <link rel="icon" href="{% static 'dreamsynth/favicon-32.svg' %}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{% static 'dreamsynth/icone-app-512.png' %}">
   {% tailwind_css %}
   {% htmx_script %}
   {% block head %}{% endblock %}
@@ -13,7 +17,8 @@
   <a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 rounded bg-dream-300 px-3 py-2 text-night-950">Aller au contenu</a>
   <header class="border-b border-night-800">
     <nav class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3" aria-label="Navigation principale">
-      <a href="{% url 'dashboard:home' %}" class="whitespace-nowrap font-semibold tracking-tight text-dream-300" aria-label="Synthétiseur de rêves, accueil">
+      <a href="{% url 'dashboard:home' %}" class="inline-flex items-center gap-1.5 whitespace-nowrap font-semibold tracking-tight text-dream-300" aria-label="Synthétiseur de rêves, accueil">
+        <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" focusable="false"><path d="M35.69 11.04A22 22 0 1 0 47.59 43.77A17.5 17.5 0 1 1 35.69 11.04Z" fill="#C4B5FD"/><g stroke="#C4B5FD" stroke-width="4.6" stroke-linecap="round"><line x1="31" y1="26" x2="31" y2="36"/><line x1="38.5" y1="20" x2="38.5" y2="42"/><line x1="46" y1="24" x2="46" y2="38"/><line x1="53" y1="29" x2="53" y2="33"/></g></svg>
         <span class="sm:hidden" aria-hidden="true">Rêves</span><span class="hidden sm:inline" aria-hidden="true">Synthétiseur de rêves</span>
       </a>
       {% if user.is_authenticated %}
