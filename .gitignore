@@ -39,3 +39,6 @@ assets/css/tailwind.css
 coverage.json
 .neon
 node_modules/
+# Dossiers de rendu générés par `make rendu`, et vidéo de démo du bloc 1 (trop lourde pour Git)
+/rendu/
+docs/preprod/maquette/demo/video_demo.*

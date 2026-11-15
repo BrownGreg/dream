@@ -1,6 +1,6 @@
 # Raccourcis du projet. `make help` liste les cibles.
 .DEFAULT_GOAL := help
-.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem code-review eisvogel
+.PHONY: help setup dev down test e2e lint fmt load worker run rapport postmortem code-review eisvogel rendu
 
 help: ## Affiche cette aide
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-8s\033[0m %s\n", $$1, $$2}'
@@ -67,3 +67,6 @@ eisvogel: ## Dossiers du bloc 1 en rendu Eisvogel (pandoc + xelatex), en parall�
 	cd docs/preprod/livrables/_specifications_architecture && $(EISVOGEL) body.md \
 		--metadata-file=../_specifications_architecture_eisvogel/metadata.yaml -o ../specifications_architecture_eisvogel.pdf
 	rm -f docs/preprod/livrables/_specifications_architecture/sequence_reve.png docs/preprod/livrables/_specifications_architecture/c4_container.png
+
+rendu: ## Dossiers de rendu pré-production et production (PDF régénérés + annexes + ZIP) dans rendu/, hors Git
+	uv run python scripts/build_rendu.py

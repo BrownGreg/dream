@@ -8,12 +8,12 @@ Statuts : ✅ satisfait · ⚠️ partiel (écart expliqué) · ❌ absent (expl
 | Exigence | Preuve | Statut |
 |---|---|---|
 | Python, Django | `pyproject.toml` (Python 3.12, Django 6.0) | ✅ |
-| Base SQL PostgreSQL | PostgreSQL 17 en CI et Compose (`ci.yml`, `docker-compose.yml`), Neon prévu en production (ADR-008) | ✅ |
+| Base SQL PostgreSQL | PostgreSQL 17 en CI et Compose (`ci.yml`, `docker-compose.yml`), Neon (UE) en production depuis le 2026-11-15 (ADR-008) | ✅ |
 | Tailwind | `uv run python manage.py tailwind build` (`scripts/install.sh`), CSS servi vérifié par le test de fumée Docker | ✅ |
 | Docker Compose local | `docker-compose.yml` (web + worker + db) ; job CI « Image Docker et test de fumée » | ✅ |
 | Render public, déployé depuis `main` | <https://dreamsynth.onrender.com> ; `render.yaml`, job CI « Déploiement Render » (deploy hook avec le commit testé, puis attente que `/health` annonce ce commit) | ✅ depuis le 2026-11-15 |
 | Budget API ≤ 20 €, appliqué par le code | `ApiCall`, `dreams/services/budget.py`, coupe-circuit à 15 € avant chaque tentative (ADR-009) ; `test_coupe_circuit_bloque_sans_appeler_le_fournisseur` | ✅ · dépense réelle en production : 0,019 $ au 2026-11-15 (`docs/tests/production/apicall_2026-11-15.json`) |
-| Couverture ≥ 70 % des fonctionnalités critiques, par module en CI | `scripts/check_coverage.py` ; 12 fonctionnalités entre 97,3 % et 100 % (run `42700247218`) | ✅ |
+| Couverture ≥ 70 % des fonctionnalités critiques, par module en CI | `scripts/check_coverage.py` ; 12 fonctionnalités entre 97,3 % et 100 % (run `43707491282`, `main` du 2026-11-15) | ✅ |
 | PEP 8, docstrings Google, type hints | ruff (`E`, `W`, `D` convention google, `ANN`…), mypy `strict = true`, en CI | ✅ |
 | Branches et PR | `feat\|fix\|test\|docs/DREAM-<n>-…` ; 33 PR fusionnées au 2026-11-15, aucune avec un contrôle en échec ; protection de `main` : 4 contrôles requis, branche à jour obligatoire | ✅ |
 
