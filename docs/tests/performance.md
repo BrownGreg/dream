@@ -1,6 +1,6 @@
 # Performance mesurée face aux SLO
 
-Sources : tests de charge du 2026-11-09 ([`charge/`](charge/README.md), runs GitHub Actions `42695022252` et `42698871160`, 2 vCPU, PostgreSQL 17, gunicorn 2 processus, adapters **fake** avec 1 000 ms de latence simulée par appel), capture de `/ops` ([`captures/ops-2026-11-09-mode-fake.png`](captures/ops-2026-11-09-mode-fake.png)). Les latences **réelles** des fournisseurs restent à mesurer (Jalon B, clés d'API) : leurs lignes sont marquées NON MESURÉ.
+Sources : tests de charge du 2026-11-09 ([`charge/`](charge/README.md), runs GitHub Actions `42695022252` et `42698871160`, 2 vCPU, PostgreSQL 17, gunicorn 2 processus, adapters **fake** avec 1 000 ms de latence simulée par appel), capture de `/ops` ([`captures/ops-2026-11-09-mode-fake.png`](captures/ops-2026-11-09-mode-fake.png)). Latences **réelles** des fournisseurs : production du 2026-11-15 ([`production/apicall_2026-11-15.json`](production/apicall_2026-11-15.json), 25 appels, 2 rêves aboutis, 1 image). L'échantillon est petit : on donne le minimum et le maximum, pas un p95.
 
 ## Temps de réponse des pages (serveur, mesuré par Locust)
 
@@ -23,15 +23,15 @@ Les valeurs « — » ne sont pas reprises ici ; elles figurent dans les rapport
 | SLO | Cible | Mesure | Statut |
 |---|---|---|---|
 | Accusé de réception de l'envoi | p95 ≤ 1 s | 77 à 178 ms selon le palier (1 worker) | ✅ tenu jusqu'à 50 utilisateurs |
-| Bout en bout (envoi → page terminée) | p95 ≤ 30 s | 1 worker : 8,1 s (5 u.), 34,2 s (20 u.), 72,4 s (50 u.) ; 3 workers : 7,4 s, 8,2 s, 24,2 s | ⚠️ tenu jusqu'à 5 utilisateurs avec 1 worker, jusqu'à 50 avec 3 — **avec une latence simulée** |
-| Transcription | p95 ≤ 8 s | NON MESURÉ (latence réelle Voxtral) | ⏳ Jalon B |
-| Analyse LLM | p95 ≤ 4 s | NON MESURÉ | ⏳ Jalon B |
-| Image | p95 ≤ 15 s | NON MESURÉ | ⏳ Jalon B |
+| Bout en bout (envoi → page terminée) | p95 ≤ 30 s | **production** : 4,1 s sans image, 14,6 s avec image ; charge simulée, 1 worker : 8,1 s (5 u.), 34,2 s (20 u.), 72,4 s (50 u.) ; 3 workers : 7,4 s, 8,2 s, 24,2 s | ✅ en production (2 rêves) ; ⚠️ sous charge, tenu jusqu'à 5 utilisateurs avec 1 worker, jusqu'à 50 avec 3 |
+| Transcription | p95 ≤ 8 s | **production** : 0,86 à 0,91 s (3 appels Voxtral, récits de 22 à 29 s) | ✅ (petit échantillon) |
+| Analyse LLM | p95 ≤ 4 s | **production** : émotion 0,44 à 0,48 s (3, repli Mistral), prompt 1,28 à 1,96 s (3) | ✅ (petit échantillon) |
+| Image | p95 ≤ 15 s | **production** : 8,7 s (1 image FLUX.2 [klein]) | ✅ (1 mesure) |
 | Fiabilité | ≤ 2 % de rêves `failed` | 0 / 224 rêves en charge (adapters fake) | ✅ en simulation ; à confirmer en réel |
-| Disponibilité | ≥ 99,5 % de réponses non-5xx | 0 erreur sur 5 012 requêtes en charge | ✅ en charge ; la production n'a pas encore d'historique |
+| Disponibilité | ≥ 99,5 % de réponses non-5xx | 0 erreur sur 5 012 requêtes en charge | ✅ en charge ; production en ligne depuis le 2026-11-15, historique trop court pour un taux |
 
 ## Ce qu'il faut retenir
 
 - Le serveur web répond en quelques dizaines de millisecondes ; les pics viennent de la saturation CPU des 2 vCPU du runner (connexion, pages pendant un afflux).
 - Le temps de bout en bout est dominé par **l'attente en file** dès que les envois dépassent la capacité d'un worker (≈ 14,7 rêves/min avec 4 s de traitement). Ajouter des workers suffit : à 3, l'attente p95 passe de 156 s à 18,8 s.
-- Avec les latences réelles des fournisseurs (cibles ADR-006 : 27 s de traitement au total), un worker traiterait 2 à 3 rêves par minute. Pour la bêta (15 rêves/jour, ADR-007), c'est largement suffisant ; un pic de plusieurs envois simultanés imposera plusieurs workers pour tenir 30 s.
+- Les latences réelles sont nettement sous les cibles d'ADR-006 (27 s de traitement au total) : un rêve complet demande 14,6 s, dont 8,7 s pour l'image. Un worker traiterait environ 4 rêves par minute. Pour la bêta (15 rêves/jour, ADR-007), c'est largement suffisant ; un pic de plusieurs envois simultanés imposera plusieurs workers pour tenir 30 s.

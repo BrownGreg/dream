@@ -68,6 +68,10 @@ Choix à expliquer :
 
 ## Impact
 
-- **Performance** : une agrégation `SUM(cost_usd)` sur `ApiCall` avant chaque tentative. Coût non mesuré en production ; la table compterait quelques milliers de lignes au plafond du budget (environ 850 rêves). Piste au-delà : un total maintenu dans une ligne dédiée.
+- **Performance** : une agrégation `SUM(cost_usd)` sur `ApiCall` avant chaque tentative. Coût de cette requête non mesuré séparément ; la table compterait quelques milliers de lignes au plafond du budget (environ 950 rêves au coût réel de 0,0158 $). Piste au-delà : un total maintenu dans une ligne dédiée.
 - **Lisibilité** : un adapter réel tient en 77 à 118 lignes, sans logique de retry ni de coût.
 - **Testabilité** : les adapters fake passent par ce même client. Le pipeline complet, les pannes simulées (`AI_FAKE_FAIL_STEPS`) et le coupe-circuit sont donc testés en CI et en charge **sans dépenser**.
+
+## En production (15/11/2026)
+
+Le client a affronté de vraies pannes : 9 refus 429 de Mistral (organisation sur le plan Free, incident n° 15), des 402 de Hugging Face et de BFL (comptes non crédités). Chaque fois : 3 tentatives au plus, aucun coût journalisé, repli Mistral pour l'émotion, message clair pour l'utilisateur. Un défaut est apparu **autour** du client : le quota quotidien comptait ces échecs (incident n° 16, PR [#34](https://github.com/BrownGreg/dream/pull/34)) ; les échecs imputables au service sont désormais exclus du quota.

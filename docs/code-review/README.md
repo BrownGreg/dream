@@ -10,4 +10,6 @@ Préparation de la code review live de 15 minutes. Trois tickets réellement ré
 
 Et [10 questions probables du jury](questions.md), avec des réponses courtes et le fichier à ouvrir pour chaque preuve.
 
-Autres incidents documentés : [`docs/incidents.md`](../incidents.md) (12 entrées).
+Autres incidents documentés : [`docs/incidents.md`](../incidents.md) (16 entrées, dont 4 révélés le premier jour en production, n° 13 à 16).
+
+Les tickets sont donnés en **référence dépôt** (branches et PR). Clés Jira correspondantes : DREAM-5 → DREAM-46, DREAM-6 → DREAM-47, DREAM-17 → DREAM-58, DREAM-19 → DREAM-60, DREAM-20 → DREAM-61 (table complète : [`docs/backlog/README.md`](../backlog/README.md)).
