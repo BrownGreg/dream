@@ -11,6 +11,10 @@ Projet individuel, bloc production. Les livrables de pré-production (cadrage, a
 | Production | Render (Francfort) — URL donnée dans le rapport une fois le service créé |
 | Décisions | [`docs/decisions/`](docs/decisions/) (ADR-001 à ADR-010) |
 
+## Identité visuelle
+
+Logo, favicon et landing page conçus avec Claude Design : [`docs/identite/`](docs/identite/LISEZMOI.md) (SVG et PNG). La landing page (`templates/landing.html`) accueille les visiteurs non connectés sur `/` ; elle n'appelle aucune ressource externe (ni CDN, ni police distante).
+
 ## Architecture
 
 ![Architecture de production : C4 conteneurs, parcours d'un rêve numéroté de 1 à 7](docs/diagrams/c4_container_excalidraw.excalidraw.png)

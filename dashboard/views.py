@@ -27,8 +27,22 @@ def _excerpt(text: str) -> str:
     return text[:EXCERPT_CHARS].rsplit(" ", 1)[0] + "…"
 
 
-@login_required
 def home(request: HttpRequest) -> HttpResponse:
+    """Accueil : landing page pour un visiteur, historique pour un utilisateur connecté.
+
+    Args:
+        request: Requête entrante.
+
+    Returns:
+        La landing page (contenu statique, aucune donnée) ou l'historique.
+    """
+    if not request.user.is_authenticated:
+        return render(request, "landing.html")
+    return history(request)
+
+
+@login_required
+def history(request: HttpRequest) -> HttpResponse:
     """Historique paginé des rêves, filtrable par dates et humeurs (US-09, US-10).
 
     Les filtres restent dans l'URL : la page se partage, se met en favori et survit
