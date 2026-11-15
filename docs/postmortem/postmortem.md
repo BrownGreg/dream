@@ -19,7 +19,7 @@
 | 2026-11-15, 11 h 42 – 11 h 48 | Image refusée (BFL 402, compte non crédité), puis générée après achat de crédits : premier rêve complet en production, 14,6 s, 0,0158 $ | même fichier |
 | 2026-11-15 | Backlog de production créé dans Jira (clés DREAM-42 à 65, epic DREAM-41, bugs DREAM-40, 66, 67 ; PR #35) | `docs/backlog/README.md` |
 
-Les horodatages Git sont ceux des **fusions** (*squash*, un commit par PR), pas du début du travail : ils ne mesurent pas le temps passé.
+Les horodatages Git sont ceux des **fusions** (*squash*, un commit par PR), pas du début du travail. Le rythme du 9 novembre (22 PR fusionnées en un peu plus de 6 heures) n'est pas celui d'un développement à la main : le code a été écrit en grande partie par un assistant de code (§6.4).
 
 # 2. Prévu et réalisé
 
@@ -41,7 +41,7 @@ Toutes les stories **Must** sont livrées, y compris US-15 et US-17 (export, sup
 | | Prévu | Réalisé |
 |---|---|---|
 | Durée du bloc production | 6 jours (labels `jour-1` à `jour-6`, 77 story points) | code fusionné le 9 novembre ; documentation le 11 novembre |
-| Vélocité de référence | 11 points par sprint d'une semaine (hypothèse du bloc 1) | 77 points en 24 tickets ; environ **42 h** (estimation *a posteriori* : 6 jours × 7 h, non chronométré) |
+| Vélocité de référence | 11 points par sprint d'une semaine (hypothèse du bloc 1) | 77 points en 24 tickets ; environ **6 h** de travail de ma part (estimation, non chronométré), avec un assistant de code (§6.4) |
 | Mise en production | automatique depuis `main` (DREAM-2), jour 1 | en ligne le **15/11/2026**, dernier jour ; déploiement automatique depuis `main` vérifié |
 
 ## 2.3 Architecture
@@ -117,7 +117,7 @@ Je considère le périmètre **Must** comme terminé, selon un critère simple :
 
 Le résultat est **au-dessus** de ce que j'attendais sur la qualité vérifiable : 297 tests, 99 % de couverture globale, entre 97,3 % et 100 % sur chacune des 12 fonctionnalités critiques, une CI qui bloque toute fusion, un test de charge jusqu'à 50 utilisateurs. Il est **en dessous** sur la confrontation au réel : la production n'est en ligne que depuis le dernier jour, et mes mesures réelles reposent sur 25 appels et 2 rêves. Je peux dire que les SLO sont tenus sur cet échantillon, pas qu'ils le sont en général.
 
-Pour le temps passé, je n'ai pas chronométré. Les horodatages Git ne m'aident pas : avec les fusions *squash*, ils datent la fusion, pas le travail. L'estimation de 42 h répartie au prorata des story points (§2.2) reste une reconstruction. Ce que je sais en revanche, c'est que la dernière journée, consacrée au déploiement, aux comptes fournisseurs et aux correctifs de production, a pesé bien plus que ce que le plan lui accordait : le déploiement n'était qu'une partie du ticket DREAM-2, estimé à 3 story points pour toute la CI/CD.
+J'estime mon temps de travail à environ 6 heures sur le bloc production, sans l'avoir chronométré. C'est très loin de la capacité de 25 h prévue au bloc 1, et ce n'est pas comparable : je n'ai pas écrit le code à la main, j'ai piloté un assistant de code (§6.4). Ce temps a surtout servi à cadrer, décider, relire et vérifier. La mise en production, avec les comptes fournisseurs et les correctifs du dernier jour, en a pris une part bien plus grande que ce que le plan lui accordait : le déploiement n'était qu'une partie du ticket DREAM-2, estimé à 3 story points pour toute la CI/CD.
 
 ## 6.2 Ce qui a fonctionné
 
@@ -137,11 +137,11 @@ La mise en production et les mesures réelles arrivent en dernier, et c'est **su
 
 L'incident critique n° 9 m'a appris que mes premiers tests vérifiaient **mes hypothèses** plutôt que le monde réel. Mes fichiers de test étaient des webm complets produits par ffmpeg, avec une durée dans les métadonnées. Un vrai MediaRecorder écrit en flux, sans durée. Tous les tests unitaires passaient, alors qu'aucun enregistrement micro sous Chrome ou Firefox n'aurait été accepté. Seul le parcours E2E avec un vrai navigateur l'a révélé. L'incident n° 10 relève de la même erreur : la fixture reproduisait la supposition fausse sur `run_after`.
 
-Sur l'estimation, l'écart est difficile à mesurer, et c'est justement le problème. Le bloc 1 prévoyait une vélocité hypothétique de 11 points par sprint et une capacité de 25 h ; le backlog de production compte 77 points. Le code a été fusionné le 9 novembre, la documentation ensuite, et la mise en production a demandé une journée entière de plus. Comme je n'ai suivi ni mon temps ni le backlog dans Jira au fil de l'eau, je ne peux pas comparer précisément le prévu et le réel. Le backlog de production n'a d'ailleurs été créé dans Jira que le 15 novembre, ce qui a produit un décalage entre les clés citées dans Git (DREAM-1 à 24) et les clés Jira (DREAM-42 à 65).
+Sur l'estimation, le plan du bloc 1 ne m'a pas servi. Il prévoyait une vélocité hypothétique de 11 points par sprint et une capacité de 25 h pour un développement à la main ; avec un assistant de code, 77 points ont été fusionnés le 9 novembre en un peu plus de 6 heures. Les story points mesuraient l'effort d'écriture, alors que mon effort réel portait sur la relecture, les décisions et le déploiement, que le plan ne chiffrait presque pas. Comme je n'ai suivi ni mon temps ni le backlog dans Jira au fil de l'eau, je ne peux pas le démontrer ticket par ticket. Le backlog de production n'a d'ailleurs été créé dans Jira que le 15 novembre, ce qui a produit un décalage entre les clés citées dans Git (DREAM-1 à 24) et les clés Jira (DREAM-42 à 65).
 
 ## 6.4 Usage des outils d'IA dans le développement
 
-J'ai développé ce projet avec un **assistant de code** (Claude Code), piloté par un prompt de départ et par un fichier de règles du projet (`CLAUDE.md`). Ce fichier fixait l'architecture, les conventions et des interdits explicites : pas d'IA dans la requête HTTP, pas de retry sur une erreur 4xx, pas d'appel réel en CI, pas de fusion sans CI verte. L'assistant écrivait le code, les tests et une grande partie de la documentation ; je fixais les objectifs, je relisais les diffs dans les PR et je prenais les décisions d'architecture et de fournisseurs.
+J'ai développé ce projet avec un **assistant de code** (Claude Code), piloté par un prompt de départ et par un fichier de règles du projet (`CLAUDE.md`). Ce fichier fixait l'architecture, les conventions et des interdits explicites : pas d'IA dans la requête HTTP, pas de retry sur une erreur 4xx, pas d'appel réel en CI, pas de fusion sans CI verte. L'assistant écrivait le code, les tests et une grande partie de la documentation ; je fixais les objectifs, je relisais les diffs dans les PR et je prenais les décisions d'architecture et de fournisseurs. C'est ce qui explique le rythme visible dans l'historique Git : 22 PR fusionnées le 9 novembre en un peu plus de 6 heures, pour environ 6 heures de travail de ma part sur tout le bloc.
 
 Pour vérifier, je me suis appuyé sur des contrôles qui ne dépendent pas de l'assistant : la CI bloquante (ruff, mypy strict, tests sur PostgreSQL, couverture par fonctionnalité, E2E navigateur, image Docker), puis le passage en production avec les vrais fournisseurs. Le projet montre aussi les limites de cette vérification : quand le même outil écrit le code et ses tests, ils peuvent partager la même hypothèse fausse. C'est ce qui s'est passé pour les incidents n° 9 et 10, et pour le script de benchmark du bloc 1, qui n'avait jamais tourné en réel et lisait mal les réponses compressées de Mistral. Les tests ne remplacent pas un essai dans les vraies conditions.
 
