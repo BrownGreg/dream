@@ -87,8 +87,18 @@ def quota_reset_at(now: datetime | None = None) -> datetime:
     return (local + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
 
 
+# Échecs imputables au service (fournisseur en panne ou refusant l'accès, budget atteint, bug) :
+# l'utilisateur n'y peut rien et rien n'est facturé, ils ne consomment donc pas son quota.
+SERVICE_FAILURE_CODES: frozenset[str] = frozenset(
+    {"provider_error", "provider_timeout", "budget_exceeded", "audio_tool_missing", "internal_error"}
+)
+
+
 def ensure_user_quota(user_id: int, now: datetime | None = None) -> None:
     """Refuse un nouveau rêve au-delà de ``AI_USER_DAILY_DREAMS`` par jour.
+
+    Les rêves en échec pour une cause imputable au service (``SERVICE_FAILURE_CODES``)
+    ne sont pas comptés.
 
     Args:
         user_id: Identifiant de l'utilisateur.
@@ -99,6 +109,10 @@ def ensure_user_quota(user_id: int, now: datetime | None = None) -> None:
     """
     reset = quota_reset_at(now)
     start = reset - timedelta(days=1)
-    count = Dream.objects.filter(user_id=user_id, created_at__gte=start, created_at__lt=reset).count()
+    count = (
+        Dream.objects.filter(user_id=user_id, created_at__gte=start, created_at__lt=reset)
+        .exclude(status=Dream.Status.FAILED, error_code__in=SERVICE_FAILURE_CODES)
+        .count()
+    )
     if count >= settings.AI_USER_DAILY_DREAMS:
         raise QuotaExceededError(reset)
