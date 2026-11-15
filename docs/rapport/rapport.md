@@ -225,17 +225,7 @@ Travail individuel, méthode Scrum. Le backlog de production compte **24 tickets
 | Documentation | #27 | 316 |
 | Mise en production : correctifs, CI, configuration Neon (15/11) | #15, #34, #36 à #38 | 601 (dont 485 lignes de `package-lock.json`) |
 
-**Temps passé par lot (estimation)** : non chronométré. Estimation *a posteriori* de l'auteur : 6 jours × 7 h = 42 h, répartis au prorata des story points de chaque lot.
-
-| Lot | Story points | Temps estimé |
-|---|---|---|
-| Jour 1 — socle, CI/CD, ADR | 9 | 5 h |
-| Jour 2 — données, client résilient, audio, transcription | 16 | 8 h 30 |
-| Jour 3 — émotion, image, tâche de fond | 13 | 7 h |
-| Jour 4 — tableau de bord, détail, RGPD, son, accessibilité | 18 | 10 h |
-| Jour 5 — observabilité, tests, charge, performance | 14 | 7 h 30 |
-| Jour 6 — documentation, rapport, code review | 7 | 4 h |
-| **Total** | **77** | **42 h** |
+**Temps passé** : environ **6 heures** de travail de ma part sur le bloc production, non chronométrées (estimation de l'auteur). Ce rythme, très au-dessus d'un développement à la main (les 22 PR du produit sont fusionnées le 9 novembre en un peu plus de 6 heures), s'explique par l'usage d'un assistant de code (Claude Code) piloté par un prompt et par les règles du projet (`CLAUDE.md`) : l'assistant a écrit l'essentiel du code, des tests et de la documentation ; mon temps a servi à cadrer, décider (architecture, fournisseurs), relire, vérifier par la CI et déployer. Une répartition de ce temps par lot n'aurait pas de sens ; le détail est dans le post-mortem (§6.4).
 
 Dependabot a ouvert 5 PR de mise à jour (#4 à #8). Django 6.1 (#8) et Python 3.15 (#5) sont écartées pour rester sur les versions validées, règle inscrite dans `dependabot.yml` (PR #15). Les trois montées d'actions GitHub (#4, #6, #7) sont appliquées ensemble par la PR #38, à tous les workflows, puis fermées.
 
