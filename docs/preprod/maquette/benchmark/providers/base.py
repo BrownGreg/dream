@@ -99,7 +99,9 @@ async def timed_request(client: httpx.AsyncClient, build: Callable[[], httpx.Req
     ttfb = -1.0
     chunks: list[bytes] = []
     try:
-        async for chunk in response.aiter_raw():
+        # aiter_bytes décode le Content-Encoding (gzip chez Mistral) ;
+        # aiter_raw rendait les octets compressés.
+        async for chunk in response.aiter_bytes():
             if ttfb < 0:
                 ttfb = time.perf_counter() - start
             chunks.append(chunk)

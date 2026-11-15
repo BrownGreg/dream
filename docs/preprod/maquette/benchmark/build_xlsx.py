@@ -536,7 +536,10 @@ def main() -> None:
                 row["source"] = found.name
                 summary[key] = row
     live = latest("summary_live_*.csv") or latest("summary_local_*.csv")
-    wer = read_rows(latest("wer_*.csv"))
+    # Dernière mesure de WER de chaque fournisseur (une campagne live ne doit pas effacer la locale).
+    wer: dict[str, dict[str, str]] = {}
+    for found in sorted(RESULTS.glob("wer_*.csv")):
+        wer.update(read_rows(found))
     by_cat = {c: [p for p in providers if p.category == c] for c in CATEGORIES}
     wb = Workbook()
     sheet_readme(wb, consulted, live)

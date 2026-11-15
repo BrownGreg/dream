@@ -1,0 +1,5 @@
+provider,category,mode,calls,errors,error_rate,retries,p50_total_s,p95_total_s,p99_total_s,p50_ttfb_s,p95_ttfb_s,mean_billed_audio_s,mean_prompt_tokens,mean_completion_tokens
+mistral_small_4,LLM,live,10,0,0.0,0,1.359,1.561,1.6,1.358,1.561,0.0,308.6,141.2
+mistral_voxtral_mini_3,STT,live,10,0,0.0,0,0.874,1.436,1.713,0.874,1.435,32.2,0.0,0.0
+mistral_voxtral_small_3,STT,live,10,0,0.0,0,1.086,1.493,1.682,1.086,1.493,32.2,0.0,0.0
+mistral_voxtral_tts_3,TTS,live,10,0,0.0,0,3.175,3.989,4.002,3.141,3.94,0.0,0.0,0.0

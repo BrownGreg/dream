@@ -240,7 +240,7 @@ Composants C4 de chaque exigence et tests qui la couvrent : annexe `tracabilite.
 | Rêves en échec | ≤ 2 % | 30 j |
 | Disponibilité API | ≥ 99,5 % (budget d'erreur : 3 h 36 min/mois) | 30 j |
 
-Ces cibles sont des objectifs de conception : aucune latence fournisseur n'a encore été mesurée (`NON MESURÉ — mock`). La campagne `run_latency.py --live` les confirme ou impose de réviser ADR-006.
+Ces cibles sont des objectifs de conception. La campagne `run_latency.py --live` du 15/11/2026 (10 appels par modèle Mistral) les confirme : transcription p95 1,44 s (Voxtral Mini), analyse LLM p95 1,56 s (Mistral Small 4) ; la latence de l'image n'est pas mesurée par ce benchmark (pas de clé T2I à l'époque).
 
 ## Budget API (ADR-007)
 Coût du scénario MVP : 0,0185 $ par rêve, 5,54 $ par mois à 10 rêves/jour, 8,30 $ à l'usage estimé de la bêta (15 rêves/jour ; contient un prix ESTIMÉ). Budget bêta **25 $/mois**, alerte à 20 $, coupe-circuit de la génération d'image à 25 $ (le reste du service continue), quota de 5 rêves/jour par utilisateur, 2 générations d'image maximum par rêve.

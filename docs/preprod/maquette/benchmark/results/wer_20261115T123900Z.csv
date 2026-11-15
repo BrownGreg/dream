@@ -1,0 +1,3 @@
+provider,source,utterances,wer
+mistral_voxtral_mini_3,latency_live_20261115T123855Z.csv,10,0.0132
+mistral_voxtral_small_3,latency_live_20261115T123855Z.csv,10,0.0079
